@@ -26,7 +26,7 @@
                 <li>
                     <a href="{{ route('admin.customer.index') }}" class="waves-effect">
                         <i class='bx bx-group'></i>
-                        <span key="t-company"> Room </span>
+                        <span key="t-company"> Room Manage </span>
                     </a>
                 </li>
 
