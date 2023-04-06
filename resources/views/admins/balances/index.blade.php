@@ -45,19 +45,19 @@
         <ul class="nav nav-tabs nav-tabs-custom nav-justified" role="tablist">
             <li class="nav-item" role="presentation">
                 <a class="nav-link active" data-bs-toggle="tab" href="#floor1" role="tab" aria-selected="true">
-                    <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                    <span class="d-block d-sm-none">F1</span>
                     <span class="d-none d-sm-block">Floor 1</span>
                 </a>
             </li>
             <li class="nav-item" role="presentation">
                 <a class="nav-link" data-bs-toggle="tab" href="#floor2" role="tab" aria-selected="false" tabindex="-1">
-                    <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                    <span class="d-block d-sm-none">F2</span>
                     <span class="d-none d-sm-block">Floor 2</span>
                 </a>
             </li>
             <li class="nav-item" role="presentation">
                 <a class="nav-link" data-bs-toggle="tab" href="#floor3" role="tab" aria-selected="false" tabindex="-1">
-                    <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
+                    <span class="d-block d-sm-none">F3</span>
                     <span class="d-none d-sm-block">Floor 3</span>
                 </a>
             </li>
