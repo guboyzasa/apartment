@@ -1,25 +1,78 @@
 <script>
-    //V1
-    // function showInfo(obj) {
-    //     $('#modal_titles').text('แก้ไข Apartment');
-    //     $('#id').val(obj.id);
-    //     $('#show_name_id').val(obj.customer_id).trigger('change');
+    //F1
+    function showInfoF1(obj) {
+        $('#modal_titleF1').text('แก้ไข Floor 1');
+        $('#id').val(obj.id);
+        $('#show_name_id').val(obj.customer_id).trigger('change');
 
-    //     $('#show_check1').val(obj.january).trigger('change');
-    //     $('#show_check2').val(obj.february).trigger('change');
-    //     $('#show_check3').val(obj.march).trigger('change');
-    //     $('#show_check4').val(obj.april).trigger('change');
-    //     $('#show_check5').val(obj.may).trigger('change');
-    //     $('#show_check6').val(obj.june).trigger('change');
-    //     $('#show_check7').val(obj.july).trigger('change');
-    //     $('#show_check8').val(obj.august).trigger('change');
-    //     $('#show_check9').val(obj.september).trigger('change');
-    //     $('#show_check10').val(obj.october).trigger('change');
-    //     $('#show_check11').val(obj.november).trigger('change');
-    //     $('#show_check12').val(obj.december).trigger('change');
+        $('#show_list1').val(obj.list1).trigger('change');
+        $('#show_list2').val(obj.list2).trigger('change');
+        $('#show_list3').val(obj.list3).trigger('change');
+        $('#show_list6').val(obj.list6).trigger('change');
 
-    //     $('#simpleModals').modal("show");
-    // }
+        $('#show_price_unit1').val(obj.price_unit1).trigger('change');
+        $('#show_price_unit2').val(obj.price_unit2).trigger('change');
+        $('#show_price_unit3').val(obj.price_unit3).trigger('change');
+        $('#show_price_unit6').val(obj.price_unit6).trigger('change');
+
+        $('#show_unit_befor2').val(obj.unit_befor2).trigger('change');
+        $('#show_unit_after2').val(obj.unit_after2).trigger('change');
+
+        $('#show_unit_befor3').val(obj.unit_befor3).trigger('change');
+        $('#show_unit_after3').val(obj.unit_after3).trigger('change');
+
+        $('#simpleModalF1').modal("show");
+    }
+
+    //F2
+    function showInfoF2(obj) {
+        $('#modal_titleF2').text('แก้ไข Floor 2');
+        $('#id').val(obj.id);
+        $('#show_name_id_f2').val(obj.customer_id).trigger('change');
+
+        $('#show_list1_f2').val(obj.list1).trigger('change');
+        $('#show_list2_f2').val(obj.list2).trigger('change');
+        $('#show_list3_f2').val(obj.list3).trigger('change');
+        $('#show_list6_f2').val(obj.list6).trigger('change');
+
+        $('#show_price_unit1_f2').val(obj.price_unit1).trigger('change');
+        $('#show_price_unit2_f2').val(obj.price_unit2).trigger('change');
+        $('#show_price_unit3_f2').val(obj.price_unit3).trigger('change');
+        $('#show_price_unit6_f2').val(obj.price_unit6).trigger('change');
+
+        $('#show_unit_befor2_f2').val(obj.unit_befor2).trigger('change');
+        $('#show_unit_after2_f2').val(obj.unit_after2).trigger('change');
+
+        $('#show_unit_befor3_f2').val(obj.unit_befor3).trigger('change');
+        $('#show_unit_after3_f2').val(obj.unit_after3).trigger('change');
+
+        $('#simpleModalF2').modal("show");
+    }
+
+     //F2
+     function showInfoF3(obj) {
+        $('#modal_titleF3').text('แก้ไข Floor 3');
+        $('#id').val(obj.id);
+        $('#show_name_id_f3').val(obj.customer_id).trigger('change');
+
+        $('#show_list1_f3').val(obj.list1).trigger('change');
+        $('#show_list2_f3').val(obj.list2).trigger('change');
+        $('#show_list3_f3').val(obj.list3).trigger('change');
+        $('#show_list6_f3').val(obj.list6).trigger('change');
+
+        $('#show_price_unit1_f3').val(obj.price_unit1).trigger('change');
+        $('#show_price_unit2_f3').val(obj.price_unit2).trigger('change');
+        $('#show_price_unit3_f3').val(obj.price_unit3).trigger('change');
+        $('#show_price_unit6_f3').val(obj.price_unit6).trigger('change');
+
+        $('#show_unit_befor2_f3').val(obj.unit_befor2).trigger('change');
+        $('#show_unit_after2_f3').val(obj.unit_after2).trigger('change');
+
+        $('#show_unit_befor3_f3').val(obj.unit_befor3).trigger('change');
+        $('#show_unit_after3_f3').val(obj.unit_after3).trigger('change');
+
+        $('#simpleModalF3').modal("show");
+    }
 
     //V2
     // function showInfoV2(obj) {

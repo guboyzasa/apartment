@@ -100,12 +100,7 @@
                         var button = ``;
                         if (full.status_id == 1) {
                             button = `
-                            <button type="button" class="btn btn-sm btn-success" onclick='showInfo(${obj})'><i class="bx bx-search"></i> </button>
-                            <button type="button" class="btn btn-sm btn-danger" onclick='destroy(${data})'><i class="bx bx-trash"></i>  </button>
-                            `;
-                        } else {
-                            button = `
-                            <button type="button" class="btn btn-sm btn-warning" onclick='showInfoV2(${obj})'><i class="bx bx-search"></i> </button>
+                            <button type="button" class="btn btn-sm btn-success" onclick='showInfoF1(${obj})'><i class="bx bx-search"></i> </button>
                             <button type="button" class="btn btn-sm btn-danger" onclick='destroy(${data})'><i class="bx bx-trash"></i>  </button>
                             `;
                         }
@@ -209,18 +204,12 @@
                     "render": function(data, type, full) {
                         var obj = JSON.stringify(full);
                         var button = ``;
-                        if (full.status_id == 1) {
+                        if (full.status_id == 2) {
                             button = `
-                            <button type="button" class="btn btn-sm btn-success" onclick='showInfo(${obj})'><i class="bx bx-search"></i> </button>
-                            <button type="button" class="btn btn-sm btn-danger" onclick='destroy(${data})'><i class="bx bx-trash"></i>  </button>
-                            `;
-                        } else {
-                            button = `
-                            <button type="button" class="btn btn-sm btn-warning" onclick='showInfoV2(${obj})'><i class="bx bx-search"></i> </button>
+                            <button type="button" class="btn btn-sm btn-warning" onclick='showInfoF2(${obj})'><i class="bx bx-search"></i> </button>
                             <button type="button" class="btn btn-sm btn-danger" onclick='destroy(${data})'><i class="bx bx-trash"></i>  </button>
                             `;
                         }
-
                         return button;
 
                     }
@@ -320,14 +309,9 @@
                     "render": function(data, type, full) {
                         var obj = JSON.stringify(full);
                         var button = ``;
-                        if (full.status_id == 1) {
+                        if (full.status_id == 3) {
                             button = `
-                            <button type="button" class="btn btn-sm btn-success" onclick='showInfo(${obj})'><i class="bx bx-search"></i> </button>
-                            <button type="button" class="btn btn-sm btn-danger" onclick='destroy(${data})'><i class="bx bx-trash"></i>  </button>
-                            `;
-                        } else {
-                            button = `
-                            <button type="button" class="btn btn-sm btn-warning" onclick='showInfoV2(${obj})'><i class="bx bx-search"></i> </button>
+                            <button type="button" class="btn btn-sm btn-outline-danger" onclick='showInfoF3(${obj})'><i class="bx bx-search"></i> </button>
                             <button type="button" class="btn btn-sm btn-danger" onclick='destroy(${data})'><i class="bx bx-trash"></i>  </button>
                             `;
                         }

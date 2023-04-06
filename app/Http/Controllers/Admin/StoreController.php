@@ -46,6 +46,54 @@ class StoreController extends Controller
         )->toJson();
     }
 
+    public function printDoc1()
+    {
+        $listF1 = StoreClear::where('is_active',1)->where('status_id',1)->get();
+        $listIdF1 = StoreClear::where('is_active',1)->where('status_id',1)->get();
+
+        return view('admins.stores.view-make.print-doc1' , compact('listF1','listIdF1'));
+    }
+
+    public function printDoc2()
+    {
+        $listF2 = StoreClear::where('is_active',1)->where('status_id',2)->get();
+        $listIdF2 = StoreClear::where('is_active',1)->where('status_id',2)->get();
+
+        return view('admins.stores.view-make.print-doc2' , compact('listF2','listIdF2'));
+    }
+
+    public function printDoc3()
+    {
+        $listF3 = StoreClear::where('is_active',1)->where('status_id',3)->get();
+        $listIdF3 = StoreClear::where('is_active',1)->where('status_id',3)->get();
+
+        return view('admins.stores.view-make.print-doc3' , compact('listF3','listIdF3'));
+    }
+
+    public function print1()
+    {
+        $listF1 = StoreClear::where('is_active',1)->where('status_id',1)->get();
+        $listIdF1 = StoreClear::where('is_active',1)->where('status_id',1)->get();
+
+        return view('admins.stores.prints.doc1' , compact('listF1','listIdF1'));
+    }
+
+    public function print2()
+    {
+        $listF2 = StoreClear::where('is_active',1)->where('status_id',2)->get();
+        $listIdF2 = StoreClear::where('is_active',1)->where('status_id',2)->get();
+
+        return view('admins.stores.prints.doc2' , compact('listF2','listIdF2'));
+    }
+
+    public function print3()
+    {
+        $listF3 = StoreClear::where('is_active',1)->where('status_id',3)->get();
+        $listIdF3 = StoreClear::where('is_active',1)->where('status_id',3)->get();
+
+        return view('admins.stores.prints.doc3' , compact('listF3','listIdF3'));
+    }
+
     public function store(Request $req)
     {
         // return $req->all();
@@ -57,8 +105,6 @@ class StoreController extends Controller
             $detail->list1 = $req->list1;
             $detail->list2 = $req->list2;
             $detail->list3 = $req->list3;
-            $detail->list4 = $req->list4;
-            $detail->list5 = $req->list5;
             $detail->list6 = $req->list6;
 
             $detail->price_unit1 = $req->price_unit1;
@@ -109,8 +155,6 @@ class StoreController extends Controller
             $detail->list1 = $req->list1;
             $detail->list2 = $req->list2;
             $detail->list3 = $req->list3;
-            $detail->list4 = $req->list4;
-            $detail->list5 = $req->list5;
             $detail->list6 = $req->list6;
 
             $detail->price_unit1 = $req->price_unit1;

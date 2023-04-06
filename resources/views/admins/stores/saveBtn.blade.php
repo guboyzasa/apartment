@@ -11,8 +11,6 @@
         var list1 = $('#list1').val();
         var list2 = $('#list2').val();
         var list3 = $('#list3').val();
-        var list4 = $('#list4').val();
-        var list5 = $('#list5').val();
         var list6 = $('#list6').val();
 
         var price_unit1 = $('#price_unit1').val();
@@ -38,8 +36,6 @@
                     list1: list1,
                     list2: list2,
                     list3: list3,
-                    list4: list4,
-                    list5: list5,
                     list6: list6,
 
                     price_unit1: price_unit1,
@@ -72,8 +68,6 @@
         var list1 = $('#list1_f2').val();
         var list2 = $('#list2_f2').val();
         var list3 = $('#list3_f2').val();
-        var list4 = $('#list4_f2').val();
-        var list5 = $('#list5_f2').val();
         var list6 = $('#list6_f2').val();
 
         var price_unit1 = $('#price_unit1_f2').val();
@@ -99,8 +93,6 @@
                     list1: list1,
                     list2: list2,
                     list3: list3,
-                    list4: list4,
-                    list5: list5,
                     list6: list6,
 
                     price_unit1: price_unit1,
@@ -133,8 +125,6 @@
         var list1 = $('#list1_f3').val();
         var list2 = $('#list2_f3').val();
         var list3 = $('#list3_f3').val();
-        var list4 = $('#list4_f3').val();
-        var list5 = $('#list5_f3').val();
         var list6 = $('#list6_f3').val();
 
         var price_unit1 = $('#price_unit1_f3').val();
@@ -160,8 +150,6 @@
                     list1: list1,
                     list2: list2,
                     list3: list3,
-                    list4: list4,
-                    list5: list5,
                     list6: list6,
 
                     price_unit1: price_unit1,

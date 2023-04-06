@@ -59,6 +59,15 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin', 'preventBac
         Route::get('/store/listf1', [App\Http\Controllers\Admin\StoreController::class, 'listF1'])->name('store.listf1');
         Route::get('/store/listf2', [App\Http\Controllers\Admin\StoreController::class, 'listF2'])->name('store.listf2');
         Route::get('/store/listf3', [App\Http\Controllers\Admin\StoreController::class, 'listF3'])->name('store.listf3');
+
+        Route::get('/print-doc1', [App\Http\Controllers\Admin\StoreController::class, 'printDoc1'])->name('store.print-doc1');
+        Route::get('/print-doc2', [App\Http\Controllers\Admin\StoreController::class, 'printDoc2'])->name('store.print-doc2');
+        Route::get('/print-doc3', [App\Http\Controllers\Admin\StoreController::class, 'printDoc3'])->name('store.print-doc3');
+
+        Route::get('/doc1', [App\Http\Controllers\Admin\StoreController::class, 'print1'])->name('store.prints.doc1');
+        Route::get('/doc2', [App\Http\Controllers\Admin\StoreController::class, 'print2'])->name('store.prints.doc2');
+        Route::get('/doc3', [App\Http\Controllers\Admin\StoreController::class, 'print3'])->name('store.prints.doc3');
+
         Route::post('/store/add', [App\Http\Controllers\Admin\StoreController::class, 'store'])->name('store.add');
         Route::post('/store/update', [App\Http\Controllers\Admin\StoreController::class, 'update'])->name('store.update');
         Route::post('/store/destroy', [App\Http\Controllers\Admin\StoreController::class, 'destroy'])->name('store.destroy');

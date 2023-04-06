@@ -13,12 +13,17 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $storeV1 = StoreClear::with('customer:id,name')->where('youtube_id',1)->OrderBy('is_active','desc')->get();
-        $storeV2 = StoreClear::with('customer:id,name')->where('youtube_id',2)->OrderBy('is_active','desc')->get();
-        $countV1 = StoreClear::where('youtube_id',1)->OrderBy('is_active','desc')->count('is_active');
-        $countV2 = StoreClear::where('youtube_id',2)->OrderBy('is_active','desc')->count('is_active');
 
-        return view('admins.balances.index' , compact('storeV1','storeV2','countV1','countV2'));
+        $listF1 = StoreClear::where('is_active',1)->where('status_id',1)->get();
+        $listIdF1 = StoreClear::where('is_active',1)->where('status_id',1)->get();
+
+        $listF2 = StoreClear::where('is_active',1)->where('status_id',2)->get();
+        $listIdF2 = StoreClear::where('is_active',1)->where('status_id',2)->get();
+
+        $listF3 = StoreClear::where('is_active',1)->where('status_id',3)->get();
+        $listIdF3 = StoreClear::where('is_active',1)->where('status_id',3)->get();
+
+        return view('admins.balances.index', compact('listF1','listIdF1','listF2','listIdF2','listF3','listIdF3'));
     }
 
 
