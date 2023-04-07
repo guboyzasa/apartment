@@ -6,6 +6,7 @@
     //บันทึก F1
     $('#saveCusBtnF1').click(function() {
         var name_id = $('#name_id').val();
+        var company_id = $('#company_id').val();
         var status_id = 1;
 
         var list1 = $('#list1').val();
@@ -31,6 +32,7 @@
             $.post("{{ route('admin.store.add') }}", data = {
                     _token: '{{ csrf_token() }}',
                     name_id: name_id,
+                    company_id: company_id,
                     status_id: status_id,
 
                     list1: list1,
@@ -63,6 +65,8 @@
     //บันทึก F2
     $('#saveCusBtnF2').click(function() {
         var name_id = $('#name_id_f2').val();
+        var company_id = $('#company_id_f2').val();
+
         var status_id = 2;
 
         var list1 = $('#list1_f2').val();
@@ -88,6 +92,7 @@
             $.post("{{ route('admin.store.add') }}", data = {
                     _token: '{{ csrf_token() }}',
                     name_id: name_id,
+                    company_id: company_id,
                     status_id: status_id,
 
                     list1: list1,
@@ -120,6 +125,8 @@
     //บันทึก F3
     $('#saveCusBtnF3').click(function() {
         var name_id = $('#name_id_f3').val();
+        var company_id = $('#company_id_f3').val();
+
         var status_id = 3;
 
         var list1 = $('#list1_f3').val();
@@ -145,6 +152,7 @@
             $.post("{{ route('admin.store.add') }}", data = {
                     _token: '{{ csrf_token() }}',
                     name_id: name_id,
+                    company_id: company_id,
                     status_id: status_id,
 
                     list1: list1,

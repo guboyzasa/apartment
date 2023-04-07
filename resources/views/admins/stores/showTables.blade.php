@@ -28,7 +28,7 @@
                 },
             },
             'columnDefs': [{
-                "targets": [0, 1, 2, 3, 4, 5, 6, 7],
+                "targets": [0, 1, 2, 3, 4, 5, 6, 7, 8],
                 "className": "text-center",
             }, ],
             "columns": [
@@ -41,6 +41,25 @@
                             text = `
                             <span>${date}</span><br>
                             <span class="badge text-dark text-center font-size-14">${full.customer.name}</span>
+
+                             `
+                        } 
+                        return text;
+                    }
+                },
+
+                {
+                    "data": "id",
+                    "render": function(data, type, full) {
+                        var text = ``;
+                        if (full.company_id == 1) {
+                            text = `
+                            <span class="badge bg-info text-center font-size-14">${full.company.name}</span>
+
+                             `
+                        } else if (full.company_id == 2) {
+                            text = `
+                            <span class="badge bg-primary text-center font-size-14">${full.company.name}</span>
 
                              `
                         } 
@@ -134,7 +153,7 @@
                 },
             },
             'columnDefs': [{
-                "targets": [0, 1, 2, 3, 4, 5, 6, 7],
+                "targets": [0, 1, 2, 3, 4, 5, 6, 7, 8],
                 "className": "text-center",
             }, ],
             "columns": [
@@ -147,6 +166,25 @@
                             text = `
                             <span>${date}</span><br>
                             <span class="badge text-dark text-center font-size-14">${full.customer.name}</span>
+
+                             `
+                        } 
+                        return text;
+                    }
+                },
+
+                {
+                    "data": "id",
+                    "render": function(data, type, full) {
+                        var text = ``;
+                        if (full.company_id == 1) {
+                            text = `
+                            <span class="badge bg-info text-center font-size-14">${full.company.name}</span>
+
+                             `
+                        } else if (full.company_id == 2) {
+                            text = `
+                            <span class="badge bg-primary text-center font-size-14">${full.company.name}</span>
 
                              `
                         } 
@@ -239,7 +277,7 @@
                 },
             },
             'columnDefs': [{
-                "targets": [0, 1, 2, 3, 4, 5, 6, 7],
+                "targets": [0, 1, 2, 3, 4, 5, 6, 7, 8],
                 "className": "text-center",
             }, ],
             "columns": [
@@ -252,6 +290,25 @@
                             text = `
                             <span>${date}</span><br>
                             <span class="badge text-dark text-center font-size-14">${full.customer.name}</span>
+
+                             `
+                        } 
+                        return text;
+                    }
+                },
+
+                {
+                    "data": "id",
+                    "render": function(data, type, full) {
+                        var text = ``;
+                        if (full.company_id == 1) {
+                            text = `
+                            <span class="badge bg-info text-center font-size-14">${full.company.name}</span>
+
+                             `
+                        } else if (full.company_id == 2) {
+                            text = `
+                            <span class="badge bg-primary text-center font-size-14">${full.company.name}</span>
 
                              `
                         } 

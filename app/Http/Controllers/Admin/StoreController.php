@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use App\Models\Vendor;
+use App\Models\Company;
 use App\Models\Status;
 use App\Models\StoreClear;
 use Carbon\Carbon;
@@ -20,36 +21,36 @@ class StoreController extends Controller
         $cusTree = Customer::where('status_id',3)->where('is_active',1)->get();
 
         $status = Status::where('is_active',1)->get();
-        $vendor = Vendor::where('is_active',1)->get();
+        $company = Company::where('is_active',1)->get();
 
-        return view('admins.stores.index' , compact('cusOne','cusTwo','vendor','status','cusTree'));
+        return view('admins.stores.index' , compact('cusOne','cusTwo','company','status','cusTree'));
     }
 
     public function listF1()
     {
         return datatables()->of(
-            StoreClear::query()->with('customer:id,name,code')->where('status_id',1)
+            StoreClear::query()->with('customer:id,name,code','company:id,name')->where('status_id',1)
         )->toJson();
     }
 
     public function listF2()
     {
         return datatables()->of(
-            StoreClear::query()->with('customer:id,name,code')->where('status_id',2)
+            StoreClear::query()->with('customer:id,name,code','company:id,name')->where('status_id',2)
         )->toJson();
     }
 
     public function listF3()
     {
         return datatables()->of(
-            StoreClear::query()->with('customer:id,name,code')->where('status_id',3)
+            StoreClear::query()->with('customer:id,name,code','company:id,name')->where('status_id',3)
         )->toJson();
     }
 
     public function printDoc1()
     {
-        $listF1 = StoreClear::where('is_active',1)->where('status_id',1)->get();
-        $listIdF1 = StoreClear::where('is_active',1)->where('status_id',1)->get();
+        $listF1 = StoreClear::with('company:id,name,address,address2,phone')->where('is_active',1)->where('status_id',1)->get();
+        $listIdF1 = StoreClear::with('company:id,name,address,address2,phone')->where('is_active',1)->where('status_id',1)->get();
 
         return view('admins.stores.view-make.print-doc1' , compact('listF1','listIdF1'));
     }
@@ -100,6 +101,7 @@ class StoreController extends Controller
         DB::beginTransaction();
             $detail = new StoreClear;
             $detail->customer_id = $req->name_id;
+            $detail->company_id = $req->company_id;
             $detail->status_id = $req->status_id;
 
             $detail->list1 = $req->list1;
@@ -150,6 +152,7 @@ class StoreController extends Controller
 
         DB::beginTransaction();
             $detail->customer_id = $req->name_id;
+            $detail->company_id = $req->company_id;
             $detail->status_id = $req->status_id;
 
             $detail->list1 = $req->list1;

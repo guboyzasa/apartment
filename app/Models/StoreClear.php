@@ -16,6 +16,11 @@ class StoreClear extends Model
         return $this->belongsTo(Customer::class, 'customer_id', 'id')->withTrashed();
     }
 
+    public function company()
+    {
+        return $this->belongsTo(Company::class, 'company_id', 'id')->withTrashed();
+    }
+
     public function vendor()
     {
         return $this->belongsTo(Vendor::class, 'vendor_id', 'id')->withTrashed();

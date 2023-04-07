@@ -59,14 +59,31 @@
                     <div class="tab-pane active show" id="floor1" role="tabpanel">
                         <div class="row">
                             @csrf
-                            <div class="mb-3">
-                                <label for="name" class="form-label badge bg-success font-size-16">Floor 1</label>
-                                <select name="name" id="name_id" class="form-control">
-                                    <option value="">Select Room F1</option>
-                                    @foreach ($cusOne as $detail)
-                                        <option value="{{ $detail->id }}">{{ $detail->name }}</option>
-                                    @endforeach
-                                </select>
+                            <div class="mb-1">
+                                <span for="name" class="form-label badge bg-success font-size-16">Floor
+                                    1</span>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <select name="name" id="name_id" class="form-control">
+                                            <option value="">Select Room F1</option>
+                                            @foreach ($cusOne as $detail)
+                                                <option value="{{ $detail->id }}">{{ $detail->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <select name="company" id="company_id" class="form-control">
+                                            {{-- <option value="">Company</option> --}}
+                                            @foreach ($company as $detail)
+                                                <option value="{{ $detail->id }}">{{ $detail->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                             <div class="table-responsive">
                                 <table class="table table-bordered dt-responsive nowrap w-100">
@@ -80,15 +97,14 @@
                                     <tbody>
                                         <tr>
                                             <td><input type="text" class="formInput form-control" id="list1"
-                                                    value="ค่าห้อง" name="list1" placeholder="ค่าห้อง" required readonly>
+                                                    value="ค่าห้อง" name="list1" placeholder="ค่าห้อง" required>
                                             </td>
                                             <td><input type="number" class="formInput form-control" id="price_unit1"
                                                     value="" name="price_unit1" placeholder="0" required></td>
                                         </tr>
                                         <tr>
                                             <td><input type="text" class="formInput form-control" id="list2"
-                                                    value="ค่าไฟฟ้า" name="list2" placeholder="ค่าไฟฟ้า" required
-                                                    readonly>
+                                                    value="ค่าไฟฟ้า" name="list2" placeholder="ค่าไฟฟ้า" required>
                                             </td>
                                             <td><input type="number" class="formInput form-control" id="price_unit2"
                                                     value="" name="price_unit2" placeholder="0" required></td>
@@ -115,8 +131,7 @@
                                         </tr>
                                         <tr>
                                             <td><input type="text" class="formInput form-control" id="list3"
-                                                    value="ค่าน้ำประปา" name="list3" placeholder="ค่าน้ำประปา" required
-                                                    readonly></td>
+                                                    value="ค่าน้ำประปา" name="list3" placeholder="ค่าน้ำประปา" required></td>
                                             <td><input type="number" class="formInput form-control" id="price_unit3"
                                                     value="" name="price_unit3" placeholder="0" required></td>
                                             <td>
@@ -142,7 +157,7 @@
                                         </tr>
                                         <tr>
                                             <td><input type="text" class="formInput form-control" id="list6"
-                                                    value="อื่นๆ" name="list6" placeholder="อื่นๆ" required readonly>
+                                                    value="อื่นๆ" name="list6" placeholder="อื่นๆ" required>
                                             </td>
                                             <td><input type="number" class="formInput form-control" id="price_unit6"
                                                     value="" name="price_unit6" placeholder="0" required></td>
@@ -160,14 +175,31 @@
                     <div class="tab-pane" id="floor2" role="tabpanel">
                         <div class="row">
                             @csrf
-                            <div class="mb-3">
-                                <label for="name" class="form-label badge bg-warning font-size-16">Floor 2</label>
-                                <select name="name" id="name_id_f2" class="form-control">
-                                    <option value="">Select Room F2</option>
-                                    @foreach ($cusTwo as $detail)
-                                        <option value="{{ $detail->id }}">{{ $detail->name }}</option>
-                                    @endforeach
-                                </select>
+                            <div class="mb-1">
+                                <span for="name" class="form-label badge bg-warning font-size-16">Floor
+                                    2</span>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <select name="name" id="name_id_f2" class="form-control">
+                                            <option value="">Select Room F2</option>
+                                            @foreach ($cusTwo as $detail)
+                                                <option value="{{ $detail->id }}">{{ $detail->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <select name="company" id="company_id_f2" class="form-control">
+                                            {{-- <option value="">Company</option> --}}
+                                            @foreach ($company as $detail)
+                                                <option value="{{ $detail->id }}">{{ $detail->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="table-responsive">
@@ -182,16 +214,14 @@
                                     <tbody>
                                         <tr>
                                             <td><input type="text" class="formInput form-control" id="list1_f2"
-                                                    value="ค่าห้อง" name="list1" placeholder="ค่าห้อง" required
-                                                    readonly>
+                                                    value="ค่าห้อง" name="list1" placeholder="ค่าห้อง" required>
                                             </td>
                                             <td><input type="number" class="formInput form-control" id="price_unit1_f2"
                                                     value="" name="price_unit1" placeholder="0" required></td>
                                         </tr>
                                         <tr>
                                             <td><input type="text" class="formInput form-control" id="list2_f2"
-                                                    value="ค่าไฟฟ้า" name="list2" placeholder="ค่าไฟฟ้า" required
-                                                    readonly>
+                                                    value="ค่าไฟฟ้า" name="list2" placeholder="ค่าไฟฟ้า" required>
                                             </td>
                                             <td><input type="number" class="formInput form-control" id="price_unit2_f2"
                                                     value="" name="price_unit2" placeholder="0" required></td>
@@ -218,8 +248,7 @@
                                         </tr>
                                         <tr>
                                             <td><input type="text" class="formInput form-control" id="list3_f2"
-                                                    value="ค่าน้ำประปา" name="list3" placeholder="ค่าน้ำประปา" required
-                                                    readonly></td>
+                                                    value="ค่าน้ำประปา" name="list3" placeholder="ค่าน้ำประปา" required></td>
                                             <td><input type="number" class="formInput form-control" id="price_unit3_f2"
                                                     value="" name="price_unit3" placeholder="0" required></td>
                                             <td>
@@ -245,7 +274,7 @@
                                         </tr>
                                         <tr>
                                             <td><input type="text" class="formInput form-control" id="list6_f2"
-                                                    value="อื่นๆ" name="list6" placeholder="อื่นๆ" required readonly>
+                                                    value="อื่นๆ" name="list6" placeholder="อื่นๆ" required>
                                             </td>
                                             <td><input type="number" class="formInput form-control" id="price_unit6_f2"
                                                     value="" name="price_unit6" placeholder="0" required></td>
@@ -262,14 +291,31 @@
                     <div class="tab-pane" id="floor3" role="tabpanel">
                         <div class="row">
                             @csrf
-                            <div class="mb-3">
-                                <label for="name" class="form-label badge bg-danger font-size-16">Floor 3</label>
-                                <select name="name" id="name_id_f3" class="form-control">
-                                    <option value="">Select Room F3</option>
-                                    @foreach ($cusTree as $detail)
-                                        <option value="{{ $detail->id }}">{{ $detail->name }}</option>
-                                    @endforeach
-                                </select>
+                            <div class="mb-1">
+                                <span for="name" class="form-label badge bg-danger font-size-16">Floor
+                                    3</span>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <select name="name" id="name_id_f3" class="form-control">
+                                            <option value="">Select Room F3</option>
+                                            @foreach ($cusTree as $detail)
+                                                <option value="{{ $detail->id }}">{{ $detail->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <select name="company" id="company_id_f3" class="form-control">
+                                            {{-- <option value="">Company</option> --}}
+                                            @foreach ($company as $detail)
+                                                <option value="{{ $detail->id }}">{{ $detail->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="table-responsive">
@@ -284,16 +330,14 @@
                                     <tbody>
                                         <tr>
                                             <td><input type="text" class="formInput form-control" id="list1_f3"
-                                                    value="ค่าห้อง" name="list1" placeholder="ค่าห้อง" required
-                                                    readonly>
+                                                    value="ค่าห้อง" name="list1" placeholder="ค่าห้อง" required>
                                             </td>
                                             <td><input type="number" class="formInput form-control" id="price_unit1_f3"
                                                     value="" name="price_unit1" placeholder="0" required></td>
                                         </tr>
                                         <tr>
                                             <td><input type="text" class="formInput form-control" id="list2_f3"
-                                                    value="ค่าไฟฟ้า" name="list2" placeholder="ค่าไฟฟ้า" required
-                                                    readonly>
+                                                    value="ค่าไฟฟ้า" name="list2" placeholder="ค่าไฟฟ้า" required>
                                             </td>
                                             <td><input type="number" class="formInput form-control" id="price_unit2_f3"
                                                     value="" name="price_unit2" placeholder="0" required></td>
@@ -320,8 +364,8 @@
                                         </tr>
                                         <tr>
                                             <td><input type="text" class="formInput form-control" id="list3_f3"
-                                                    value="ค่าน้ำประปา" name="list3" placeholder="ค่าน้ำประปา" required
-                                                    readonly></td>
+                                                    value="ค่าน้ำประปา" name="list3" placeholder="ค่าน้ำประปา"
+                                                    required></td>
                                             <td><input type="number" class="formInput form-control" id="price_unit3_f3"
                                                     value="" name="price_unit3" placeholder="0" required></td>
                                             <td>
@@ -347,7 +391,7 @@
                                         </tr>
                                         <tr>
                                             <td><input type="text" class="formInput form-control" id="list6_f3"
-                                                    value="อื่นๆ" name="list6" placeholder="อื่นๆ" required readonly>
+                                                    value="อื่นๆ" name="list6" placeholder="อื่นๆ" required>
                                             </td>
                                             <td><input type="number" class="formInput form-control" id="price_unit6_f3"
                                                     value="" name="price_unit6" placeholder="0" required></td>
@@ -397,12 +441,13 @@
                 <div class="tab-content p-3 text-muted">
                     <div class="tab-pane active show" id="fl1" role="tabpanel">
                         <div class="col-12">
-                            <p class="text-muted font-size-16"><b>Floor 1</b></p>
+                            <p class="badge bg-success font-size-16"><b>Floor 1</b></p>
                             <div class="table-responsive">
                                 <table id="simple_table_f1" class="table table-bordered dt-responsive  nowrap w-100">
                                     <thead>
                                         <tr class="text-center">
                                             <th>ROOM</th>
+                                            <th>COM</th>
                                             <th>ค่าห้อง</th>
                                             <th>ค่าไฟ</th>
                                             <th>ค่าน้ำ</th>
@@ -422,12 +467,13 @@
                     </div>
                     <div class="tab-pane" id="fl2" role="tabpanel">
                         <div class="col-12">
-                            <p class="text-muted font-size-16"><b>Floor 2</b></p>
+                            <p class="badge bg-warning font-size-16"><b>Floor 2</b></p>
                             <div class="table-responsive">
                                 <table id="simple_table_f2" class="table table-bordered dt-responsive  nowrap w-100">
                                     <thead>
                                         <tr class="text-center">
                                             <th>ROOM</th>
+                                            <th>COM</th>
                                             <th>ค่าห้อง</th>
                                             <th>ค่าไฟ</th>
                                             <th>ค่าน้ำ</th>
@@ -447,12 +493,13 @@
                     </div>
                     <div class="tab-pane" id="fl3" role="tabpanel">
                         <div class="col-12">
-                            <p class="text-muted font-size-16"><b>Floor 3</b></p>
+                            <p class="badge bg-danger font-size-16"><b>Floor 3</b></p>
                             <div class="table-responsive">
                                 <table id="simple_table_f3" class="table table-bordered dt-responsive  nowrap w-100">
                                     <thead>
                                         <tr class="text-center">
                                             <th>ROOM</th>
+                                            <th>COM</th>
                                             <th>ค่าห้อง</th>
                                             <th>ค่าไฟ</th>
                                             <th>ค่าน้ำ</th>
@@ -488,14 +535,29 @@
                     <div class="row">
                         @csrf
                         <input type="hidden" class="formEdit form-control" name="id" id="id">
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Room</label>
-                            <span class="text-danger">*</span>
-                            <select name="name" id="show_name_id" class="form-control" readonly>
-                                @foreach ($cusOne as $detail)
-                                    <option value="{{ $detail->id }}">{{ $detail->name }}</option>
-                                @endforeach
-                            </select>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Room</label>
+                                    <span class="text-danger">*</span>
+                                    <select name="name" id="show_name_id" class="form-control" readonly>
+                                        @foreach ($cusOne as $detail)
+                                            <option value="{{ $detail->id }}">{{ $detail->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Company</label>
+                                    <span class="text-danger">*</span>
+                                    <select name="company" id="show_company_id" class="form-control" readonly>
+                                        @foreach ($company as $detail)
+                                            <option value="{{ $detail->id }}">{{ $detail->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div class="table-responsive">
                             <table class="table table-bordered dt-responsive nowrap w-100">
@@ -597,14 +659,29 @@
                     <div class="row">
                         @csrf
                         <input type="hidden" class="formEdit form-control" name="id" id="id">
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Room</label>
-                            <span class="text-danger">*</span>
-                            <select name="name" id="show_name_id_f2" class="form-control" readonly>
-                                @foreach ($cusTwo as $detail)
-                                    <option value="{{ $detail->id }}">{{ $detail->name }}</option>
-                                @endforeach
-                            </select>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Room</label>
+                                    <span class="text-danger">*</span>
+                                    <select name="name" id="show_name_id_f2" class="form-control" readonly>
+                                        @foreach ($cusTwo as $detail)
+                                            <option value="{{ $detail->id }}">{{ $detail->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Company</label>
+                                    <span class="text-danger">*</span>
+                                    <select name="company" id="show_company_id_f2" class="form-control" readonly>
+                                        @foreach ($company as $detail)
+                                            <option value="{{ $detail->id }}">{{ $detail->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div class="table-responsive">
                             <table class="table table-bordered dt-responsive nowrap w-100">
@@ -706,14 +783,29 @@
                     <div class="row">
                         @csrf
                         <input type="hidden" class="formEdit form-control" name="id" id="id">
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Room</label>
-                            <span class="text-danger">*</span>
-                            <select name="name" id="show_name_id_f3" class="form-control" readonly>
-                                @foreach ($cusTree as $detail)
-                                    <option value="{{ $detail->id }}">{{ $detail->name }}</option>
-                                @endforeach
-                            </select>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Room</label>
+                                    <span class="text-danger">*</span>
+                                    <select name="name" id="show_name_id_f3" class="form-control" readonly>
+                                        @foreach ($cusTree as $detail)
+                                            <option value="{{ $detail->id }}">{{ $detail->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Company</label>
+                                    <span class="text-danger">*</span>
+                                    <select name="company" id="show_company_id_f3" class="form-control" readonly>
+                                        @foreach ($company as $detail)
+                                            <option value="{{ $detail->id }}">{{ $detail->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div class="table-responsive">
                             <table class="table table-bordered dt-responsive nowrap w-100">
@@ -814,6 +906,7 @@
         $('#editCusBtnF1').click(function() {
             var id = $('#id').val();
             var name_id = $('#show_name_id').val();
+            var company_id = $('#show_company_id').val();
             var status_id = 1;
 
             var list1 = $('#show_list1').val();
@@ -839,6 +932,7 @@
                         _token: '{{ csrf_token() }}',
                         id: id,
                         name_id: name_id,
+                        company_id: company_id,
                         status_id: status_id,
 
                         list1: list1,
@@ -874,6 +968,7 @@
         $('#editCusBtnF2').click(function() {
             var id = $('#id').val();
             var name_id = $('#show_name_id_f2').val();
+            var company_id = $('#show_company_id_f2').val();
             var status_id = 2;
 
             var list1 = $('#show_list1_f2').val();
@@ -899,6 +994,7 @@
                         _token: '{{ csrf_token() }}',
                         id: id,
                         name_id: name_id,
+                        company_id: company_id,
                         status_id: status_id,
 
                         list1: list1,
@@ -934,6 +1030,7 @@
         $('#editCusBtnF3').click(function() {
             var id = $('#id').val();
             var name_id = $('#show_name_id_f3').val();
+            var company_id = $('#show_company_id_f3').val();
             var status_id = 3;
 
             var list1 = $('#show_list1_f3').val();
@@ -959,6 +1056,7 @@
                         _token: '{{ csrf_token() }}',
                         id: id,
                         name_id: name_id,
+                        company_id: company_id,
                         status_id: status_id,
 
                         list1: list1,

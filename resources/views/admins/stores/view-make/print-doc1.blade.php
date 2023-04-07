@@ -87,13 +87,12 @@
                                     <p class="text-dark font-size-24 b">ใบแจ้งหนี้/ใบเสร็จรับเงิน</p>
                                     <br>
                                 </div>
-                                <span class="text-dark font-size-24">ฟาริดา อพาร์ทเม้นท์ <span
+                                <span class="text-dark font-size-24">{{ $detail->company->name }}<span
                                         class="text-dark font-size-18 float-end">ห้อง :
                                         {{ $detail->customer->name }}</span></span><br>
-                                <span class="text-dark">ที่อยู่ : 673 ซ.วุฒาราม6 ถ.รื่นรมย์ <br>ต.ในเมือง อ.เมือง
-                                    จ.ขอนแก่น
-                                    40000</span><br>
-                                <span class="text-dark">เบอร์โทร : 083 361 4367</span>
+                                <span class="text-dark">ที่อยู่ : {{ $detail->company->address }}<br>{{ $detail->company->address2 }}
+                                </span><br>
+                                <span class="text-dark">เบอร์โทร/ไลน์ : {{ $detail->company->phone}}</span>
                                 <div class="table-responsive">
                                     <table class="table table-bordered dt-responsive nowrap w-100">
                                         <tr class="text-center">

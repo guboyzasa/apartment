@@ -4,6 +4,7 @@
         $('#modal_titleF1').text('แก้ไข Floor 1');
         $('#id').val(obj.id);
         $('#show_name_id').val(obj.customer_id).trigger('change');
+        $('#show_company_id').val(obj.company_id).trigger('change');
 
         $('#show_list1').val(obj.list1).trigger('change');
         $('#show_list2').val(obj.list2).trigger('change');
@@ -29,6 +30,7 @@
         $('#modal_titleF2').text('แก้ไข Floor 2');
         $('#id').val(obj.id);
         $('#show_name_id_f2').val(obj.customer_id).trigger('change');
+        $('#show_company_id_f2').val(obj.company_id).trigger('change');
 
         $('#show_list1_f2').val(obj.list1).trigger('change');
         $('#show_list2_f2').val(obj.list2).trigger('change');
@@ -54,6 +56,7 @@
         $('#modal_titleF3').text('แก้ไข Floor 3');
         $('#id').val(obj.id);
         $('#show_name_id_f3').val(obj.customer_id).trigger('change');
+        $('#show_company_id_f3').val(obj.company_id).trigger('change');
 
         $('#show_list1_f3').val(obj.list1).trigger('change');
         $('#show_list2_f3').val(obj.list2).trigger('change');
