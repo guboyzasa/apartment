@@ -54,12 +54,12 @@
                         var text = ``;
                         if (full.company_id == 1) {
                             text = `
-                            <span class="badge bg-info text-center font-size-14">${full.company.name}</span>
+                            <span class="badge bg-warning text-center font-size-14">${full.company.name}</span>
 
                              `
                         } else if (full.company_id == 2) {
                             text = `
-                            <span class="badge bg-primary text-center font-size-14">${full.company.name}</span>
+                            <span class="badge bg-success text-center font-size-14">${full.company.name}</span>
 
                              `
                         } 
@@ -179,12 +179,12 @@
                         var text = ``;
                         if (full.company_id == 1) {
                             text = `
-                            <span class="badge bg-info text-center font-size-14">${full.company.name}</span>
+                            <span class="badge bg-warning text-center font-size-14">${full.company.name}</span>
 
                              `
                         } else if (full.company_id == 2) {
                             text = `
-                            <span class="badge bg-primary text-center font-size-14">${full.company.name}</span>
+                            <span class="badge bg-success text-center font-size-14">${full.company.name}</span>
 
                              `
                         } 
@@ -303,12 +303,12 @@
                         var text = ``;
                         if (full.company_id == 1) {
                             text = `
-                            <span class="badge bg-info text-center font-size-14">${full.company.name}</span>
+                            <span class="badge bg-warning text-center font-size-14">${full.company.name}</span>
 
                              `
                         } else if (full.company_id == 2) {
                             text = `
-                            <span class="badge bg-primary text-center font-size-14">${full.company.name}</span>
+                            <span class="badge bg-success text-center font-size-14">${full.company.name}</span>
 
                              `
                         } 

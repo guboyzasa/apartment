@@ -81,82 +81,88 @@
                             <div class="card-body">
                                 <div class="text-center">
                                     <div class="invoice-title">
-                                        <h4 class="float-start font-size-18">No : 0{{ $detail->id }}</h4>
+                                        <h4 class="float-start font-size-18 b"><b>No :</b> 0{{ $detail->id }}</h4>
                                     </div>
-                                    <p class="text-dark font-size-24">ใบแจ้งหนี้/ใบเสร็จรับเงิน</p>
-                                    <br>
+                                    <p class="text-dark font-size-24 b"><b>ใบแจ้งหนี้/ใบเสร็จรับเงิน</b></p>
+
                                 </div>
-                                <span class="text-dark font-size-24 b">ฟาริดา อพาร์ทเม้นท์ <span
-                                        class="text-dark font-size-18 float-end">ห้อง :
-                                        {{ $detail->customer->name }}</span></span><br>
-                                <span class="text-dark">ที่อยู่ : 673 ซ.วุฒาราม6 ถ.รื่นรมย์ <br>ต.ในเมือง อ.เมือง
-                                    จ.ขอนแก่น
-                                    40000</span><br>
-                                <span class="text-dark">เบอร์โทร : 083 361 4367</span>
+                                <span class="text-dark font-size-24 b"><b>{{ $detail->company->name }}</b><span
+                                        class="text-dark font-size-18 float-end b"><b>{{ $detail->customer->name }}</b></span></span><br>
+                                <span class="text-dark"><b class="b">ที่อยู่ :</b>
+                                    {{ $detail->company->address }}<br>{{ $detail->company->address2 }}
+                                </span><br>
+                                <span class="text-dark"><b class="b">เบอร์โทร/ไลน์ :</b> {{ $detail->company->phone }}</span>
+                                <span class="text-danger float-end">* ชำระไม่เกินวันที่ 5 ของทุกเดือน</span>
+                                <br>
+                                <br>
+
                                 <div class="table-responsive">
                                     <table class="table table-bordered dt-responsive nowrap w-100">
                                         <tr class="text-center">
-                                            <th>หน่วย</th>
-                                            <th>รายการ</th>
-                                            <th>ราคา/หน่วย</th>
-                                            <th colspan="2">จำนวนหน่วย</th>
-                                            <th>จำนวน</th>
+                                            <th class="b" style="border-color: black">#</th>
+                                            <th class="b" style="border-color: black">รายการ</th>
+                                            <th class="b" style="border-color: black">ราคา/หน่วย</th>
+                                            <th class="b" colspan="2" style="border-color: black">จำนวนหน่วย
+                                            </th>
+                                            <th class="b" style="border-color: black">จำนวน</th>
                                         </tr>
                                         <tbody>
                                             <tr>
-                                                <td>{{ $detail->unit1 }}</td>
-                                                <td>{{ $detail->list1 }}</td>
-                                                <td>{{ $detail->price_unit1 }}</td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>{{ $detail->amount1 }}</td>
+                                                <td class="text-center" style="border-color: black">{{ $detail->unit1 }}</td>
+                                                <td class="text-center" style="border-color: black">{{ $detail->list1 }}</td>
+                                                <td class="text-center" style="border-color: black">{{ number_format($detail->price_unit1) }}</td>
+                                                <td class="text-center" style="border-color: black"></td>
+                                                <td class="text-center" style="border-color: black"></td>
+                                                <td class="text-center" style="border-color: black">{{ number_format($detail->amount1) }}</td>
                                             </tr>
                                             <tr>
-                                                <td>{{ $detail->unit2 }}</td>
-                                                <td>{{ $detail->list2 }}</td>
-                                                <td>{{ $detail->price_unit2 }}</td>
-                                                <td>{{ $detail->unit_befor2 }}</td>
-                                                <td>{{ $detail->unit_after2 }}</td>
-                                                <td>{{ $detail->amount2 }}</td>
+                                                <td class="text-center" style="border-color: black">{{ $detail->unit2 }}</td>
+                                                <td class="text-center" style="border-color: black">{{ $detail->list2 }}</td>
+                                                <td class="text-center" style="border-color: black">{{ number_format($detail->price_unit2) }}</td>
+                                                <td class="text-center" style="border-color: black">{{ $detail->unit_befor2 }}</td>
+                                                <td class="text-center" style="border-color: black">{{ $detail->unit_after2 }}</td>
+                                                <td class="text-center" style="border-color: black">{{ number_format($detail->amount2) }}</td>
                                             </tr>
                                             <tr>
-                                                <td>{{ $detail->unit3 }}</td>
-                                                <td>{{ $detail->list3 }}</td>
-                                                <td>{{ $detail->price_unit3 }}</td>
-                                                <td>{{ $detail->unit_befor3 }}</td>
-                                                <td>{{ $detail->unit_after3 }}</td>
-                                                <td>{{ $detail->amount3 }}</td>
+                                                <td class="text-center" style="border-color: black">{{ $detail->unit3 }}</td>
+                                                <td class="text-center" style="border-color: black">{{ $detail->list3 }}</td>
+                                                <td class="text-center" style="border-color: black">{{ number_format($detail->price_unit3) }}</td>
+                                                <td class="text-center" style="border-color: black">{{ $detail->unit_befor3 }}</td>
+                                                <td class="text-center" style="border-color: black">{{ $detail->unit_after3 }}</td>
+                                                <td class="text-center" style="border-color: black">{{ number_format($detail->amount3) }}</td>
                                             </tr>
                                             <tr>
-                                                <td>{{ $detail->unit6 }}</td>
-                                                <td>{{ $detail->list6 }}</td>
-                                                <td>{{ $detail->price_unit6 }}</td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>{{ $detail->amount6 }}</td>
+                                                <td class="text-center" style="border-color: black">{{ $detail->unit6 }}</td>
+                                                <td class="text-center" style="border-color: black">{{ $detail->list6 }}</td>
+                                                <td class="text-center" style="border-color: black">{{ number_format($detail->price_unit6) }}</td>
+                                                <td class="text-center" style="border-color: black"></td>
+                                                <td class="text-center" style="border-color: black"></td>
+                                                <td class="text-center" style="border-color: black">{{ number_format($detail->amount6) }}</td>
                                             </tr>
                                             <tr>
-                                                <td class="text-end" colspan="5">รวม</td>
-                                                <td>{{ $detail->total_amount }}</td>
+                                                <td class="text-end" colspan="5" style="border-color: black">รวม</td>
+                                                <td class="text-center" style="border-color: black">{{ number_format($detail->total_amount) }}</td>
                                             </tr>
-                                            <tr>
+                                            {{-- <tr>
                                                 <td class="text-end" colspan="5">Vat 7%</td>
                                                 <td></td>
-                                            </tr>
+                                            </tr> --}}
                                             <tr>
-                                                <td class="text-end" colspan="5">รวมสุทธิ</td>
-                                                <td class="b">{{ $detail->total_amount }}</td>
+                                                <td class="text-end b" colspan="5" style="border-color: black">
+                                                    <b>รวมสุทธิ</b></td>
+                                                <td class="b text-center" style="border-color: black">
+                                                    <b>{{ number_format($detail->total_amount) }}</b></td>
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <div class="font-size-16">
-                                        ผู้รับ
+                                    <div class="font-size-16 b">
+                                        <b>ผู้รับ</b>
                                         .........................................................................
-                                        วันที่ออกบิล
-                                        {{ date_format(date_create(@$detail->created_at), 'd / m / Y') }}<br>
-                                        ผู้รับเงิน
+                                        <b>วันที่ออกบิล
+                                        {{ date_format(date_create(@$detail->created_at), 'd / m / Y') }}</b><br>
+                                        <b>ผู้รับเงิน</b>
                                         ...................................................................
-                                        วันที่.........../................/..............
+                                        <b>วันที่.........../................/..............</b>
                                     </div>
                                 </div>
                             </div>
