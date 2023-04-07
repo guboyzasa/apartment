@@ -121,12 +121,24 @@ class StoreController extends Controller
             $detail->unit_after3 = $req->unit_after3;
 
             $detail->amount1 = $req->price_unit1;
-            $detail->amount2 = ($req->price_unit2 * ($req->unit_after2 - $req->unit_befor2));
-            $detail->amount3 = ($req->price_unit3 * ($req->unit_after3 - $req->unit_befor3));
-            $detail->amount6 = $req->price_unit6;
 
-            $sum1 = ($req->price_unit2 * ($req->unit_after2 - $req->unit_befor2));
-            $sum2 = ($req->price_unit3 * ($req->unit_after3 - $req->unit_befor3));
+            if(($req->price_unit2 * ($req->unit_after2 - $req->unit_befor2))< 100){
+                $detail->amount2 = 100;
+                $sum1 = 100;
+            }else{
+                $detail->amount2 = ($req->price_unit2 * ($req->unit_after2 - $req->unit_befor2));
+                $sum1 = ($req->price_unit2 * ($req->unit_after2 - $req->unit_befor2));
+            }
+
+            if(($req->price_unit3 * ($req->unit_after3 - $req->unit_befor3)) < 100){
+                $detail->amount3 = 100;
+                $sum2 = 100;
+            }else{
+                $detail->amount3 = ($req->price_unit3 * ($req->unit_after3 - $req->unit_befor3));
+                $sum2 = ($req->price_unit3 * ($req->unit_after3 - $req->unit_befor3));
+            }
+            
+            $detail->amount6 = $req->price_unit6;
 
             $detail->total_amount = $req->price_unit1 + $sum1 + $sum2 + $req->price_unit6;
 
