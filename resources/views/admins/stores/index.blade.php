@@ -107,7 +107,7 @@
                                                     value="ค่าไฟฟ้า" name="list2" placeholder="ค่าไฟฟ้า" required>
                                             </td>
                                             <td><input type="number" class="formInput form-control" id="price_unit2"
-                                                    value="" name="price_unit2" placeholder="0" required></td>
+                                                    value="9" name="price_unit2" placeholder="9" required></td>
                                             <td>
                                                 <div class="input-group">
                                                     <span class="input-group-text"
@@ -157,7 +157,7 @@
                                         </tr>
                                         <tr>
                                             <td><input type="text" class="formInput form-control" id="list6"
-                                                    value="อื่นๆ" name="list6" placeholder="อื่นๆ" required>
+                                                    value="อื่นๆ (Net)" name="list6" placeholder="อื่นๆ (Net)" required>
                                             </td>
                                             <td><input type="number" class="formInput form-control" id="price_unit6"
                                                     value="" name="price_unit6" placeholder="0" required></td>
@@ -224,7 +224,7 @@
                                                     value="ค่าไฟฟ้า" name="list2" placeholder="ค่าไฟฟ้า" required>
                                             </td>
                                             <td><input type="number" class="formInput form-control" id="price_unit2_f2"
-                                                    value="" name="price_unit2" placeholder="0" required></td>
+                                                    value="9" name="price_unit2" placeholder="9" required></td>
                                             <td>
                                                 <div class="input-group">
                                                     <span class="input-group-text"
@@ -274,7 +274,7 @@
                                         </tr>
                                         <tr>
                                             <td><input type="text" class="formInput form-control" id="list6_f2"
-                                                    value="อื่นๆ" name="list6" placeholder="อื่นๆ" required>
+                                                    value="อื่นๆ (Net)" name="list6" placeholder="อื่นๆ (Net)" required>
                                             </td>
                                             <td><input type="number" class="formInput form-control" id="price_unit6_f2"
                                                     value="" name="price_unit6" placeholder="0" required></td>
@@ -340,7 +340,7 @@
                                                     value="ค่าไฟฟ้า" name="list2" placeholder="ค่าไฟฟ้า" required>
                                             </td>
                                             <td><input type="number" class="formInput form-control" id="price_unit2_f3"
-                                                    value="" name="price_unit2" placeholder="0" required></td>
+                                                    value="9" name="price_unit2" placeholder="9" required></td>
                                             <td>
                                                 <div class="input-group">
                                                     <span class="input-group-text"
@@ -391,7 +391,7 @@
                                         </tr>
                                         <tr>
                                             <td><input type="text" class="formInput form-control" id="list6_f3"
-                                                    value="อื่นๆ" name="list6" placeholder="อื่นๆ" required>
+                                                    value="อื่นๆ (Net)" name="list6" placeholder="อื่นๆ (Net)" required>
                                             </td>
                                             <td><input type="number" class="formInput form-control" id="price_unit6_f3"
                                                     value="" name="price_unit6" placeholder="0" required></td>

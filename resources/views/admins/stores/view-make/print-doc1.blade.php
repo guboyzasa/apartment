@@ -85,14 +85,15 @@
                                         <h4 class="float-start font-size-18">No : 0{{ $detail->id }}</h4>
                                     </div>
                                     <p class="text-dark font-size-24 b">ใบแจ้งหนี้/ใบเสร็จรับเงิน</p>
-                                    <br>
+                                    
                                 </div>
                                 <span class="text-dark font-size-24">{{ $detail->company->name }}<span
-                                        class="text-dark font-size-18 float-end">ห้อง :
-                                        {{ $detail->customer->name }}</span></span><br>
+                                        class="text-dark font-size-18 float-end">{{ $detail->customer->name }}</span></span><br>
                                 <span class="text-dark">ที่อยู่ : {{ $detail->company->address }}<br>{{ $detail->company->address2 }}
                                 </span><br>
                                 <span class="text-dark">เบอร์โทร/ไลน์ : {{ $detail->company->phone}}</span>
+                                <span class="text-danger float-end">* ชำระไม่เกินวันที่ 5 ของทุกเดือน</span>
+
                                 <div class="table-responsive">
                                     <table class="table table-bordered dt-responsive nowrap w-100">
                                         <tr class="text-center">
