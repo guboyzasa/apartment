@@ -140,10 +140,10 @@
                                                 <td class="text-end" colspan="5">รวม</td>
                                                 <td>{{ $detail->total_amount }}</td>
                                             </tr>
-                                            <tr>
+                                            {{-- <tr>
                                                 <td class="text-end" colspan="5">Vat 7%</td>
                                                 <td></td>
-                                            </tr>
+                                            </tr> --}}
                                             <tr>
                                                 <td class="text-end" colspan="5">รวมสุทธิ</td>
                                                 <td class="b">{{ $detail->total_amount }}</td>
