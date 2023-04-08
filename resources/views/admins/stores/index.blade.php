@@ -6,11 +6,25 @@
 
 @section('css')
     <style>
-        @media (min-width: 992px) {
-            .col-md-center {
-                float: none;
-                margin-left: auto;
-                margin-right: auto;
+       #doc-image {
+            height: auto;
+        }
+
+        @media only screen and (max-width: 800px) {
+            #doc-image {
+                zoom: .5;
+            }
+        }
+
+        @media only screen and (min-width: 1000px) {
+            #doc-image {
+                zoom: .7;
+            }
+        }
+
+        @media only screen and (min-width: 1500px) {
+            #doc-image {
+                zoom: 1;
             }
         }
     </style>
@@ -32,21 +46,21 @@
 
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs nav-tabs-custom nav-justified" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link active" data-bs-toggle="tab" href="#floor1" role="tab" aria-selected="true">
+                    <li class="nav-item text-success" role="presentation">
+                        <a class="nav-link active text-success" data-bs-toggle="tab" href="#floor1" role="tab" aria-selected="true">
                             <span class="d-block d-sm-none">F1</span>
                             <span class="d-none d-sm-block">Floor 1</span>
                         </a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link" data-bs-toggle="tab" href="#floor2" role="tab" aria-selected="false"
+                        <a class="nav-link text-warning" data-bs-toggle="tab" href="#floor2" role="tab" aria-selected="false"
                             tabindex="-1">
                             <span class="d-block d-sm-none">F2</span>
                             <span class="d-none d-sm-block">Floor 2</span>
                         </a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link" data-bs-toggle="tab" href="#floor3" role="tab" aria-selected="false"
+                        <a class="nav-link text-danger" data-bs-toggle="tab" href="#floor3" role="tab" aria-selected="false"
                             tabindex="-1">
                             <span class="d-block d-sm-none">F3</span>
                             <span class="d-none d-sm-block">Floor 3</span>
@@ -63,7 +77,7 @@
                                 <span for="name" class="form-label badge bg-success font-size-16">Floor
                                     1</span>
                             </div>
-                            <div class="row">
+                            {{-- <div class="row"> --}}
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <select name="name" id="name_id" class="form-control">
@@ -84,9 +98,10 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
+                            {{-- </div> --}}
+                            {{-- <div class="doc-image"> --}}
                             <div class="table-responsive">
-                                <table class="table table-bordered dt-responsive nowrap w-100">
+                                <table class="table table-success dt-responsive nowrap w-100">
                                     <tr class="text-center">
                                         {{-- <th>จำนวนหน่วยที่ใช้</th> --}}
                                         <th>รายการ</th>
@@ -111,6 +126,7 @@
                                                         <option value="2900">2900</option>
                                                     </select>
                                                 </td>
+                                                <td colspan="2"></td>
                                         </tr>
                                         <tr>
                                             <td><input type="text" class="formInput form-control" id="list2"
@@ -178,13 +194,15 @@
                                             </td>
                                             <td><input type="number" class="formInput form-control" id="price_unit6"
                                                     value="" name="price_unit6" placeholder="0" required></td>
+                                                    <td colspan="2"></td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
+                            {{-- </div> --}}
                         </div>
                         <div class="mt-3 d-grid gap-1">
-                            <button type="button" class="btn btn-primary waves-effect waves-light"
+                            <button type="button" class="btn btn-outline-success waves-effect waves-light"
                                 id="saveCusBtnF1">บันทึก</button>
                         </div>
 
@@ -196,7 +214,7 @@
                                 <span for="name" class="form-label badge bg-warning font-size-16">Floor
                                     2</span>
                             </div>
-                            <div class="row">
+                            {{-- <div class="row"> --}}
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <select name="name" id="name_id_f2" class="form-control">
@@ -217,10 +235,10 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
+                            {{-- </div> --}}
 
                             <div class="table-responsive">
-                                <table class="table table-bordered dt-responsive nowrap w-100">
+                                <table class="table table-warning dt-responsive nowrap w-100">
                                     <tr class="text-center">
                                         {{-- <th>จำนวนหน่วยที่ใช้</th> --}}
                                         <th>รายการ</th>
@@ -245,6 +263,7 @@
                                                         <option value="2900">2900</option>
                                                     </select>
                                                 </td>
+                                                <td colspan="2"></td>
                                         </tr>
                                         <tr>
                                             <td><input type="text" class="formInput form-control" id="list2_f2"
@@ -311,13 +330,14 @@
                                             </td>
                                             <td><input type="number" class="formInput form-control" id="price_unit6_f2"
                                                     value="" name="price_unit6" placeholder="0" required></td>
+                                                    <td colspan="2"></td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                         <div class="mt-3 d-grid gap-1">
-                            <button type="button" class="btn btn-primary waves-effect waves-light"
+                            <button type="button" class="btn btn-outline-warning waves-effect waves-light"
                                 id="saveCusBtnF2">บันทึก</button>
                         </div>
                     </div>
@@ -328,7 +348,7 @@
                                 <span for="name" class="form-label badge bg-danger font-size-16">Floor
                                     3</span>
                             </div>
-                            <div class="row">
+                            {{-- <div class="row"> --}}
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <select name="name" id="name_id_f3" class="form-control">
@@ -349,10 +369,10 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
+                            {{-- </div> --}}
 
                             <div class="table-responsive">
-                                <table class="table table-bordered dt-responsive nowrap w-100">
+                                <table class="table table-danger dt-responsive nowrap w-100">
                                     <tr class="text-center">
                                         {{-- <th>จำนวนหน่วยที่ใช้</th> --}}
                                         <th>รายการ</th>
@@ -377,6 +397,7 @@
                                                         <option value="2900">2900</option>
                                                     </select>
                                                 </td>
+                                                <td colspan="2"></td>
                                         </tr>
                                         <tr>
                                             <td><input type="text" class="formInput form-control" id="list2_f3"
@@ -444,6 +465,7 @@
                                             </td>
                                             <td><input type="number" class="formInput form-control" id="price_unit6_f3"
                                                     value="" name="price_unit6" placeholder="0" required></td>
+                                                    <td colspan="2"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -451,7 +473,7 @@
                         </div>
 
                         <div class="mt-3 d-grid gap-1">
-                            <button type="button" class="btn btn-primary waves-effect waves-light"
+                            <button type="button" class="btn btn-outline-danger waves-effect waves-light"
                                 id="saveCusBtnF3">บันทึก</button>
                         </div>
                     </div>
@@ -465,21 +487,21 @@
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs nav-tabs-custom nav-justified" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link active" data-bs-toggle="tab" href="#fl1" role="tab"
+                        <a class="nav-link active text-success" data-bs-toggle="tab" href="#fl1" role="tab"
                             aria-selected="false" tabindex="-1">
                             <span class="d-block d-sm-none">F1</span>
                             <span class="d-none d-sm-block">Floor 1</span>
                         </a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link" data-bs-toggle="tab" href="#fl2" role="tab" aria-selected="false"
+                        <a class="nav-link text-warning" data-bs-toggle="tab" href="#fl2" role="tab" aria-selected="false"
                             tabindex="-1">
                             <span class="d-block d-sm-none">F2</span>
                             <span class="d-none d-sm-block">Floor 2</span>
                         </a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link" data-bs-toggle="tab" href="#fl3" role="tab" aria-selected="false"
+                        <a class="nav-link text-danger" data-bs-toggle="tab" href="#fl3" role="tab" aria-selected="false"
                             tabindex="-1">
                             <span class="d-block d-sm-none">F3</span>
                             <span class="d-none d-sm-block">Floor 3</span>

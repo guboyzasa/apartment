@@ -46,11 +46,11 @@
                 <div class="card-body">
                     <div class="media">
                         <div class="media-body">
-                            <p class="text-muted fw-medium">รายได้ <b class="text-success">ฟาริดา อพาร์ทเม้นท์</b></p>
-                            <h4 class="mb-0 text-success">{{ @number_format(@$countV1) }} บาท</h4>
+                            <p class="text-muted fw-medium">รายได้ <b class="text-secondary">ฟาริดา อพาร์ทเม้นท์</b></p>
+                            <h4 class="mb-0 text-secondary">{{ @number_format(@$countV1) }} บาท</h4>
                         </div>
-                        <div class="mini-stat-icon avatar-sm rounded-circle bg-success align-self-center">
-                            <span class="avatar-title bg-success">
+                        <div class="mini-stat-icon avatar-sm rounded-circle bg-secondary align-self-center">
+                            <span class="avatar-title bg-secondary">
                                 <i class='bx bx-user bx-flashing font-size-24'></i>
                             </span>
                         </div>
@@ -63,11 +63,11 @@
                 <div class="card-body">
                     <div class="media">
                         <div class="media-body">
-                            <p class="text-muted fw-medium">รายได้ <b class="text-warning">หอพักวันเทาแก้ว</b></p>
-                            <h4 class="mb-0 text-warning">{{ @number_format(@$countV2) }} คน</h4>
+                            <p class="text-muted fw-medium">รายได้ <b class="text-info">หอพักวันเทาแก้ว</b></p>
+                            <h4 class="mb-0 text-info">{{ @number_format(@$countV2) }} บาท</h4>
                         </div>
-                        <div class="mini-stat-icon avatar-sm rounded-circle bg-warning align-self-center">
-                            <span class="avatar-title bg-warning">
+                        <div class="mini-stat-icon avatar-sm rounded-circle bg-info align-self-center">
+                            <span class="avatar-title bg-info">
                                 <i class='bx bx-user bx-flashing font-size-24'></i>
                             </span>
                         </div>
@@ -82,19 +82,19 @@
         <!-- Nav tabs -->
         <ul class="nav nav-tabs nav-tabs-custom nav-justified" role="tablist">
             <li class="nav-item" role="presentation">
-                <a class="nav-link active" data-bs-toggle="tab" href="#floor1" role="tab" aria-selected="true">
+                <a class="nav-link active text-success" data-bs-toggle="tab" href="#floor1" role="tab" aria-selected="true">
                     <span class="d-block d-sm-none">F1</span>
                     <span class="d-none d-sm-block">Floor 1</span>
                 </a>
             </li>
             <li class="nav-item" role="presentation">
-                <a class="nav-link" data-bs-toggle="tab" href="#floor2" role="tab" aria-selected="false" tabindex="-1">
+                <a class="nav-link text-warning" data-bs-toggle="tab" href="#floor2" role="tab" aria-selected="false" tabindex="-1">
                     <span class="d-block d-sm-none">F2</span>
                     <span class="d-none d-sm-block">Floor 2</span>
                 </a>
             </li>
             <li class="nav-item" role="presentation">
-                <a class="nav-link" data-bs-toggle="tab" href="#floor3" role="tab" aria-selected="false" tabindex="-1">
+                <a class="nav-link text-danger" data-bs-toggle="tab" href="#floor3" role="tab" aria-selected="false" tabindex="-1">
                     <span class="d-block d-sm-none">F3</span>
                     <span class="d-none d-sm-block">Floor 3</span>
                 </a>

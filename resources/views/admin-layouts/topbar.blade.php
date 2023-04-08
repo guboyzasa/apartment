@@ -9,7 +9,7 @@
                         {{-- <img src="{{ URL::asset('assets/images/bank_img/l7.png') }}" alt="" height="42"> --}}
                     </span>
                     <span class="logo-lg text-white" style="font-size: 150%">
-                        Apartment
+                        APARTMENT
                         {{-- <img src="{{ URL::asset('assets/images/bank_img/logo-b-white.png') }}" alt="" height="42"> --}}
                     </span>
                 </a>
@@ -26,9 +26,9 @@
             </form>
         </div>
 
-        <div class="d-flex">
+        {{-- <div class="d-flex">
             <h4>Welcome Admin</h4>
-        </div>
+        </div> --}}
 
         <div class="">
 
@@ -45,7 +45,7 @@
                         key="t-henry">{{ isset(Auth::user()->avatar) ? ucfirst(Auth::user()->name) : '' }}{{Auth::user()->name}} 
                         <i class='bx bx-check-double bx-tada font-size-16 align-middle me-2 text-warning'></i>
                         </span>
-                    <img class="rounded-circle header-profile-user"
+                    <img class="rounded-3 header-profile-user"
                         src="{{ isset(Auth::user()->avatar) ? asset(Auth::user()->avatar) : asset('/assets/images/users/avatar3.png') }}"
                         alt="Header Avatar">
                         

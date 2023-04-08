@@ -18,7 +18,7 @@
             "bFilter": false,
             "destroy": true,
             "order": [
-                [0, "desc"]
+                [1, "desc"]
             ],
             "ajax": {
                 "url": "{{ route('admin.store.listf1') }}",
@@ -54,12 +54,12 @@
                         var text = ``;
                         if (full.company_id == 1) {
                             text = `
-                            <span class="badge bg-warning text-center font-size-14">${full.company.name}</span>
+                            <span class="badge bg-secondary text-center font-size-14">${full.company.name}</span>
 
                              `
                         } else if (full.company_id == 2) {
                             text = `
-                            <span class="badge bg-success text-center font-size-14">${full.company.name}</span>
+                            <span class="badge bg-info text-center font-size-14">${full.company.name}</span>
 
                              `
                         } 
@@ -119,7 +119,7 @@
                         var button = ``;
                         if (full.status_id == 1) {
                             button = `
-                            <button type="button" class="btn btn-sm btn-success" onclick='showInfoF1(${obj})'><i class="bx bx-search"></i> </button>
+                            <button type="button" class="btn btn-sm btn-outline-success" onclick='showInfoF1(${obj})'><i class="bx bx-search"></i> </button>
                             <button type="button" class="btn btn-sm btn-danger" onclick='destroy(${data})'><i class="bx bx-trash"></i>  </button>
                             `;
                         }
@@ -143,7 +143,7 @@
             "bFilter": false,
             "destroy": true,
             "order": [
-                [0, "desc"]
+                [1, "desc"]
             ],
             "ajax": {
                 "url": "{{ route('admin.store.listf2') }}",
@@ -179,12 +179,12 @@
                         var text = ``;
                         if (full.company_id == 1) {
                             text = `
-                            <span class="badge bg-warning text-center font-size-14">${full.company.name}</span>
+                            <span class="badge bg-secondary text-center font-size-14">${full.company.name}</span>
 
                              `
                         } else if (full.company_id == 2) {
                             text = `
-                            <span class="badge bg-success text-center font-size-14">${full.company.name}</span>
+                            <span class="badge bg-info text-center font-size-14">${full.company.name}</span>
 
                              `
                         } 
@@ -244,7 +244,7 @@
                         var button = ``;
                         if (full.status_id == 2) {
                             button = `
-                            <button type="button" class="btn btn-sm btn-warning" onclick='showInfoF2(${obj})'><i class="bx bx-search"></i> </button>
+                            <button type="button" class="btn btn-sm btn-outline-warning" onclick='showInfoF2(${obj})'><i class="bx bx-search"></i> </button>
                             <button type="button" class="btn btn-sm btn-danger" onclick='destroy(${data})'><i class="bx bx-trash"></i>  </button>
                             `;
                         }
@@ -267,7 +267,7 @@
             "bFilter": false,
             "destroy": true,
             "order": [
-                [0, "desc"]
+                [1, "desc"]
             ],
             "ajax": {
                 "url": "{{ route('admin.store.listf3') }}",
@@ -303,12 +303,12 @@
                         var text = ``;
                         if (full.company_id == 1) {
                             text = `
-                            <span class="badge bg-warning text-center font-size-14">${full.company.name}</span>
+                            <span class="badge bg-secondary text-center font-size-14">${full.company.name}</span>
 
                              `
                         } else if (full.company_id == 2) {
                             text = `
-                            <span class="badge bg-success text-center font-size-14">${full.company.name}</span>
+                            <span class="badge bg-info text-center font-size-14">${full.company.name}</span>
 
                              `
                         } 
