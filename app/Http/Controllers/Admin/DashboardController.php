@@ -23,7 +23,10 @@ class DashboardController extends Controller
         $listF3 = StoreClear::where('is_active',1)->where('status_id',3)->get();
         $listIdF3 = StoreClear::where('is_active',1)->where('status_id',3)->get();
 
-        return view('admins.balances.index', compact('listF1','listIdF1','listF2','listIdF2','listF3','listIdF3'));
+        $countV1 = StoreClear::where('is_active',1)->where('company_id',1)->sum('total_amount');
+        $countV2 = StoreClear::where('is_active',1)->where('company_id',2)->sum('total_amount');
+
+        return view('admins.balances.index', compact('listF1','listIdF1','listF2','listIdF2','listF3','listIdF3','countV1','countV2'));
     }
 
 

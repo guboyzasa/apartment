@@ -39,6 +39,44 @@
             Dashboard
         @endslot
     @endcomponent
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mini-stats-wid">
+                <div class="card-body">
+                    <div class="media">
+                        <div class="media-body">
+                            <p class="text-muted fw-medium">รายได้ <b class="text-success">ฟาริดา อพาร์ทเม้นท์</b></p>
+                            <h4 class="mb-0 text-success">{{ @number_format(@$countV1) }} บาท</h4>
+                        </div>
+                        <div class="mini-stat-icon avatar-sm rounded-circle bg-success align-self-center">
+                            <span class="avatar-title bg-success">
+                                <i class='bx bx-user bx-flashing font-size-24'></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card mini-stats-wid">
+                <div class="card-body">
+                    <div class="media">
+                        <div class="media-body">
+                            <p class="text-muted fw-medium">รายได้ <b class="text-warning">หอพักวันเทาแก้ว</b></p>
+                            <h4 class="mb-0 text-warning">{{ @number_format(@$countV2) }} คน</h4>
+                        </div>
+                        <div class="mini-stat-icon avatar-sm rounded-circle bg-warning align-self-center">
+                            <span class="avatar-title bg-warning">
+                                <i class='bx bx-user bx-flashing font-size-24'></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 <div class="card" style="border-radius: 10px">
     <div class="card-body">
         <!-- Nav tabs -->
@@ -69,19 +107,25 @@
                 <div class="text-center mb-1">
                     <a href="{{ route('admin.store.prints.doc1') }}" target="blank" class="btn btn-success">พิมพ์ใบเสร็จรับเงิน</a>
                 </div>
+                <div class="doc-image">
                 @include('admins.stores.view-make.print-doc1')
+                </div>
             </div>
             <div class="tab-pane" id="floor2" role="tabpanel">
                 <div class="text-center mb-1">
                     <a href="{{ route('admin.store.prints.doc2') }}" target="blank" class="btn btn-warning">พิมพ์ใบเสร็จรับเงิน</a>
                 </div>
+                <div class="doc-image">
                 @include('admins.stores.view-make.print-doc2')
+                </div>
             </div>
             <div class="tab-pane" id="floor3" role="tabpanel">
                 <div class="text-center mb-1">
                     <a href="{{ route('admin.store.prints.doc3') }}" target="blank" class="btn btn-danger">พิมพ์ใบเสร็จรับเงิน</a>
                 </div>
+                <div class="doc-image">
                 @include('admins.stores.view-make.print-doc3')
+                </div>
             </div>
         </div>
     </div>
