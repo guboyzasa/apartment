@@ -6,27 +6,7 @@
 
 @section('css')
     <style>
-       #doc-image {
-            height: auto;
-        }
-
-        @media only screen and (max-width: 800px) {
-            #doc-image {
-                zoom: .5;
-            }
-        }
-
-        @media only screen and (min-width: 1000px) {
-            #doc-image {
-                zoom: .7;
-            }
-        }
-
-        @media only screen and (min-width: 1500px) {
-            #doc-image {
-                zoom: 1;
-            }
-        }
+        
     </style>
 @endsection
 
