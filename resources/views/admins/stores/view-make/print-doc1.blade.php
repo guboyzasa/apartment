@@ -186,10 +186,6 @@
                                                 <td class="text-center" style="border-color: black">
                                                     {{ number_format($detail->total_amount) }}</td>
                                             </tr>
-                                            {{-- <tr>
-                                                <td class="text-end" colspan="5">Vat 7%</td>
-                                                <td></td>
-                                            </tr> --}}
                                             <tr>
                                                 <td class="text-end b" colspan="5" style="border-color: black">
                                                     <b>รวมสุทธิ</b>
