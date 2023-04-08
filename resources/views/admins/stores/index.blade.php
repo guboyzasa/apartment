@@ -99,15 +99,25 @@
                                             <td><input type="text" class="formInput form-control" id="list1"
                                                     value="ค่าห้อง" name="list1" placeholder="ค่าห้อง" required>
                                             </td>
-                                            <td><input type="number" class="formInput form-control" id="price_unit1"
-                                                    value="" name="price_unit1" placeholder="0" required></td>
+                                            <td>
+                                                {{-- <input type="number" class="formInput form-control" id="price_unit1"
+                                                    value="" name="price_unit1" placeholder="0" required> --}}
+                                                    <select name="price_unit1" id="price_unit1" class="form-control">
+                                                        <option value="1500">1500</option>
+                                                        <option value="1800">1800</option>
+                                                        <option value="2000">2000</option>
+                                                        <option value="2300">2300</option>
+                                                        <option value="2500">2500</option>
+                                                        <option value="2900">2900</option>
+                                                    </select>
+                                                </td>
                                         </tr>
                                         <tr>
                                             <td><input type="text" class="formInput form-control" id="list2"
                                                     value="ค่าไฟฟ้า" name="list2" placeholder="ค่าไฟฟ้า" required>
                                             </td>
                                             <td><input type="number" class="formInput form-control" id="price_unit2"
-                                                    value="9" name="price_unit2" placeholder="9" required></td>
+                                                    value="9" name="price_unit2" placeholder="9" required readonly></td>
                                             <td>
                                                 <div class="input-group">
                                                     <span class="input-group-text"
@@ -132,8 +142,15 @@
                                         <tr>
                                             <td><input type="text" class="formInput form-control" id="list3"
                                                     value="ค่าน้ำประปา" name="list3" placeholder="ค่าน้ำประปา" required></td>
-                                            <td><input type="number" class="formInput form-control" id="price_unit3"
-                                                    value="" name="price_unit3" placeholder="0" required></td>
+                                            <td>
+                                                {{-- <input type="number" class="formInput form-control" id="price_unit3"
+                                                    value="" name="price_unit3" placeholder="0" required> --}}
+                                                    <select name="price_unit3" id="price_unit3" class="form-control">
+                                                        <option value="30">30</option>
+                                                        <option value="150">150</option>
+                                                        
+                                                    </select>
+                                                </td>
                                             <td>
                                                 <div class="input-group">
                                                     <span class="input-group-text"
@@ -216,15 +233,25 @@
                                             <td><input type="text" class="formInput form-control" id="list1_f2"
                                                     value="ค่าห้อง" name="list1" placeholder="ค่าห้อง" required>
                                             </td>
-                                            <td><input type="number" class="formInput form-control" id="price_unit1_f2"
-                                                    value="" name="price_unit1" placeholder="0" required></td>
+                                            <td>
+                                                {{-- <input type="number" class="formInput form-control" id="price_unit1_f2"
+                                                    value="" name="price_unit1" placeholder="0" required> --}}
+                                                    <select name="price_unit1" id="price_unit1_f2" class="form-control">
+                                                        <option value="1500">1500</option>
+                                                        <option value="1800">1800</option>
+                                                        <option value="2000">2000</option>
+                                                        <option value="2300">2300</option>
+                                                        <option value="2500">2500</option>
+                                                        <option value="2900">2900</option>
+                                                    </select>
+                                                </td>
                                         </tr>
                                         <tr>
                                             <td><input type="text" class="formInput form-control" id="list2_f2"
                                                     value="ค่าไฟฟ้า" name="list2" placeholder="ค่าไฟฟ้า" required>
                                             </td>
                                             <td><input type="number" class="formInput form-control" id="price_unit2_f2"
-                                                    value="9" name="price_unit2" placeholder="9" required></td>
+                                                    value="9" name="price_unit2" placeholder="9" required readonly></td>
                                             <td>
                                                 <div class="input-group">
                                                     <span class="input-group-text"
@@ -249,8 +276,14 @@
                                         <tr>
                                             <td><input type="text" class="formInput form-control" id="list3_f2"
                                                     value="ค่าน้ำประปา" name="list3" placeholder="ค่าน้ำประปา" required></td>
-                                            <td><input type="number" class="formInput form-control" id="price_unit3_f2"
-                                                    value="" name="price_unit3" placeholder="0" required></td>
+                                            <td>
+                                                {{-- <input type="number" class="formInput form-control" id="price_unit3_f2"
+                                                    value="" name="price_unit3" placeholder="0" required> --}}
+                                                    <select name="price_unit3" id="price_unit3_f2" class="form-control">
+                                                        <option value="30">30</option>
+                                                        <option value="150">150</option>
+                                                    </select>
+                                                </td>
                                             <td>
                                                 <div class="input-group">
                                                     <span class="input-group-text"
@@ -332,15 +365,25 @@
                                             <td><input type="text" class="formInput form-control" id="list1_f3"
                                                     value="ค่าห้อง" name="list1" placeholder="ค่าห้อง" required>
                                             </td>
-                                            <td><input type="number" class="formInput form-control" id="price_unit1_f3"
-                                                    value="" name="price_unit1" placeholder="0" required></td>
+                                            <td>
+                                                {{-- <input type="number" class="formInput form-control" id="price_unit1_f3"
+                                                    value="" name="price_unit1" placeholder="0" required> --}}
+                                                    <select name="price_unit1" id="price_unit1_f3" class="form-control">
+                                                        <option value="1500">1500</option>
+                                                        <option value="1800">1800</option>
+                                                        <option value="2000">2000</option>
+                                                        <option value="2300">2300</option>
+                                                        <option value="2500">2500</option>
+                                                        <option value="2900">2900</option>
+                                                    </select>
+                                                </td>
                                         </tr>
                                         <tr>
                                             <td><input type="text" class="formInput form-control" id="list2_f3"
                                                     value="ค่าไฟฟ้า" name="list2" placeholder="ค่าไฟฟ้า" required>
                                             </td>
                                             <td><input type="number" class="formInput form-control" id="price_unit2_f3"
-                                                    value="9" name="price_unit2" placeholder="9" required></td>
+                                                    value="9" name="price_unit2" placeholder="9" required readonly></td>
                                             <td>
                                                 <div class="input-group">
                                                     <span class="input-group-text"
@@ -366,8 +409,14 @@
                                             <td><input type="text" class="formInput form-control" id="list3_f3"
                                                     value="ค่าน้ำประปา" name="list3" placeholder="ค่าน้ำประปา"
                                                     required></td>
-                                            <td><input type="number" class="formInput form-control" id="price_unit3_f3"
-                                                    value="" name="price_unit3" placeholder="0" required></td>
+                                            <td>
+                                                {{-- <input type="number" class="formInput form-control" id="price_unit3_f3"
+                                                    value="" name="price_unit3" placeholder="0" required> --}}
+                                                    <select name="price_unit3" id="price_unit3_f3" class="form-control">
+                                                        <option value="30">30</option>
+                                                        <option value="150">150</option>
+                                                    </select>
+                                                </td>
                                             <td>
                                                 <div class="input-group">
                                                     <span class="input-group-text"

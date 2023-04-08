@@ -22,6 +22,6 @@
 @endsection
 @section('script')
     <script>
-        window.setTimeout('window.print()', 2000);
+        window.setTimeout('window.print()', 1500);
     </script>
 @endsection
