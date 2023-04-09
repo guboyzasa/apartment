@@ -25,8 +25,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('command:update')->monthlyOn(5, '00:02')->withoutOverlapping();
-        // $schedule->command('command:update')->everyMinute()->withoutOverlapping();
+        // $schedule->command('command:update')->monthlyOn(5, '00:02')->withoutOverlapping();
+        $schedule->command('command:update')->everyMinute()->withoutOverlapping();
     }
 
     /**
