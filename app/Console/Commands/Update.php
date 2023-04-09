@@ -3,25 +3,25 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\Models\Company;
+use App\Models\StoreClear;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
-class SetSendDefault extends Command
+class Update extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'command:set-send-default';
+    protected $signature = 'command:update';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Command Update Active Material Mount 4 at 23:59';
 
     /**
      * Create a new command instance.
@@ -38,11 +38,20 @@ class SetSendDefault extends Command
      *
      * @return int
      */
+
     public function handle()
     {
+        $now = Carbon::now();
+        $start = Carbon::createFromTime(22, 0);
+        $end = Carbon::createFromTime(23, 0);
+
+        if ($now->between($start, $end)) {
+
         DB::beginTransaction();
-        $companies = Company::where('is_active', 1)->where('is_sent', 1)->update(['is_sent' => 0]);
+        $isActive = StoreClear::where('is_active', 1)->update(['is_active' => 0]);
         DB::commit();
+        
+        }
         return Command::SUCCESS;
     }
 }

@@ -4,7 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use App\Console\Commands\LineNotiOwner;
+use App\Console\Commands\Update;
 
 class Kernel extends ConsoleKernel
 {
@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        LineNotiOwner::class,
+        Update::class,
     ];
 
     /**
@@ -25,9 +25,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
-        $schedule->command('command:send-line-noti-owner')->everyMinute()->withoutOverlapping();
-        $schedule->command('command:set-send-default')->dailyAt('23:55')->withoutOverlapping();
+        $schedule->command('command:update')->everyMinute()->withoutOverlapping();
     }
 
     /**
