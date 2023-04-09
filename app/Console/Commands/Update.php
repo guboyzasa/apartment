@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Models\StoreClear;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class Update extends Command
@@ -21,7 +20,7 @@ class Update extends Command
      *
      * @var string
      */
-    protected $description = 'Command Update Active Material Mount 4 at 23:59';
+    protected $description = 'Command Update Active Material Mount 5 at 00:02';
 
     /**
      * Create a new command instance.
@@ -41,17 +40,12 @@ class Update extends Command
 
     public function handle()
     {
-        $now = Carbon::now();
-        $start = Carbon::createFromTime(23, 0);
-        $end = Carbon::createFromTime(00, 0);
-
-        if ($now->between($start, $end)) {
-
         DB::beginTransaction();
+
         $isActive = StoreClear::where('is_active', 1)->update(['is_active' => 0]);
+        
         DB::commit();
 
-        }
         return Command::SUCCESS;
     }
 }
