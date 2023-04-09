@@ -42,15 +42,15 @@ class Update extends Command
     public function handle()
     {
         $now = Carbon::now();
-        $start = Carbon::createFromTime(22, 0);
-        $end = Carbon::createFromTime(23, 0);
+        $start = Carbon::createFromTime(23, 0);
+        $end = Carbon::createFromTime(00, 0);
 
         if ($now->between($start, $end)) {
 
         DB::beginTransaction();
         $isActive = StoreClear::where('is_active', 1)->update(['is_active' => 0]);
         DB::commit();
-        
+
         }
         return Command::SUCCESS;
     }
