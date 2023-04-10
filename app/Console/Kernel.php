@@ -27,6 +27,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('command:update')->monthlyOn(5, '00:02')->withoutOverlapping();
         $schedule->command('command:update')->everyMinute()->withoutOverlapping();
+        $schedule->command('command:send-line-noti-group')->everyMinute()->withoutOverlapping();
     }
 
     /**
