@@ -112,8 +112,14 @@
                                             <td><input type="text" class="formInput form-control" id="list2"
                                                     value="ค่าไฟฟ้า" name="list2" placeholder="ค่าไฟฟ้า" required>
                                             </td>
-                                            <td><input type="number" class="formInput form-control" id="price_unit2"
-                                                    value="9" name="price_unit2" placeholder="9" required readonly></td>
+                                            <td>
+                                                {{-- <input type="number" class="formInput form-control" id="price_unit2"
+                                                    value="9" name="price_unit2" placeholder="9" required readonly> --}}
+                                                    <select name="price_unit2" id="price_unit2" class="form-control">
+                                                        <option value="9">9</option>
+                                                        <option value="10">10</option>
+                                                    </select>
+                                                </td>
                                             <td>
                                                 <div class="input-group">
                                                     <span class="input-group-text"
@@ -249,8 +255,14 @@
                                             <td><input type="text" class="formInput form-control" id="list2_f2"
                                                     value="ค่าไฟฟ้า" name="list2" placeholder="ค่าไฟฟ้า" required>
                                             </td>
-                                            <td><input type="number" class="formInput form-control" id="price_unit2_f2"
-                                                    value="9" name="price_unit2" placeholder="9" required readonly></td>
+                                            <td>
+                                                {{-- <input type="number" class="formInput form-control" id="price_unit2_f2"
+                                                    value="9" name="price_unit2" placeholder="9" required readonly> --}}
+                                                    <select name="price_unit2" id="price_unit2_f2" class="form-control">
+                                                        <option value="9">9</option>
+                                                        <option value="10">10</option>
+                                                    </select>
+                                                </td>
                                             <td>
                                                 <div class="input-group">
                                                     <span class="input-group-text"
@@ -383,8 +395,14 @@
                                             <td><input type="text" class="formInput form-control" id="list2_f3"
                                                     value="ค่าไฟฟ้า" name="list2" placeholder="ค่าไฟฟ้า" required>
                                             </td>
-                                            <td><input type="number" class="formInput form-control" id="price_unit2_f3"
-                                                    value="9" name="price_unit2" placeholder="9" required readonly></td>
+                                            <td>
+                                                {{-- <input type="number" class="formInput form-control" id="price_unit2_f3"
+                                                    value="9" name="price_unit2" placeholder="9" required readonly> --}}
+                                                    <select name="price_unit2" id="price_unit2_f3" class="form-control">
+                                                        <option value="9">9</option>
+                                                        <option value="10">10</option>
+                                                    </select>
+                                                </td>
                                             <td>
                                                 <div class="input-group">
                                                     <span class="input-group-text"
@@ -458,7 +476,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
 
