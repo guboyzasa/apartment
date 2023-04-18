@@ -103,34 +103,34 @@ class StoreController extends Controller
             $detail->customer_id = $req->name_id;
             $detail->company_id = $req->company_id;
             $detail->status_id = $req->status_id;
-
+        //รายการ
             $detail->list1 = $req->list1;
             $detail->list2 = $req->list2;
             $detail->list3 = $req->list3;
             $detail->list6 = $req->list6;
-
+        //ราคา/หน่วย
             $detail->price_unit1 = $req->price_unit1;
             $detail->price_unit2 = $req->price_unit2;
             $detail->price_unit3 = $req->price_unit3;
             $detail->price_unit6 = $req->price_unit6;
-
+        //ค่าไฟ
             $detail->unit_befor2 = $req->unit_befor2;
             $detail->unit_befor3 = $req->unit_befor3;
-
+        //ค่าน้ำ
             $detail->unit_after2 = $req->unit_after2;
             $detail->unit_after3 = $req->unit_after3;
 
             $detail->amount1 = $req->price_unit1;
-
-            if(($req->price_unit2 * ($req->unit_after2 - $req->unit_befor2))< 100){
-                $detail->amount2 = 100;
-                $sum1 = 100;
+        //ค่าไฟ
+            if(($req->price_unit2 * ($req->unit_after2 - $req->unit_befor2))<= 100){
+                $detail->amount2 = 120;
+                $sum1 = 120;
             }else{
                 $detail->amount2 = ($req->price_unit2 * ($req->unit_after2 - $req->unit_befor2));
                 $sum1 = ($req->price_unit2 * ($req->unit_after2 - $req->unit_befor2));
             }
-
-            if(($req->price_unit3 * ($req->unit_after3 - $req->unit_befor3)) < 100){
+        //ค่าน้ำ
+            if(($req->price_unit3 * ($req->unit_after3 - $req->unit_befor3)) <= 100){
                 $detail->amount3 = 100;
                 $sum2 = 100;
             }else{
@@ -185,15 +185,15 @@ class StoreController extends Controller
 
             $detail->amount1 = $req->price_unit1;
             
-            if(($req->price_unit2 * ($req->unit_after2 - $req->unit_befor2))< 100){
-                $detail->amount2 = 100;
-                $sum1 = 100;
+            if(($req->price_unit2 * ($req->unit_after2 - $req->unit_befor2)) <= 100){
+                $detail->amount2 = 120;
+                $sum1 = 120;
             }else{
                 $detail->amount2 = ($req->price_unit2 * ($req->unit_after2 - $req->unit_befor2));
                 $sum1 = ($req->price_unit2 * ($req->unit_after2 - $req->unit_befor2));
             }
 
-            if(($req->price_unit3 * ($req->unit_after3 - $req->unit_befor3)) < 100){
+            if(($req->price_unit3 * ($req->unit_after3 - $req->unit_befor3)) <= 100){
                 $detail->amount3 = 100;
                 $sum2 = 100;
             }else{

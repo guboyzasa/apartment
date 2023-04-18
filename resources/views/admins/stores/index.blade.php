@@ -116,8 +116,8 @@
                                                 {{-- <input type="number" class="formInput form-control" id="price_unit2"
                                                     value="9" name="price_unit2" placeholder="9" required readonly> --}}
                                                     <select name="price_unit2" id="price_unit2" class="form-control">
-                                                        <option value="9">9</option>
                                                         <option value="10">10</option>
+                                                        <option value="120">120</option>
                                                     </select>
                                                 </td>
                                             <td>
@@ -259,8 +259,8 @@
                                                 {{-- <input type="number" class="formInput form-control" id="price_unit2_f2"
                                                     value="9" name="price_unit2" placeholder="9" required readonly> --}}
                                                     <select name="price_unit2" id="price_unit2_f2" class="form-control">
-                                                        <option value="9">9</option>
                                                         <option value="10">10</option>
+                                                        <option value="120">120</option>
                                                     </select>
                                                 </td>
                                             <td>
@@ -399,8 +399,8 @@
                                                 {{-- <input type="number" class="formInput form-control" id="price_unit2_f3"
                                                     value="9" name="price_unit2" placeholder="9" required readonly> --}}
                                                     <select name="price_unit2" id="price_unit2_f3" class="form-control">
-                                                        <option value="9">9</option>
                                                         <option value="10">10</option>
+                                                        <option value="120">120</option>
                                                     </select>
                                                 </td>
                                             <td>
