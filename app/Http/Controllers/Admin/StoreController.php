@@ -122,7 +122,7 @@ class StoreController extends Controller
 
             $detail->amount1 = $req->price_unit1;
         //ค่าไฟ
-            if(($req->price_unit2 * ($req->unit_after2 - $req->unit_befor2))<= 100){
+            if(($req->price_unit2 * ($req->unit_after2 - $req->unit_befor2)) <= 120){
                 $detail->amount2 = 120;
                 $sum1 = 120;
             }else{
@@ -185,7 +185,7 @@ class StoreController extends Controller
 
             $detail->amount1 = $req->price_unit1;
             
-            if(($req->price_unit2 * ($req->unit_after2 - $req->unit_befor2)) <= 100){
+            if(($req->price_unit2 * ($req->unit_after2 - $req->unit_befor2)) <= 120){
                 $detail->amount2 = 120;
                 $sum1 = 120;
             }else{
