@@ -44,15 +44,27 @@
         <div class="col-md-6">
             <div class="card mini-stats-wid">
                 <div class="card-body">
-                    <div class="media">
+                    <div class="media text-center">
                         <div class="media-body">
-                            <p class="text-muted fw-medium">รายได้ <b class="text-secondary">ฟาริดา อพาร์ทเม้นท์</b></p>
-                            <h4 class="mb-0 text-secondary">{{ @number_format(@$countV1) }} บาท</h4>
+                            <p class="text-muted fw-medium"><b class="text-secondary">ฟาริดา {{ @$online1 }} ห้อง</b></p>
+                            <h4 class="mb-0 text-secondary">{{ @number_format(@$countV1) }}</h4>
                         </div>
-                        <div class="mini-stat-icon avatar-sm rounded-circle bg-secondary align-self-center">
+                        {{-- <div class="mini-stat-icon avatar-sm rounded-circle bg-secondary align-self-center">
                             <span class="avatar-title bg-secondary">
                                 <i class='bx bx-user bx-flashing font-size-24'></i>
                             </span>
+                        </div> --}}
+                        <div class="media-body">
+                            <p class="text-muted fw-medium">ค่าห้อง</p>
+                            <h4 class="mb-0 text-secondary">{{ @number_format(@$countV1_1) }}</h4>
+                        </div>
+                        <div class="media-body">
+                            <p class="text-muted fw-medium">ค่าไฟ</p>
+                            <h4 class="mb-0 text-secondary">{{ @number_format(@$countV1_2) }}</h4>
+                        </div>
+                        <div class="media-body">
+                            <p class="text-muted fw-medium">ค่าน้ำ</p>
+                            <h4 class="mb-0 text-secondary">{{ @number_format(@$countV1_3) }}</h4>
                         </div>
                     </div>
                 </div>
@@ -61,15 +73,27 @@
         <div class="col-md-6">
             <div class="card mini-stats-wid">
                 <div class="card-body">
-                    <div class="media">
+                    <div class="media text-center">
                         <div class="media-body">
-                            <p class="text-muted fw-medium">รายได้ <b class="text-info">หอพักวันเทาแก้ว</b></p>
-                            <h4 class="mb-0 text-info">{{ @number_format(@$countV2) }} บาท</h4>
+                            <p class="text-muted fw-medium"><b class="text-info">วันเทาแก้ว {{ @$online2 }} ห้อง</b></p>
+                            <h4 class="mb-0 text-info">{{ @number_format(@$countV2) }}</h4>
                         </div>
-                        <div class="mini-stat-icon avatar-sm rounded-circle bg-info align-self-center">
+                        {{-- <div class="mini-stat-icon avatar-sm rounded-circle bg-info align-self-center">
                             <span class="avatar-title bg-info">
                                 <i class='bx bx-user bx-flashing font-size-24'></i>
                             </span>
+                        </div> --}}
+                        <div class="media-body">
+                            <p class="text-muted fw-medium">ค่าห้อง</p>
+                            <h4 class="mb-0 text-info">{{ @number_format(@$countV2_1) }}</h4>
+                        </div>
+                        <div class="media-body">
+                            <p class="text-muted fw-medium">ค่าไฟ</p>
+                            <h4 class="mb-0 text-info">{{ @number_format(@$countV2_2) }}</h4>
+                        </div>
+                        <div class="media-body">
+                            <p class="text-muted fw-medium">ค่าน้ำ</p>
+                            <h4 class="mb-0 text-info">{{ @number_format(@$countV2_3) }}</h4>
                         </div>
                     </div>
                 </div>
