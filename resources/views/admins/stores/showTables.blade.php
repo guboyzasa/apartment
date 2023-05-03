@@ -18,7 +18,7 @@
             "bFilter": false,
             "destroy": true,
             "order": [
-                [1, "desc"]
+                [7, "desc"]
             ],
             "ajax": {
                 "url": "{{ route('admin.store.listf1') }}",
@@ -35,7 +35,7 @@
                 {
                     "data": "id",
                     "render": function(data, type, full) {
-                        var date = moment(full.updated_at).format('DD-MM-YYYY HH:mm');
+                        var date = moment(full.updated_at).format('DD-MM-YYYY');
                         var text = ``;
                         if (full.status_id == 1) {
                             text = `
@@ -143,7 +143,7 @@
             "bFilter": false,
             "destroy": true,
             "order": [
-                [1, "desc"]
+                [7, "desc"]
             ],
             "ajax": {
                 "url": "{{ route('admin.store.listf2') }}",
@@ -160,7 +160,7 @@
                 {
                     "data": "id",
                     "render": function(data, type, full) {
-                        var date = moment(full.updated_at).format('DD-MM-YYYY HH:mm');
+                        var date = moment(full.updated_at).format('DD-MM-YYYY');
                         var text = ``;
                         if (full.status_id == 2) {
                             text = `
@@ -267,7 +267,7 @@
             "bFilter": false,
             "destroy": true,
             "order": [
-                [1, "desc"]
+                [7, "desc"]
             ],
             "ajax": {
                 "url": "{{ route('admin.store.listf3') }}",
@@ -284,7 +284,7 @@
                 {
                     "data": "id",
                     "render": function(data, type, full) {
-                        var date = moment(full.updated_at).format('DD-MM-YYYY HH:mm');
+                        var date = moment(full.updated_at).format('DD-MM-YYYY');
                         var text = ``;
                         if (full.status_id == 3) {
                             text = `

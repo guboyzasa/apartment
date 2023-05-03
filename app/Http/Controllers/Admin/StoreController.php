@@ -29,21 +29,21 @@ class StoreController extends Controller
     public function listF1()
     {
         return datatables()->of(
-            StoreClear::query()->with('customer:id,name,code','company:id,name')->where('status_id',1)
+            StoreClear::query()->with('customer:id,name,code','company:id,name')->where('status_id',1)->OrderBy('is_active','desc')
         )->toJson();
     }
 
     public function listF2()
     {
         return datatables()->of(
-            StoreClear::query()->with('customer:id,name,code','company:id,name')->where('status_id',2)
+            StoreClear::query()->with('customer:id,name,code','company:id,name')->where('status_id',2)->OrderBy('is_active','desc')
         )->toJson();
     }
 
     public function listF3()
     {
         return datatables()->of(
-            StoreClear::query()->with('customer:id,name,code','company:id,name')->where('status_id',3)
+            StoreClear::query()->with('customer:id,name,code','company:id,name')->where('status_id',3)->OrderBy('is_active','desc')
         )->toJson();
     }
 
