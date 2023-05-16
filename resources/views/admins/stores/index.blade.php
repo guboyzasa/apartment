@@ -514,6 +514,7 @@
                                 <table id="simple_table_f1" class="table table-bordered dt-responsive  nowrap w-100">
                                     <thead>
                                         <tr class="text-center">
+                                            <th>#</th>
                                             <th>ROOM</th>
                                             <th>COM</th>
                                             <th>ค่าห้อง</th>
@@ -540,6 +541,7 @@
                                 <table id="simple_table_f2" class="table table-bordered dt-responsive  nowrap w-100">
                                     <thead>
                                         <tr class="text-center">
+                                            <th>#</th>
                                             <th>ROOM</th>
                                             <th>COM</th>
                                             <th>ค่าห้อง</th>
@@ -566,6 +568,7 @@
                                 <table id="simple_table_f3" class="table table-bordered dt-responsive  nowrap w-100">
                                     <thead>
                                         <tr class="text-center">
+                                            <th>#</th>
                                             <th>ROOM</th>
                                             <th>COM</th>
                                             <th>ค่าห้อง</th>

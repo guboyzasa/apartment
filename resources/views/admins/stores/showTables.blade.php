@@ -18,7 +18,7 @@
             "bFilter": false,
             "destroy": true,
             "order": [
-                [7, "desc"]
+                [0, "desc"]
             ],
             "ajax": {
                 "url": "{{ route('admin.store.listf1') }}",
@@ -28,10 +28,14 @@
                 },
             },
             'columnDefs': [{
-                "targets": [0, 1, 2, 3, 4, 5, 6, 7, 8],
+                "targets": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
                 "className": "text-center",
             }, ],
             "columns": [
+                {
+                    "data": "id" 
+                },
+
                 {
                     "data": "id",
                     "render": function(data, type, full) {
@@ -143,7 +147,7 @@
             "bFilter": false,
             "destroy": true,
             "order": [
-                [7, "desc"]
+                [0, "desc"]
             ],
             "ajax": {
                 "url": "{{ route('admin.store.listf2') }}",
@@ -153,10 +157,14 @@
                 },
             },
             'columnDefs': [{
-                "targets": [0, 1, 2, 3, 4, 5, 6, 7, 8],
+                "targets": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
                 "className": "text-center",
             }, ],
             "columns": [
+                {
+                    "data": "id" 
+                },
+
                 {
                     "data": "id",
                     "render": function(data, type, full) {
@@ -267,7 +275,7 @@
             "bFilter": false,
             "destroy": true,
             "order": [
-                [7, "desc"]
+                [0, "desc"]
             ],
             "ajax": {
                 "url": "{{ route('admin.store.listf3') }}",
@@ -277,10 +285,14 @@
                 },
             },
             'columnDefs': [{
-                "targets": [0, 1, 2, 3, 4, 5, 6, 7, 8],
+                "targets": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
                 "className": "text-center",
             }, ],
             "columns": [
+                {
+                    "data": "id" 
+                },
+                
                 {
                     "data": "id",
                     "render": function(data, type, full) {
