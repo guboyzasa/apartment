@@ -187,7 +187,7 @@ class RegisterController extends Controller
                 // $this->telegramNotifyGroup($sMessageGroup);
             
             return redirect()->back()->withErrors($e->getMessage());
-            return redirect()->back()->withErrors('มีบางอย่างผิดพลาด');
+            // return redirect()->back()->withErrors('มีบางอย่างผิดพลาด');
         }
     }
 }

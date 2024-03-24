@@ -59,10 +59,10 @@ class LoginController extends Controller
 
         if( auth()->attempt(array('username'=>$input['username'], 'password'=>$input['password'])) ){
             if(Auth::user()->is_super_admin == 1){
-                // $this->telegramNotifyGroup($sMessageGroup);
+                $this->telegramNotifyGroup($sMessageGroup);
                 return redirect()->route('admin.dashboard');
             }
-                // $this->telegramNotifyGroup($sMessageGroup);
+                $this->telegramNotifyGroup($sMessageGroup);
             return redirect()->route('dashboard');
         }else{
             return redirect()->back()->withErrors('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง กรุณากรอกข้อมูลใหม่อีกครั้ง');
