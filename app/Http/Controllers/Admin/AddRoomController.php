@@ -3,44 +3,44 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Customer;
+use App\Models\Room;
 use App\Models\User;
 use App\Models\Status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class CustomerAddController extends Controller
+class AddRoomController extends Controller
 {
     public function index()
     {
         $status = Status::where('is_active',1)->get();
-        return view('admins.customers.index' , compact('status'));
+        return view('admins.room.index' , compact('status'));
     }
     public function listF1()
     {
         return datatables()->of(
-            Customer::query()->with('statusList:id,name')->where('status_id',1)
+            Room::query()->with('statusList:id,name')->where('status_id',1)
         )->toJson();
     }
 
     public function listF2()
     {
         return datatables()->of(
-            Customer::query()->with('statusList:id,name')->where('status_id',2)
+            Room::query()->with('statusList:id,name')->where('status_id',2)
         )->toJson();
     }
 
     public function listF3()
     {
         return datatables()->of(
-            Customer::query()->with('statusList:id,name')->where('status_id',3)
+            Room::query()->with('statusList:id,name')->where('status_id',3)
         )->toJson();
     }
 
     public function store(Request $req)
     {
         DB::beginTransaction();
-            $detail = new Customer;
+            $detail = new Room;
             $detail->name = $req->name;
             $detail->status_id = $req->status_id;
             $detail->code = $req->code;
@@ -60,7 +60,7 @@ class CustomerAddController extends Controller
     public function update(Request $req)
     {
         $id = $req->id;
-        $detail = Customer::find($id);
+        $detail = Room::find($id);
 
         DB::beginTransaction();
 
@@ -86,7 +86,7 @@ class CustomerAddController extends Controller
         DB::beginTransaction();
 
         $status = 0;
-        $userS = Customer::find($id);
+        $userS = Room::find($id);
 
         $oldStatus = $userS->is_active;
 
@@ -115,7 +115,7 @@ class CustomerAddController extends Controller
             $id = $req->id;
 
             DB::beginTransaction();
-            $cus = Customer::where('id', $id)->first();
+            $cus = Room::where('id', $id)->first();
 
             if (!$cus) {
                 $data = [

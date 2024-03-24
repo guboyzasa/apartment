@@ -74,22 +74,22 @@
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs nav-tabs-custom nav-justified" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link active text-success" data-bs-toggle="tab" href="#floor1" role="tab" aria-selected="false"
-                            tabindex="-1">
+                        <a class="nav-link active text-success" data-bs-toggle="tab" href="#floor1" role="tab"
+                            aria-selected="false" tabindex="-1">
                             <span class="d-block d-sm-none">F1</span>
                             <span class="d-none d-sm-block">Floor 1</span>
                         </a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link text-warning" data-bs-toggle="tab" href="#floor2" role="tab" aria-selected="false"
-                            tabindex="-1">
+                        <a class="nav-link text-warning" data-bs-toggle="tab" href="#floor2" role="tab"
+                            aria-selected="false" tabindex="-1">
                             <span class="d-block d-sm-none">F2</span>
                             <span class="d-none d-sm-block">Floor 2</span>
                         </a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link text-danger" data-bs-toggle="tab" href="#floor3" role="tab" aria-selected="false"
-                            tabindex="-1">
+                        <a class="nav-link text-danger" data-bs-toggle="tab" href="#floor3" role="tab"
+                            aria-selected="false" tabindex="-1">
                             <span class="d-block d-sm-none">F3</span>
                             <span class="d-none d-sm-block">Floor 3</span>
                         </a>
@@ -102,7 +102,8 @@
                         <div class="col-12">
                             <p class="font-size-16 badge bg-success"><b>Floor 1</b></p>
                             <div class="table-responsive">
-                                <table id="simple_table_f1" class="table table-bordered dt-responsive  nowrap w-100">
+                                <table id="simple_table_f1"
+                                    class="table table-bordered dt-responsive table-striped nowrap w-100">
                                     <thead>
                                         <tr class="text-center">
                                             <th>CREATE</th>
@@ -122,7 +123,8 @@
                         <div class="col-12">
                             <p class="font-size-16 badge bg-warning"><b>Floor 2</b></p>
                             <div class="table-responsive">
-                                <table id="simple_table_f2" class="table table-bordered dt-responsive nowrap w-100">
+                                <table id="simple_table_f2"
+                                    class="table table-bordered dt-responsive table-striped nowrap w-100">
                                     <thead>
                                         <tr class="text-center">
                                             <th>CREATE</th>
@@ -142,7 +144,8 @@
                         <div class="col-12">
                             <p class="font-size-16 badge bg-danger"><b>Floor 3</b></p>
                             <div class="table-responsive">
-                                <table id="simple_table_f3" class="table table-bordered dt-responsive nowrap w-100">
+                                <table id="simple_table_f3"
+                                    class="table table-bordered dt-responsive table-striped nowrap w-100">
                                     <thead>
                                         <tr class="text-center">
                                             <th>CREATE</th>
@@ -177,7 +180,7 @@
                 <div class="modal-body">
                     {{-- <form class="needs-validation" novalidate=""> --}}
                     @csrf
-                    <input type="hidden" class="formEdit form-control" name="id" value="" id="customer_id">
+                    <input type="hidden" class="formEdit form-control" name="id" value="" id="room_id">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
@@ -221,12 +224,18 @@
     </div><!-- /.modal -->
 @endsection
 @section('script')
-@include('admins.customers.showTable')
-
     <script>
         $(document).ready(function() {
-            var simple = '';
+            var simpleF1 = '';
+            var simpleF2 = '';
+            var simpleF3 = '';
+            showTableF1();
+            showTableF2();
+            showTableF3();
+
         });
+        
+        @include('admins.room.showTable')
 
         //บันทึกการเพิ่มเมมเบอร์
         $('#saveCusBtn').click(function() {
@@ -237,17 +246,18 @@
             if (name == '' || name == null || code == '' || code == null || status_id == '' || status_id == null) {
                 Swal.fire('แจ้งเตือน!', 'กรุณากรอกข้อมูลให้ครบถ้วน ', 'warning');
             } else {
-                $.post("{{ route('admin.customer.add') }}", data = {
+                $.post("{{ route('admin.room.add') }}", data = {
                         _token: '{{ csrf_token() }}',
                         name: name,
                         status_id: status_id,
                         code: code,
-
                     },
                     function(res) {
-                        simple.ajax.reload();
-                        Swal.fire(res.title, res.msg, res.status);
-                        location.reload();
+                        simpleF1.ajax.reload();
+                        simpleF2.ajax.reload();
+                        simpleF3.ajax.reload();
+                        // Swal.fire(res.title, res.msg, res.status);
+                        // location.reload();
                         closeLoading();
 
                     },
@@ -258,7 +268,7 @@
         //show ข้อมูลเมมเบอร์ modals
         function showInfo(obj) {
             $('#modal_titles').text('แก้ไข Room');
-            $('#customer_id').val(obj.id);
+            $('#room_id').val(obj.id);
             $('#show_name').val(obj.name).trigger('change');
             $('#show_status_select').val(obj.status_id).trigger('change');
             $('#show_code').val(obj.code).trigger('change');
@@ -267,7 +277,7 @@
 
         //บันทึกการแก้ไขเมมเบอร์
         $('#editCusBtns').click(function() {
-            var id = $('#customer_id').val();
+            var id = $('#room_id').val();
             var name = $('#show_name').val();
             var status_id = $('#show_status_select').val();
             var code = $('#show_code').val();
@@ -275,17 +285,18 @@
             if (name == '' || name == null || code == '' || code == null || status_id == '' || status_id == null) {
                 Swal.fire('แจ้งเตือน!', 'กรุณากรอกข้อมูลให้ครบถ้วน ', 'warning');
             } else {
-                $.post("{{ route('admin.customer.update') }}", data = {
+                $.post("{{ route('admin.room.update') }}", data = {
                         _token: '{{ csrf_token() }}',
                         id: id,
                         name: name,
                         status_id: status_id,
                         code: code,
-
                     },
                     function(res) {
-                        simple.ajax.reload();
-                        Swal.fire(res.title, res.msg, res.status);
+                        simpleF1.ajax.reload();
+                        simpleF2.ajax.reload();
+                        simpleF3.ajax.reload();
+                        // Swal.fire(res.title, res.msg, res.status);
                         $('#simpleModals').modal("hide");
                         closeLoading();
 
@@ -300,14 +311,16 @@
             $.ajax({
                 type: "method",
                 method: "POST",
-                url: "{{ route('admin.customer.set-active') }}",
+                url: "{{ route('admin.room.set-active') }}",
                 data: {
                     "_token": "{{ csrf_token() }}",
                     "id": id,
                 },
                 success: function(res) {
-                    closeLoading()
-                    simple.ajax.reload();
+                    simpleF1.ajax.reload();
+                    simpleF2.ajax.reload();
+                    simpleF3.ajax.reload();
+                    closeLoading();
                 }
             });
         }
@@ -326,15 +339,16 @@
 
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // openLoading();
-                    $.post("{{ route('admin.customer.destroy') }}", data = {
+                    $.post("{{ route('admin.room.destroy') }}", data = {
                             _token: '{{ csrf_token() }}',
                             id: id,
                         },
                         function(res) {
-                            simple.ajax.reload();
+                            simpleF1.ajax.reload();
+                            simpleF2.ajax.reload();
+                            simpleF3.ajax.reload();
                             closeLoading();
-                            Swal.fire(res.title, res.msg, res.status);
+                            // Swal.fire(res.title, res.msg, res.status);
                         },
                     );
 

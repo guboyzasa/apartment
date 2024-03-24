@@ -9,7 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Vendor;
-use App\Models\Customer;
+use App\Models\Room;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\DB;
@@ -85,7 +85,7 @@ class Controller extends BaseController
                 $numCut = 3;
                 break;
             case 'CM':
-                $lastCode = Customer::orderBy('id', 'desc')->where('company_id', Auth::user()->company_id)->whereNotNull('code')->first();
+                $lastCode = Room::orderBy('id', 'desc')->where('company_id', Auth::user()->company_id)->whereNotNull('code')->first();
                 $lastCode = $lastCode ? $lastCode->code : null;
                 $numCut = 2;
                 break;
@@ -227,7 +227,7 @@ class Controller extends BaseController
             $sMessageGroup['text'] = "** Error **" .
                 "\nError: " . $e->getMessage();
 
-            // $this->telegramNotifyGroup($sMessageGroup);
+            $this->telegramNotifyGroup($sMessageGroup);
         }
     }
 
@@ -237,7 +237,7 @@ class Controller extends BaseController
         try {
 
             $BOT_TOKEN=env('TELEGRAM_TOKEN'); //----YOUR BOT TOKEN
-            $chat_id=env('ID_GROUP'); // or '123456' ------Receiver chat id
+            $chat_id=env('ID_GROUP_G'); // or '123456' ------Receiver chat id
             define('BOTAPI','https://api.telegram.org/bot' . $BOT_TOKEN .'/');
 
             $cfile = new \CURLFile(realpath($fullPath), 'image/jpg', 'slips.jpg');
@@ -259,7 +259,7 @@ class Controller extends BaseController
              $sMessageGroup['text'] = "** Error **" .
                  "\nError: " . $e->getMessage();
  
-            //  $this->telegramNotifyGroup($sMessageGroup);
+             $this->telegramNotifyGroup($sMessageGroup);
          }
      }
 

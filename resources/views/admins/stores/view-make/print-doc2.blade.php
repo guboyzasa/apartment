@@ -98,7 +98,7 @@
 
                                 </div>
                                 <span class="text-dark font-size-24 b"><b>{{ $detail->company->name }}</b><span
-                                        class="text-dark font-size-18 float-end b"><b>{{ $detail->customer->name }}</b></span></span><br>
+                                        class="text-dark font-size-18 float-end b"><b>{{ $detail->room->name }}</b></span></span><br>
                                 <span class="text-dark"><b class="b">ที่อยู่ :</b>
                                     {{ $detail->company->address }}<br>{{ $detail->company->address2 }}
                                 </span><br>
@@ -179,6 +179,15 @@
                                                 <td class="text-center" style="border-color: black"></td>
                                                 <td class="text-center" style="border-color: black">
                                                     {{ number_format($detail->amount6) }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center" style="border-color: black"></td>
+                                                <td class="text-center" style="border-color: black">
+                                                    {{ $detail->list7 }}</td>
+                                                <td class="text-start" style="border-color: black" colspan="3">
+                                                    {{ $detail->price_unit7 }}</td>
+                                                    <td class="text-center" style="border-color: black">
+                                                        {{ number_format($detail->amount8) }}</td>
                                             </tr>
                                             <tr>
                                                 <td class="text-end" colspan="5" style="border-color: black">รวม

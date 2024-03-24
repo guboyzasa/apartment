@@ -90,15 +90,16 @@
                     <div class="col-md-6 mb-2">
                         <div class="page2 mt-2 mb-0 blockquote" style="padding: 2.5%">
                             <div class="card-body">
-                                <div class="text-center">
+                                <div class="text-center" style="display: flex; justify-content: space-between;">
                                     <div class="invoice-title">
                                         <h4 class="float-start font-size-18 b"><b>No :</b> 0{{ $detail->id }}</h4>
                                     </div>
-                                    <p class="text-dark font-size-24 b"><b>ใบแจ้งหนี้/ใบเสร็จรับเงิน</b></p>
-
+                                    <div style="margin: auto;">
+                                        <p class="text-dark font-size-24 b"><b>ใบแจ้งหนี้/ใบเสร็จรับเงิน</b></p>
+                                    </div>
                                 </div>
                                 <span class="text-dark font-size-24 b"><b>{{ $detail->company->name }}</b><span
-                                        class="text-dark font-size-18 float-end b"><b>{{ $detail->customer->name }}</b></span></span><br>
+                                        class="text-dark font-size-18 float-end b"><b>{{ $detail->room->name }}</b></span></span><br>
                                 <span class="text-dark"><b class="b">ที่อยู่ :</b>
                                     {{ $detail->company->address }}<br>{{ $detail->company->address2 }}
                                 </span><br>
@@ -168,6 +169,7 @@
                                                 <td class="text-center" style="border-color: black">
                                                     {{ number_format($detail->amount3) }}</td>
                                             </tr>
+                                            {{-- @if ($detail->amount6 > 0) --}}
                                             <tr>
                                                 <td class="text-center" style="border-color: black">
                                                     {{ $detail->unit6 }}</td>
@@ -180,6 +182,18 @@
                                                 <td class="text-center" style="border-color: black">
                                                     {{ number_format($detail->amount6) }}</td>
                                             </tr>
+                                            {{-- @endif --}}
+                                            {{-- @if ($detail->amount8 > 0) --}}
+                                            <tr>
+                                                <td class="text-center" style="border-color: black"></td>
+                                                <td class="text-center" style="border-color: black">
+                                                    {{ $detail->list7 }}</td>
+                                                <td class="text-start" style="border-color: black" colspan="3">
+                                                    {{ $detail->price_unit7 }}</td>
+                                                    <td class="text-center" style="border-color: black">
+                                                        {{ number_format($detail->amount8) }}</td>
+                                            </tr>
+                                            {{-- @endif --}}
                                             <tr>
                                                 <td class="text-end" colspan="5" style="border-color: black">รวม
                                                 </td>

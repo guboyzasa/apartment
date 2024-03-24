@@ -1,15 +1,6 @@
-<script>
-    $(document).ready(function() {
-            var simple = '';
-            showTableF1();
-            showTableF2();
-            showTableF3();
-
-        });
-        
     //F1
     showTableF1 = () => {
-        simple = $('#simple_table_f1').DataTable({
+        simpleF1 = $('#simple_table_f1').DataTable({
             "processing": false,
             "serverSide": false,
             "info": false,
@@ -21,7 +12,7 @@
                 [1, "asc"]
             ],
             "ajax": {
-                "url": "{{ route('admin.customer.listf1') }}",
+                "url": "{{ route('admin.room.listf1') }}",
                 "method": "GET",
                 "data": {
                     "_token": "{{ csrf_token() }}",
@@ -70,13 +61,17 @@
                     "render": function(data, type, full) {
                         var text = ``;
                         if (data == 1) {
-                            text =
-                                `<input type="checkbox" class="custom-control-input" onclick="setStatus(${full.id})" id="switch${full.id}" switch="primary" checked />
-                                    <label for="switch${full.id}" class="custom-control-input" data-on-label="เปิด" data-off-label="ปิด"></label>`;
+                            text =`
+                                <div class="form-check form-switch d-flex justify-content-center">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="switch${full.id}" checked onchange="setStatus(${full.id})">
+                                </div>
+                                `;
                         } else {
-                            text =
-                                `<input type="checkbox" class="custom-control-input" onclick="setStatus(${full.id})" id="switch${full.id}" switch="primary"  />
-                                    <label for="switch${full.id}" class="custom-control-input" data-on-label="เปิด" data-off-label="ปิด"></label>`;
+                            text =`
+                            <div class="form-check form-switch d-flex justify-content-center">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="switch${full.id}" onchange="setStatus(${full.id})">
+                                </div>
+                            `;
                         }
                         return text;
                     }
@@ -103,7 +98,7 @@
 
     //F2
     showTableF2 = () => {
-        simple = $('#simple_table_f2').DataTable({
+        simpleF2 = $('#simple_table_f2').DataTable({
             "processing": false,
             "serverSide": false,
             "info": false,
@@ -115,7 +110,7 @@
                 [2, "desc"]
             ],
             "ajax": {
-                "url": "{{ route('admin.customer.listf2') }}",
+                "url": "{{ route('admin.room.listf2') }}",
                 "method": "GET",
                 "data": {
                     "_token": "{{ csrf_token() }}",
@@ -163,13 +158,17 @@
                     "render": function(data, type, full) {
                         var text = ``;
                         if (data == 1) {
-                            text =
-                                `<input type="checkbox" class="custom-control-input" onclick="setStatus(${full.id})" id="switch${full.id}" switch="primary" checked />
-                                    <label for="switch${full.id}" class="custom-control-input" data-on-label="เปิด" data-off-label="ปิด"></label>`;
+                            text =`
+                                <div class="form-check form-switch d-flex justify-content-center">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="switch${full.id}" checked onchange="setStatus(${full.id})">
+                                </div>
+                                `;
                         } else {
-                            text =
-                                `<input type="checkbox" class="custom-control-input" onclick="setStatus(${full.id})" id="switch${full.id}" switch="primary"  />
-                                    <label for="switch${full.id}" class="custom-control-input" data-on-label="เปิด" data-off-label="ปิด"></label>`;
+                            text =`
+                            <div class="form-check form-switch d-flex justify-content-center">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="switch${full.id}" onchange="setStatus(${full.id})">
+                                </div>
+                            `;
                         }
                         return text;
                     }
@@ -196,7 +195,7 @@
 
     //F3
     showTableF3 = () => {
-        simple = $('#simple_table_f3').DataTable({
+        simpleF3 = $('#simple_table_f3').DataTable({
             "processing": false,
             "serverSide": false,
             "info": false,
@@ -208,7 +207,7 @@
                 [3, "desc"]
             ],
             "ajax": {
-                "url": "{{ route('admin.customer.listf3') }}",
+                "url": "{{ route('admin.room.listf3') }}",
                 "method": "GET",
                 "data": {
                     "_token": "{{ csrf_token() }}",
@@ -257,13 +256,17 @@
                     "render": function(data, type, full) {
                         var text = ``;
                         if (data == 1) {
-                            text =
-                                `<input type="checkbox" class="custom-control-input" onclick="setStatus(${full.id})" id="switch${full.id}" switch="primary" checked />
-                                    <label for="switch${full.id}" class="custom-control-input" data-on-label="เปิด" data-off-label="ปิด"></label>`;
+                            text =`
+                                <div class="form-check form-switch d-flex justify-content-center">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="switch${full.id}" checked onchange="setStatus(${full.id})">
+                                </div>
+                                `;
                         } else {
-                            text =
-                                `<input type="checkbox" class="custom-control-input" onclick="setStatus(${full.id})" id="switch${full.id}" switch="primary"  />
-                                    <label for="switch${full.id}" class="custom-control-input" data-on-label="เปิด" data-off-label="ปิด"></label>`;
+                            text =`
+                            <div class="form-check form-switch d-flex justify-content-center">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="switch${full.id}" onchange="setStatus(${full.id})">
+                                </div>
+                            `;
                         }
                         return text;
                     }
@@ -287,4 +290,3 @@
             ],
         });
     }
-</script>

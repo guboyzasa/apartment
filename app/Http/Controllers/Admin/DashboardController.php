@@ -24,13 +24,13 @@ class DashboardController extends Controller
         $listIdF3 = StoreClear::where('is_active',1)->where('status_id',3)->get();
 
         $countV1 = StoreClear::where('is_active',1)->where('company_id',1)->sum('total_amount');
-        $online1 = StoreClear::where('is_active',1)->where('company_id',1)->count('customer_id');
+        $online1 = StoreClear::where('is_active',1)->where('company_id',1)->count('room_id');
         $countV1_1 = StoreClear::where('is_active',1)->where('company_id',1)->sum('amount1');
         $countV1_2 = StoreClear::where('is_active',1)->where('company_id',1)->sum('amount2');
         $countV1_3 = StoreClear::where('is_active',1)->where('company_id',1)->sum('amount3');
 
         $countV2 = StoreClear::where('is_active',1)->where('company_id',2)->sum('total_amount');
-        $online2 = StoreClear::where('is_active',1)->where('company_id',2)->count('customer_id');
+        $online2 = StoreClear::where('is_active',1)->where('company_id',2)->count('room_id');
         $countV2_1 = StoreClear::where('is_active',1)->where('company_id',2)->sum('amount1');
         $countV2_2 = StoreClear::where('is_active',1)->where('company_id',2)->sum('amount2');
         $countV2_3 = StoreClear::where('is_active',1)->where('company_id',2)->sum('amount3');

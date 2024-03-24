@@ -11,9 +11,9 @@ class StoreClear extends Model
     use HasFactory;
     use SoftDeletes;
     
-    public function customer()
+    public function room()
     {
-        return $this->belongsTo(Customer::class, 'customer_id', 'id')->withTrashed();
+        return $this->belongsTo(Room::class, 'room_id', 'id')->withTrashed();
     }
 
     public function company()
@@ -21,13 +21,13 @@ class StoreClear extends Model
         return $this->belongsTo(Company::class, 'company_id', 'id')->withTrashed();
     }
 
-    public function vendor()
-    {
-        return $this->belongsTo(Vendor::class, 'vendor_id', 'id')->withTrashed();
-    }
+    // public function vendor()
+    // {
+    //     return $this->belongsTo(Vendor::class, 'vendor_id', 'id')->withTrashed();
+    // }
 
-    public function youtube()
-    {
-        return $this->belongsTo(Youtube::class, 'youtube_id','id')->withTrashed();
-    }
+    // public function youtube()
+    // {
+    //     return $this->belongsTo(Youtube::class, 'youtube_id','id')->withTrashed();
+    // }
 }
