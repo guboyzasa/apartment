@@ -20,26 +20,21 @@ class VendorStoreController extends Controller
 
     public function list()
     {
-       
     }
 
     public function store(Request $req)
-    {
-       
+    {  
     }
 
     public function update(Request $req)
-    {
-       
+    {  
     }
 
     public function destroy(Request $req)
-    {
-       
+    { 
     }
 
     public function setActive(Request $req)
     {
-       
     }
 }

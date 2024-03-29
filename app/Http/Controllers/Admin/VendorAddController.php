@@ -22,73 +22,94 @@ class VendorAddController extends Controller
 
     public function store(Request $req)
     {
-        DB::beginTransaction();
+        try {
+            DB::beginTransaction();
             $detail = new Vendor;
             $detail->name = $req->name;
             $detail->code = $req->code;
             $detail->is_active = 1;
             $detail->save();
 
-        DB::commit();
-            
-        $data = [
-            'title' => 'Success!',
-            'msg' => 'เพิ่มสำเร็จ',
-            'status' => 'success',
-        ];
-    
-        return $data;
+            DB::commit();
+
+            $data = [
+                'title' => 'Success!',
+                'msg' => 'เพิ่มสำเร็จ',
+                'status' => 'success',
+            ];
+
+            return $data;
+        } catch (\Exception $e) {
+            $sMessageGroup['text'] = "** Error **" .
+                "\nError: " . $e->getMessage();
+
+            $this->telegramNotifyGroup($sMessageGroup);
+        }
     }
 
     public function update(Request $req)
     {
-        $id = $req->id;
-        $detail = Vendor::find($id);
+        try {
+            $id = $req->id;
+            $detail = Vendor::find($id);
 
-        DB::beginTransaction();
+            DB::beginTransaction();
 
-        $detail->name = $req->name;
-        $detail->code = $req->code;
-        $detail->save();
+            $detail->name = $req->name;
+            $detail->code = $req->code;
+            $detail->save();
 
-        DB::commit();
+            DB::commit();
 
-        $data = [
-            'title' => 'แก้ไขสำเร็จ!',
-            'msg' => 'แก้ไขข้อมูลสำเร็จ',
-            'status' => 'success',
-        ];
-        return $data;
+            $data = [
+                'title' => 'แก้ไขสำเร็จ!',
+                'msg' => 'แก้ไขข้อมูลสำเร็จ',
+                'status' => 'success',
+            ];
+            return $data;
+        } catch (\Exception $e) {
+            $sMessageGroup['text'] = "** Error **" .
+                "\nError: " . $e->getMessage();
+
+            $this->telegramNotifyGroup($sMessageGroup);
+        }
     }
 
     public function setActive(Request $req)
     {
-        $id = $req->id;
+        try {
+            $id = $req->id;
 
-        DB::beginTransaction();
+            DB::beginTransaction();
 
-        $status = 0;
-        $userS = Vendor::find($id);
-
-        $oldStatus = $userS->is_active;
-
-        if ($oldStatus == 1) {
             $status = 0;
-        } else {
-            $status = 1;
+            $userS = Vendor::find($id);
+
+            $oldStatus = $userS->is_active;
+
+            if ($oldStatus == 1) {
+                $status = 0;
+            } else {
+                $status = 1;
+            }
+            $userS->is_active = $status;
+            $userS->save();
+
+            DB::commit();
+
+            $data = [
+                'title' => 'สำเร็จ!',
+                'msg' => 'แก้ไขสำเร็จ',
+                'status' => 'success',
+            ];
+
+            return $data;
+        } catch (\Exception $e) {
+            $sMessageGroup['text'] = "** Error **" .
+                "\nError: " . $e->getMessage();
+
+            $this->telegramNotifyGroup($sMessageGroup);
         }
-        $userS->is_active = $status;
-        $userS->save();
-
-        DB::commit();
-
-        $data = [
-            'title' => 'สำเร็จ!',
-            'msg' => 'แก้ไขสำเร็จ',
-            'status' => 'success',
-        ];
-
-        return $data;
     }
 
     public function destroy(Request $req)
@@ -124,14 +145,7 @@ class VendorAddController extends Controller
             $sMessageGroup['text'] = "** Error **" .
                 "\nError: " . $e->getMessage();
 
-                // $this->telegramNotifyGroup($sMessageGroup);
-
-            $data = [
-                'title' => 'ผิดพลาด',
-                'msg' => 'กรุณาติดต่อผู้พัฒนา',
-                'status' => 'error',
-            ];
-            return $data;
+            $this->telegramNotifyGroup($sMessageGroup);
         }
     }
 }
