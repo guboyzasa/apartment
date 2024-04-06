@@ -70,3 +70,12 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin', 'preventBac
 Route::get('/pages-maintenance', [App\Http\Controllers\Controller::class, 'pagesmaintenance'])->name('maintenance');
 Route::get('/404', [App\Http\Controllers\Controller::class, 'pageNotFond'])->name('404');
 
+Route::get('/all-clear', function () {
+        Artisan::call('cache:clear');
+        Artisan::call('config:clear');
+        Artisan::call('route:clear');
+});
+
+Route::get('/storage-link', function () {
+        Artisan::call('storage:link');
+});
