@@ -1104,12 +1104,17 @@
                             id: id,
                         },
                         function(res) {
-                            simpleF1.ajax.reload();
-                            simpleF2.ajax.reload();
-                            simpleF3.ajax.reload();
+                            simpleF1.ajax.reload(null, false);
+                            simpleF2.ajax.reload(null, false);
+                            simpleF3.ajax.reload(null, false);
                             closeLoading();
                             // Swal.fire(res.title, res.msg, res.status);
                             // location.reload();
+                            toastr.success(res.msg, res.title, {
+                                timeOut: 3000,
+                                progressBar: true,
+                                tapToDismiss: false
+                            });
                         },
                     );
 
@@ -1129,10 +1134,15 @@
                     "id": id,
                 },
                 success: function(res) {
-                    simpleF1.ajax.reload();
-                    simpleF2.ajax.reload();
-                    simpleF3.ajax.reload();
+                    simpleF1.ajax.reload(null, false);
+                    simpleF2.ajax.reload(null, false);
+                    simpleF3.ajax.reload(null, false);
                     closeLoading();
+                    toastr.success('แก้ไขเรียบร้อย', 'แจ้งเตือน!', {
+                        timeOut: 3000,
+                        progressBar: true,
+                        tapToDismiss: false
+                    });
                 }
             });
         }
@@ -1149,7 +1159,6 @@
             }
             return x1 + x2;
         }
-
     </script>
     @include('admins.stores.showinfo')
     {{-- @include('admins.stores.checkbox') --}}

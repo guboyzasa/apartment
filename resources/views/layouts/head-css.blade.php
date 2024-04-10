@@ -20,6 +20,8 @@
 <link type="text/css" rel="stylesheet" href="{{ URL::asset('assets/css/image-uploader.min.css') }}">
 <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
 <style>
 
     .loader-load {

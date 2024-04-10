@@ -234,7 +234,7 @@
             showTableF3();
 
         });
-        
+
         @include('admins.room.showTable')
 
         //บันทึกการเพิ่มเมมเบอร์
@@ -244,7 +244,11 @@
             var code = $('#code').val();
 
             if (name == '' || name == null || code == '' || code == null || status_id == '' || status_id == null) {
-                Swal.fire('แจ้งเตือน!', 'กรุณากรอกข้อมูลให้ครบถ้วน ', 'warning');
+                toastr.warning('กรุณากรอกข้อมูลให้ครบถ้วน', 'แจ้งเดือน!', {
+                    timeOut: 3000,
+                    progressBar: true,
+                    tapToDismiss: false
+                });
             } else {
                 $.post("{{ route('admin.room.add') }}", data = {
                         _token: '{{ csrf_token() }}',
@@ -253,13 +257,17 @@
                         code: code,
                     },
                     function(res) {
-                        simpleF1.ajax.reload();
-                        simpleF2.ajax.reload();
-                        simpleF3.ajax.reload();
+                        simpleF1.ajax.reload(null, false);
+                        simpleF2.ajax.reload(null, false);
+                        simpleF3.ajax.reload(null, false);
                         // Swal.fire(res.title, res.msg, res.status);
                         // location.reload();
                         closeLoading();
-
+                        toastr.success(res.msg, res.title, {
+                            timeOut: 3000,
+                            progressBar: true,
+                            tapToDismiss: false
+                        });
                     },
                 );
             }
@@ -283,7 +291,11 @@
             var code = $('#show_code').val();
 
             if (name == '' || name == null || code == '' || code == null || status_id == '' || status_id == null) {
-                Swal.fire('แจ้งเตือน!', 'กรุณากรอกข้อมูลให้ครบถ้วน ', 'warning');
+                toastr.warning('กรุณากรอกข้อมูลให้ครบถ้วน', 'แจ้งเดือน!', {
+                    timeOut: 3000,
+                    progressBar: true,
+                    tapToDismiss: false
+                });
             } else {
                 $.post("{{ route('admin.room.update') }}", data = {
                         _token: '{{ csrf_token() }}',
@@ -293,13 +305,17 @@
                         code: code,
                     },
                     function(res) {
-                        simpleF1.ajax.reload();
-                        simpleF2.ajax.reload();
-                        simpleF3.ajax.reload();
+                        simpleF1.ajax.reload(null, false);
+                        simpleF2.ajax.reload(null, false);
+                        simpleF3.ajax.reload(null, false);
                         // Swal.fire(res.title, res.msg, res.status);
                         $('#simpleModals').modal("hide");
                         closeLoading();
-
+                        toastr.success(res.msg, res.title, {
+                            timeOut: 3000,
+                            progressBar: true,
+                            tapToDismiss: false
+                        });
                     },
                 );
             }
@@ -317,10 +333,15 @@
                     "id": id,
                 },
                 success: function(res) {
-                    simpleF1.ajax.reload();
-                    simpleF2.ajax.reload();
-                    simpleF3.ajax.reload();
+                    simpleF1.ajax.reload(null, false);
+                    simpleF2.ajax.reload(null, false);
+                    simpleF3.ajax.reload(null, false);
                     closeLoading();
+                    toastr.success('แก้ไขเรียบร้อย', 'แจ้งเตือน!', {
+                        timeOut: 3000,
+                        progressBar: true,
+                        tapToDismiss: false
+                    });
                 }
             });
         }
@@ -344,11 +365,16 @@
                             id: id,
                         },
                         function(res) {
-                            simpleF1.ajax.reload();
-                            simpleF2.ajax.reload();
-                            simpleF3.ajax.reload();
+                            simpleF1.ajax.reload(null, false);
+                            simpleF2.ajax.reload(null, false);
+                            simpleF3.ajax.reload(null, false);
                             closeLoading();
                             // Swal.fire(res.title, res.msg, res.status);
+                            toastr.success(res.msg, res.title, {
+                                timeOut: 3000,
+                                progressBar: true,
+                                tapToDismiss: false
+                            });
                         },
                     );
 

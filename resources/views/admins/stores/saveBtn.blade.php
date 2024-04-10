@@ -26,7 +26,11 @@
 
 
         if (name_id == '' || name_id == null) {
-            Swal.fire('แจ้งเตือน!', 'กรุณากรอกข้อมูลให้ครบถ้วน ', 'warning');
+            toastr.warning('กรุณากรอกข้อมูลให้ครบถ้วน', 'แจ้งเดือน!', {
+                timeOut: 3000,
+                progressBar: true,
+                tapToDismiss: false
+            });
         } else {
             $.post("{{ route('admin.store.add') }}", data = {
                     _token: '{{ csrf_token() }}',
@@ -54,13 +58,17 @@
                     unit_after3: unit_after3,
                 },
                 function(res) {
-                    simpleF1.ajax.reload();
-                    simpleF2.ajax.reload();
-                    simpleF3.ajax.reload();
-                    Swal.fire(res.title, res.msg, res.status);
+                    simpleF1.ajax.reload(null, false);
+                    simpleF2.ajax.reload(null, false);
+                    simpleF3.ajax.reload(null, false);
+                    // Swal.fire(res.title, res.msg, res.status);
                     // location.reload();
                     closeLoading();
-
+                    toastr.success(res.msg, res.title, {
+                        timeOut: 3000,
+                        progressBar: true,
+                        tapToDismiss: false
+                    });
                 },
             );
         }
@@ -94,7 +102,11 @@
 
 
         if (name_id == '' || name_id == null) {
-            Swal.fire('แจ้งเตือน!', 'กรุณากรอกข้อมูลให้ครบถ้วน ', 'warning');
+            toastr.warning('กรุณากรอกข้อมูลให้ครบถ้วน', 'แจ้งเดือน!', {
+                timeOut: 3000,
+                progressBar: true,
+                tapToDismiss: false
+            });
         } else {
             $.post("{{ route('admin.store.add') }}", data = {
                     _token: '{{ csrf_token() }}',
@@ -122,13 +134,17 @@
                     unit_after3: unit_after3,
                 },
                 function(res) {
-                    simpleF1.ajax.reload();
-                    simpleF2.ajax.reload();
-                    simpleF3.ajax.reload();
-                    Swal.fire(res.title, res.msg, res.status);
+                    simpleF1.ajax.reload(null, false);
+                    simpleF2.ajax.reload(null, false);
+                    simpleF3.ajax.reload(null, false);
+                    // Swal.fire(res.title, res.msg, res.status);
                     // location.reload();
                     closeLoading();
-
+                    toastr.success(res.msg, res.title, {
+                        timeOut: 3000,
+                        progressBar: true,
+                        tapToDismiss: false
+                    });
                 },
             );
         }
@@ -162,7 +178,11 @@
 
 
         if (name_id == '' || name_id == null) {
-            Swal.fire('แจ้งเตือน!', 'กรุณากรอกข้อมูลให้ครบถ้วน ', 'warning');
+            toastr.warning('กรุณากรอกข้อมูลให้ครบถ้วน', 'แจ้งเดือน!', {
+                timeOut: 3000,
+                progressBar: true,
+                tapToDismiss: false
+            });
         } else {
             $.post("{{ route('admin.store.add') }}", data = {
                     _token: '{{ csrf_token() }}',
@@ -190,13 +210,17 @@
                     unit_after3: unit_after3,
                 },
                 function(res) {
-                    simpleF1.ajax.reload();
-                    simpleF2.ajax.reload();
-                    simpleF3.ajax.reload();
-                    Swal.fire(res.title, res.msg, res.status);
+                    simpleF1.ajax.reload(null, false);
+                    simpleF2.ajax.reload(null, false);
+                    simpleF3.ajax.reload(null, false);
+                    // Swal.fire(res.title, res.msg, res.status);
                     // location.reload();
                     closeLoading();
-
+                    toastr.success(res.msg, res.title, {
+                        timeOut: 3000,
+                        progressBar: true,
+                        tapToDismiss: false
+                    });
                 },
             );
         }

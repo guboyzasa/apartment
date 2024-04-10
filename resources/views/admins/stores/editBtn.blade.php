@@ -25,7 +25,11 @@
             var unit_after3 = $('#show_unit_after3').val();
 
             if (name_id == '' || name_id == null) {
-                Swal.fire('แจ้งเตือน!', 'กรุณากรอกข้อมูลให้ครบถ้วน ', 'warning');
+                toastr.warning('กรุณากรอกข้อมูลให้ครบถ้วน', 'แจ้งเดือน!', {
+                    timeOut: 3000,
+                    progressBar: true,
+                    tapToDismiss: false
+                });
             } else {
                 $.post("{{ route('admin.store.update') }}", data = {
                         _token: '{{ csrf_token() }}',
@@ -55,14 +59,18 @@
 
                     },
                     function(res) {
-                        simpleF1.ajax.reload();
-                        simpleF2.ajax.reload();
-                        simpleF3.ajax.reload();
+                        simpleF1.ajax.reload(null, false);
+                        simpleF2.ajax.reload(null, false);
+                        simpleF3.ajax.reload(null, false);
                         // Swal.fire(res.title, res.msg, res.status);
                         $('#simpleModalF1').modal("hide");
                         // location.reload();
                         closeLoading();
-
+                        toastr.success(res.msg, res.title, {
+                            timeOut: 3000,
+                            progressBar: true,
+                            tapToDismiss: false
+                        });
                     },
                 );
             }
@@ -95,7 +103,11 @@
             var unit_after3 = $('#show_unit_after3_f2').val();
 
             if (name_id == '' || name_id == null) {
-                Swal.fire('แจ้งเตือน!', 'กรุณากรอกข้อมูลให้ครบถ้วน ', 'warning');
+                toastr.warning('กรุณากรอกข้อมูลให้ครบถ้วน', 'แจ้งเดือน!', {
+                    timeOut: 3000,
+                    progressBar: true,
+                    tapToDismiss: false
+                });
             } else {
                 $.post("{{ route('admin.store.update') }}", data = {
                         _token: '{{ csrf_token() }}',
@@ -125,14 +137,18 @@
 
                     },
                     function(res) {
-                        simpleF1.ajax.reload();
-                        simpleF2.ajax.reload();
-                        simpleF3.ajax.reload();
+                        simpleF1.ajax.reload(null, false);
+                        simpleF2.ajax.reload(null, false);
+                        simpleF3.ajax.reload(null, false);
                         // Swal.fire(res.title, res.msg, res.status);
                         $('#simpleModalF2').modal("hide");
                         // location.reload();
                         closeLoading();
-
+                        toastr.success(res.msg, res.title, {
+                            timeOut: 3000,
+                            progressBar: true,
+                            tapToDismiss: false
+                        });
                     },
                 );
             }
@@ -165,7 +181,11 @@
             var unit_after3 = $('#show_unit_after3_f3').val();
 
             if (name_id == '' || name_id == null) {
-                Swal.fire('แจ้งเตือน!', 'กรุณากรอกข้อมูลให้ครบถ้วน ', 'warning');
+                toastr.warning('กรุณากรอกข้อมูลให้ครบถ้วน', 'แจ้งเดือน!', {
+                    timeOut: 3000,
+                    progressBar: true,
+                    tapToDismiss: false
+                });
             } else {
                 $.post("{{ route('admin.store.update') }}", data = {
                         _token: '{{ csrf_token() }}',
@@ -195,14 +215,18 @@
 
                     },
                     function(res) {
-                        simpleF1.ajax.reload();
-                        simpleF2.ajax.reload();
-                        simpleF3.ajax.reload();
+                        simpleF1.ajax.reload(null, false);
+                        simpleF2.ajax.reload(null, false);
+                        simpleF3.ajax.reload(null, false);
                         // Swal.fire(res.title, res.msg, res.status);
                         $('#simpleModalF3').modal("hide");
                         // location.reload();
                         closeLoading();
-
+                        toastr.success(res.msg, res.title, {
+                            timeOut: 3000,
+                            progressBar: true,
+                            tapToDismiss: false
+                        });
                     },
                 );
             }

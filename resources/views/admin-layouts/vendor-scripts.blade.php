@@ -42,6 +42,8 @@
 
 <script src="{{ URL::asset('/assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
 <script>
     openLoading = () => {
         $('body').prepend(`
@@ -74,12 +76,24 @@
             var passwordConfirm = $('#password-confirm').val();
    
             if(password == '' || password == null || passwordConfirm == '' || passwordConfirm == null ){
-                Swal.fire('ผิดพลาด!', 'กรุณากรอกข้อมูลให้ครบถ้วน', 'warning');
+                toastr.warning('กรุณากรอกข้อมูลให้ครบถ้วน', 'แจ้งเดือน!', {
+                    timeOut: 3000,
+                    progressBar: true,
+                    tapToDismiss: false
+                });
             }else{
                 if(password != passwordConfirm){
-                    Swal.fire('ผิดพลาด!', 'กรุณากรอกรหัสผ่านให้เหมือนกัน', 'warning');
+                    toastr.warning('กรุณากรอกรหัสผ่านให้เหมือนกัน', 'แจ้งเดือน!', {
+                    timeOut: 3000,
+                    progressBar: true,
+                    tapToDismiss: false
+                });
                 }else if(password.length < 8){
-                     Swal.fire('ผิดพลาด!', 'รหัสผ่านต้องมี 8 ตัวขึ้นไป', 'warning');
+                     toastr.warning('รหัสผ่านต้องมี 8 ตัวขึ้นไป', 'แจ้งเดือน!', {
+                    timeOut: 3000,
+                    progressBar: true,
+                    tapToDismiss: false
+                });
                 }else{
                     openLoading();
                     $.ajax({
@@ -90,10 +104,13 @@
                         contentType: false,
                         data: formData,
                         success: function (res) {
-                            Swal.fire(res.title, res.msg, res.status);
                             closeLoading();
                             $('.change-password').modal('hide')
-
+                            toastr.success(res.msg, res.title, {
+                            timeOut: 3000,
+                            progressBar: true,
+                            tapToDismiss: false
+                        });
                         }
                     });
                 }
