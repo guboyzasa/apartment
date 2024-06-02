@@ -190,8 +190,8 @@
                                                     {{ $detail->list7 }}</td>
                                                 <td class="text-start" style="border-color: black" colspan="3">
                                                     {{ $detail->price_unit7 }}</td>
-                                                    <td class="text-center" style="border-color: black">
-                                                        {{ number_format($detail->amount8) }}</td>
+                                                <td class="text-center" style="border-color: black">
+                                                    {{ number_format($detail->amount8) }}</td>
                                             </tr>
                                             {{-- @endif --}}
                                             <tr>
@@ -210,6 +210,14 @@
                                             </tr>
                                         </tbody>
                                     </table>
+                                    <td style="border-color: black">
+                                        <strong class="b">ช่องทางชำระ > พร้อมเพย์ :</strong> 083-361-4367 เจษฎา
+                                            วันเทาแก้ว<br>
+                                            <strong class="b">บัญชี ธ.กรุงไทย :</strong> 424-1-35308-8
+                                            เจษฎา
+                                            วันเทาแก้ว
+                                        </p>
+                                    </td>
                                     <div class="font-size-16 b">
                                         <b>ผู้รับ</b>
                                         ............................................................................
