@@ -47,6 +47,14 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin', 'preventBac
         Route::post('/add-room/destroy', [App\Http\Controllers\Admin\AddRoomController::class, 'destroy'])->name('room.destroy');
         Route::post('/add-room/update', [App\Http\Controllers\Admin\AddRoomController::class, 'update'])->name('room.update');
 
+        Route::get('/add-room-charge', [App\Http\Controllers\Admin\AddRoomChargeController::class, 'index'])->name('room-charge.index');
+        Route::get('/add-room-charge/list', [App\Http\Controllers\Admin\AddRoomChargeController::class, 'list'])->name('room-charge.list');
+        Route::post('/add-room-charge/add', [App\Http\Controllers\Admin\AddRoomChargeController::class, 'store'])->name('room-charge.add');
+        Route::post('/add-room-charge/set-active', [App\Http\Controllers\Admin\AddRoomChargeController::class, 'setActive'])->name('room-charge.set-active');
+        Route::post('/add-room-charge/destroy', [App\Http\Controllers\Admin\AddRoomChargeController::class, 'destroy'])->name('room-charge.destroy');
+        Route::post('/add-room-charge/update', [App\Http\Controllers\Admin\AddRoomChargeController::class, 'update'])->name('room-charge.update');
+
+
         Route::get('/store', [App\Http\Controllers\Admin\StoreController::class, 'index'])->name('store.index');
         Route::get('/store/listf1', [App\Http\Controllers\Admin\StoreController::class, 'listF1'])->name('store.listf1');
         Route::get('/store/listf2', [App\Http\Controllers\Admin\StoreController::class, 'listF2'])->name('store.listf2');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Room;
+use App\Models\RoomCharge;
 use App\Models\Vendor;
 use App\Models\Company;
 use App\Models\Status;
@@ -22,8 +23,9 @@ class StoreController extends Controller
 
         $status = Status::where('is_active', 1)->get();
         $company = Company::where('is_active', 1)->get();
+        $prices = RoomCharge::where('is_active', 1)->get();
 
-        return view('admins.stores.index', compact('cusOne', 'cusTwo', 'company', 'status', 'cusTree'));
+        return view('admins.stores.index', compact('cusOne', 'cusTwo', 'company', 'status', 'cusTree','prices'));
     }
 
     public function listF1()

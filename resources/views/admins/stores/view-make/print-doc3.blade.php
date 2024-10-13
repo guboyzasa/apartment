@@ -107,7 +107,7 @@
                                 <span class="text-muted float-end">* ชำระไม่เกินวันที่ 5 ของทุกเดือน</span>
 
                                 <div class="table-responsive mt-3">
-                                    <table class="table table-bordered dt-responsive nowrap w-100">
+                                    <table class="table table-sm table-bordered dt-responsive nowrap w-100">
                                         <tr class="text-center">
                                             <th class="b" style="border-color: black">#</th>
                                             <th class="b" style="border-color: black">รายการ</th>

@@ -91,13 +91,18 @@
                                                     value="ค่าห้อง" name="list1" placeholder="ค่าห้อง">
                                             </td>
                                             <td>
-                                                <select name="price_unit1" id="price_unit1" class="form-control">
+                                                {{-- <select name="price_unit1" id="price_unit1" class="form-control">
                                                     <option value="1500">1500</option>
                                                     <option value="1800">1800</option>
                                                     <option value="2000">2000</option>
                                                     <option value="2300">2300</option>
                                                     <option value="2500">2500</option>
                                                     <option value="2900">2900</option>
+                                                </select> --}}
+                                                <select name="price_unit1" id="price_unit1" class="form-control">
+                                                    @foreach ($prices as $price)
+                                                        <option value="{{$price->name}}">{{$price->name}}</option>
+                                                    @endforeach
                                                 </select>
                                             </td>
                                             <td colspan="2"></td>
@@ -242,13 +247,18 @@
                                                     value="ค่าห้อง" name="list1" placeholder="ค่าห้อง">
                                             </td>
                                             <td>
-                                                <select name="price_unit1" id="price_unit1_f2" class="form-control">
+                                                {{-- <select name="price_unit1" id="price_unit1_f2" class="form-control">
                                                     <option value="1500">1500</option>
                                                     <option value="1800">1800</option>
                                                     <option value="2000">2000</option>
                                                     <option value="2300">2300</option>
                                                     <option value="2500">2500</option>
                                                     <option value="2900">2900</option>
+                                                </select> --}}
+                                                <select name="price_unit1" id="price_unit1_f2" class="form-control">
+                                                    @foreach ($prices as $price)
+                                                        <option value="{{$price->name}}">{{$price->name}}</option>
+                                                    @endforeach
                                                 </select>
                                             </td>
                                             <td colspan="2"></td>
@@ -391,13 +401,18 @@
                                                     value="ค่าห้อง" name="list1" placeholder="ค่าห้อง">
                                             </td>
                                             <td>
-                                                <select name="price_unit1" id="price_unit1_f3" class="form-control">
+                                                {{-- <select name="price_unit1" id="price_unit1_f3" class="form-control">
                                                     <option value="1500">1500</option>
                                                     <option value="1800">1800</option>
                                                     <option value="2000">2000</option>
                                                     <option value="2300">2300</option>
                                                     <option value="2500">2500</option>
                                                     <option value="2900">2900</option>
+                                                </select> --}}
+                                                <select name="price_unit1" id="price_unit1_f3" class="form-control">
+                                                    @foreach ($prices as $price)
+                                                        <option value="{{$price->name}}">{{$price->name}}</option>
+                                                    @endforeach
                                                 </select>
                                             </td>
                                             <td colspan="2"></td>

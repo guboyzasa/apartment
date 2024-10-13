@@ -30,6 +30,13 @@
                     </a>
                 </li>
 
+                <li>
+                    <a href="{{ route('admin.room-charge.index') }}" class="waves-effect">
+                        <i class='bx bx-group'></i>
+                        <span key="t-company"> Room Charge </span>
+                    </a>
+                </li>
+
             </ul>
         </div>
         <!-- Sidebar -->
