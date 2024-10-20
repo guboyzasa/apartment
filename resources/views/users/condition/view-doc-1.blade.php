@@ -1,6 +1,6 @@
-@if ($customer->company_id == 1)
+@if ($customer->company_id)
     @include('admin-layouts.head-css')
-    <title>สัญญาเช่าห้อง {{ $customer->room_number }} - {{ $frd->name }}</title>
+    <title>สัญญาเช่าห้อง {{ $customer->room_number }} - {{ $company->name }}</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200&display=swap');
 
@@ -80,20 +80,20 @@
                     <div class="card-body">
                         <div class="text-center" style="display: flex; justify-content: space-between;">
                             <div style="margin: auto;">
-                                <p class="text-dark font-size-20 b"><b>สัญญาเช่า<br>{{ $frd->name }}</b>
+                                <p class="text-dark font-size-20 b"><b>สัญญาเช่า<br>{{ $company->name }}</b>
                                 </p>
                             </div>
                         </div>
                         <div class="">
                             <h4 class="float-end font-size-16">
-                                ทำที่...{{ $frd->address }}...<br>วันที่...<?php echo date('d/m/Y'); ?>...</h4>
+                                ทำที่...{{ $company->address }}...<br>วันที่...<?php echo date('d/m/Y'); ?>...</h4>
                         </div>
 
                         <div class="mt-5">
                             <span class="text-dark font-size-16">
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;สัญญาเช่าฉบับนี้ทำขึ้นระหว่าง&nbsp;<b
-                                    class="b">{{ $frd->name }}</b>&nbsp;โดย&nbsp;<b
-                                    class="b">{{ $frd->name_owner }} </b>ซึ่งต่อไปในสัญญานี้จะเรียก&nbsp;<b
+                                    class="b">{{ $company->name }}</b>&nbsp;โดย&nbsp;<b
+                                    class="b">{{ $company->name_owner }} </b>ซึ่งต่อไปในสัญญานี้จะเรียก&nbsp;<b
                                     class="b">“ผู้ให้เช่า”</b>&nbsp;ฝ่ายหนึ่ง กับ
                             </span>
                             <table class="table table-sm table-borderless">
@@ -134,13 +134,13 @@
 
                         </div>
                         <div class="mt-0" id="doc-image">
-                            @if ($info->isEmpty())
+                            @if ($condition->isEmpty())
                                 <p>No active conditions found.</p>
                             @else
-                                @foreach ($info as $condition)
+                                @foreach ($condition as $conditions)
                                     <span class="text-dark font-size-14">
-                                        <b class="b">{{ $condition->point }}.
-                                        </b>&nbsp;{{ $condition->info }}
+                                        <b class="b">{{ $conditions->point }}.
+                                        </b>&nbsp;{{ $conditions->info }}
                                     </span><br>
                                 @endforeach
                             @endif
@@ -170,7 +170,7 @@
                                 <tr>
                                     <th></th>
                                     <th style="text-align: center">
-                                        ลงชื่อ.........................................................................................ผู้ให้เช่า<br>(&nbsp;&nbsp;{{ $frd->name_owner }}&nbsp;&nbsp;)
+                                        ลงชื่อ.........................................................................................ผู้ให้เช่า<br>(&nbsp;&nbsp;{{ $company->name_owner }}&nbsp;&nbsp;)
                                     </th>
                                     <th></th>
                                 </tr>

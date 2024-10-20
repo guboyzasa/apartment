@@ -3,7 +3,6 @@
         <div class="row">
             <div class="col-sm-6">
                 <script>document.write(new Date().getFullYear())</script> © Apartment.
-
             </div>
             <div class="col-sm-6">
             </div>

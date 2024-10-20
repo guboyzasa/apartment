@@ -14,7 +14,7 @@
                                                                 } */
 
         .page {
-            background: rgb(255, 255, 255);
+            /* background: rgb(255, 255, 255); */
             /* width: 29.7cm; */
             /* height: auto; */
             /* display: block; */
@@ -70,7 +70,7 @@
         }
     </style>
 @endsection
-@if ($company && $company->id === 2)
+@if ($company && $company->id)
     @section('content')
         <div class="page">
             <div class="container-xxl">
@@ -340,7 +340,7 @@
                     tapToDismiss: false
                 });
             } else {
-                $.post("{{ route('condition-wtk.store') }}", data = {
+                $.post("{{ route('condition.store') }}", data = {
                         _token: '{{ csrf_token() }}',
                         CompanyID: CompanyID,
                         inputRoomID: inputRoomID,
@@ -364,7 +364,7 @@
                         imgbase64: imgbase64
                     },
                     function(res) {
-                        window.location.href = `/list-condition-wtk/view-doc-1/${res.id}`;
+                        window.location.href = `/list-condition/view-doc-1/${res.id}`;
                         closeLoading();
                         toastr.success(res.msg, res.title, {
                             timeOut: 3000,
@@ -380,7 +380,7 @@
         $("#inputPhone").keyup(function() {
             // console.log('OK');
             if ($(this).val().length == 10) {
-                $.post("{{ route('condition-wtk.check-phone') }}",
+                $.post("{{ route('condition.check-phone') }}",
                     data = {
                         _token: '{{ csrf_token() }}',
                         text: $(this).val(),
@@ -399,7 +399,7 @@
         $("#inputpersonal_code").keyup(function() {
             // console.log('OK');
             if ($(this).val().length == 13) {
-                $.post("{{ route('condition-wtk.check-personal') }}",
+                $.post("{{ route('condition.check-personal') }}",
                     data = {
                         _token: '{{ csrf_token() }}',
                         text: $(this).val(),

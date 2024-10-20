@@ -13,22 +13,26 @@ use Illuminate\Support\Facades\View;
 
 class RegisterCondition extends Controller
 {
-
-    public function frd()
+    public function index()
     {
-        $company = Company::where('id', 1)->where('is_active', 1)->first();
+        return view('users.index');
+    }
+
+    public function condition($id)
+    {
+        $company = Company::where('id', $id)->where('is_active', 1)->first();
         $condition = Condition::where('is_active', 1)->get();
 
         $cusOne = Room::where('status_id', 1)->where('is_active', 1)->get();
         $cusTwo = Room::where('status_id', 2)->where('is_active', 1)->get();
         $cusTree = Room::where('status_id', 3)->where('is_active', 1)->get();
-        return view('users.frd.index', compact('company', 'condition', 'cusOne', 'cusTwo', 'cusTree'));
+        return view('users.condition.index', compact('company', 'condition', 'cusOne', 'cusTwo', 'cusTree'));
     }
 
-    public function viewListDocFRD($id)
+    public function viewListDoc($id)
     {
-        $frd = Company::where('id', 1)->where('is_active', 1)->first();
-        $info = Condition::where('is_active', 1)->get();
+        $company = Company::where('id', $id)->where('is_active', 1)->first();
+        $condition = Condition::where('is_active', 1)->get();
 
         $cusOne = Room::where('status_id', 1)->where('is_active', 1)->get();
         $cusTwo = Room::where('status_id', 2)->where('is_active', 1)->get();
@@ -36,32 +40,7 @@ class RegisterCondition extends Controller
 
         $customer = Customer::find($id);
 
-        return view('users.frd.view-doc-1', compact('frd', 'info', 'cusOne', 'cusTwo', 'cusTree','customer'));
-    }
-
-    public function wtk()
-    {
-        $company = Company::where('id', 2)->where('is_active', 1)->first();
-        $condition = Condition::where('is_active', 1)->get();
-
-        $cusOne = Room::where('status_id', 1)->where('is_active', 1)->get();
-        $cusTwo = Room::where('status_id', 2)->where('is_active', 1)->get();
-        $cusTree = Room::where('status_id', 3)->where('is_active', 1)->get();
-        return view('users.wtk.index', compact('company', 'condition', 'cusOne', 'cusTwo', 'cusTree'));
-    }
-
-    public function viewListDocWTK($id)
-    {
-        $wtk = Company::where('id', 2)->where('is_active', 1)->first();
-        $info = Condition::where('is_active', 1)->get();
-
-        $cusOne = Room::where('status_id', 1)->where('is_active', 1)->get();
-        $cusTwo = Room::where('status_id', 2)->where('is_active', 1)->get();
-        $cusTree = Room::where('status_id', 3)->where('is_active', 1)->get();
-
-        $customer = Customer::find($id);
-
-        return view('users.wtk.view-doc-1', compact('wtk', 'info', 'cusOne', 'cusTwo', 'cusTree','customer'));
+        return view('users.condition.view-doc-1', compact('company', 'condition', 'cusOne', 'cusTwo', 'cusTree','customer'));
     }
 
     public function checkPhone(Request $req)

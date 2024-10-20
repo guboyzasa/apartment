@@ -78,17 +78,13 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin', 'preventBac
 Route::get('/pages-maintenance', [App\Http\Controllers\Controller::class, 'pagesmaintenance'])->name('maintenance');
 Route::get('/404', [App\Http\Controllers\Controller::class, 'pageNotFond'])->name('404');
 
-Route::get('/list-condition-frd', [App\Http\Controllers\User\RegisterCondition::class, 'frd'])->name('condition-frd.list-condition');
-Route::post('/list-condition-frd/store/add', [App\Http\Controllers\User\RegisterCondition::class, 'store'])->name('condition-frd.store');
-Route::post('/list-condition-frd/check-phone', [App\Http\Controllers\User\RegisterCondition::class, 'checkPhone'])->name('condition-frd.check-phone');
-Route::post('/list-condition-frd/check-personal', [App\Http\Controllers\User\RegisterCondition::class, 'checkPersonal'])->name('condition-frd.check-personal');
-Route::get('/list-condition-frd/view-doc-1/{id}', [App\Http\Controllers\User\RegisterCondition::class, 'viewListDocFRD'])->name('condition-frd.view-doc-1');
+Route::get('/list-condition', [App\Http\Controllers\User\RegisterCondition::class, 'index'])->name('condition');
+Route::get('/list-condition/{id}', [App\Http\Controllers\User\RegisterCondition::class, 'condition'])->name('condition-list');
+Route::get('/list-condition/view-doc-1/{id}', [App\Http\Controllers\User\RegisterCondition::class, 'viewListDoc'])->name('condition.view-doc-1');
 
-Route::get('/list-condition-wtk', [App\Http\Controllers\User\RegisterCondition::class, 'wtk'])->name('condition-wtk.list-condition');
-Route::post('/list-condition-wtk/store/add', [App\Http\Controllers\User\RegisterCondition::class, 'store'])->name('condition-wtk.store');
-Route::post('/list-condition-wtk/check-phone', [App\Http\Controllers\User\RegisterCondition::class, 'checkPhone'])->name('condition-wtk.check-phone');
-Route::post('/list-condition-wtk/check-personal', [App\Http\Controllers\User\RegisterCondition::class, 'checkPersonal'])->name('condition-wtk.check-personal');
-Route::get('/list-condition-wtk/view-doc-1/{id}', [App\Http\Controllers\User\RegisterCondition::class, 'viewListDocWTK'])->name('condition-wtk.view-doc-1');
+Route::post('/list-condition/store/add', [App\Http\Controllers\User\RegisterCondition::class, 'store'])->name('condition.store');
+Route::post('/list-condition/check-phone', [App\Http\Controllers\User\RegisterCondition::class, 'checkPhone'])->name('condition.check-phone');
+Route::post('/list-condition/check-personal', [App\Http\Controllers\User\RegisterCondition::class, 'checkPersonal'])->name('condition.check-personal');
 
 
 Route::get('/all-clear', function () {
