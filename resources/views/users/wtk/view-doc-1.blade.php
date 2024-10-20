@@ -73,86 +73,112 @@
         }
     </style>
 
-    <div id="doc-image">
-        <div class="row">
-            <div class="page mt-2 mb-2">
-                <div class="row">
-                    <div class="col-md-12 mb-0">
-                        <div class="card-body">
-                            <div class="text-center" style="display: flex; justify-content: space-between;">
-                                <div style="margin: auto;">
-                                    <p class="text-dark font-size-24 b"><b>สัญญาเช่า<br>{{ $wtk->name }}</b>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="">
-                                <h4 class="float-end font-size-16">
-                                    ทำที่...{{ $wtk->address }}...<br>วันที่...<?php echo date('d/m/Y'); ?>...</h4>
-                            </div>
-
-                            <div class="mt-5">
-                                <span class="text-dark font-size-16">
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;สัญญาเช่าฉบับนี้ทำขึ้นระหว่าง&nbsp;<b
-                                        class="b">{{ $wtk->name }}</b>&nbsp;โดย&nbsp;<b
-                                        class="b">{{ $wtk->name_owner }} </b>ซึ่งต่อไปในสัญญานี้จะเรียก&nbsp;<b
-                                        class="b">“ผู้ให้เช่า”</b>&nbsp;ฝ่ายหนึ่ง กับ
-                                </span>
-                                <span class="text-dark font-size-16">
-                                    นาย/นาง/นางสาว.............{{ $customer->name }}&nbsp;{{ $customer->lastname }}.............อยู่บ้านเลขที่.............{{ $customer->address1 }}.............หมู่.............{{ $customer->address2 }}.............<br>ซอย.............{{ $customer->address3 }}.............ถนน.............{{ $customer->address4 }}.............แขวง/ตำบล.............{{ $customer->address5 }}.............
-                                    อำเภอ.............{{ $customer->address6 }}.............<br>จังหวัด.............{{ $customer->address7 }}.............ถือบัตรประจำตัวประชาชนเลขที่.............{{ $customer->personal_code }}.............<br>โทรศัพท์.............{{ $customer->phone }}.............ได้ทำการเช่าพักในวันที่.............{{ $customer->created_at->format('d/m/Y') }}.............ห้อง.............{{ $customer->room_number }}.............และได้ชำระค่าเช่า/ค่าประกันล่วงหน้าเป็นจำนวนเงิน.............{{ number_format($customer->payment) }}.............บาท
-                                    ซึ่งต่อไปสัญญาจะเรียกว่า”ผู้เช่า”อีกฝ่ายหนึ่ง
-                                    คู่สัญญาทั้งสองฝ่ายตกลงทำสัญญากันโดยมีเงื่อนไขและรายละเอียดดังต่อไปนี้
-                                </span>
-                            </div>
-
-                            <div class="mt-1">
-                                @if ($info->isEmpty())
-                                    <p>No active conditions found.</p>
-                                @else
-                                    @foreach ($info as $condition)
-                                        <span class="text-dark font-size-14">
-                                            <b class="b">{{ $condition->point }}.
-                                            </b>&nbsp;{{ $condition->info }}
-                                        </span><br>
-                                    @endforeach
-                                @endif
-                            </div>
-
-                            <div class="mt-2 mb-3 text-center">
-                                <img src="{{ asset($customer->img) }}" alt="รูปบัตรประชาชน" width="300px"
-                                    height="180px">
-                            </div>
-
-
-                            <div class="container-md">
-                                <table class="table-sm table-borderless" style="width:100%">
-                                    <tr>
-                                        <th style="text-align: center">
-                                            ลงชื่อ.........................................................................................ผู้เช่า<br>(&nbsp;&nbsp;{{ $customer->name }}&nbsp;{{ $customer->lastname }}&nbsp;&nbsp;)<br>โทร:{{ $customer->phone }}
-                                        </th>
-                                        <th></th>
-                                        <th style="text-align: center">
-                                            ลงชื่อ.........................................................................................พยาน<br>(&nbsp;&nbsp;&nbsp;{{ $customer->nickname2 }}&nbsp;&nbsp;&nbsp;)<br>โทร:{{ $customer->phone2 }}
-                                        </th>
-                                    </tr>
-                                </table>
-                            </div>
-
-                            <div class="container-md mt-1">
-                                <table class="table-sm table-borderless" style="width:100%">
-                                    <tr>
-                                        <th></th>
-                                        <th style="text-align: center">
-                                            ลงชื่อ.........................................................................................ผู้ให้เช่า<br>(&nbsp;&nbsp;{{ $wtk->name_owner }}&nbsp;&nbsp;)
-                                        </th>
-                                        <th></th>
-                                    </tr>
-                                </table>
+    <div class="row">
+        <div class="page mt-2 mb-2">
+            <div class="row">
+                <div class="col-md-12 mb-0">
+                    <div class="card-body">
+                        <div class="text-center" style="display: flex; justify-content: space-between;">
+                            <div style="margin: auto;">
+                                <p class="text-dark font-size-20 b"><b>สัญญาเช่า<br>{{ $wtk->name }}</b>
+                                </p>
                             </div>
                         </div>
-                    </div>
+                        <div class="">
+                            <h4 class="float-end font-size-16">
+                                ทำที่...{{ $wtk->address }}...<br>วันที่...<?php echo date('d/m/Y'); ?>...</h4>
+                        </div>
 
+                        <div class="mt-5">
+                            <span class="text-dark font-size-16">
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;สัญญาเช่าฉบับนี้ทำขึ้นระหว่าง&nbsp;<b
+                                    class="b">{{ $wtk->name }}</b>&nbsp;โดย&nbsp;<b
+                                    class="b">{{ $wtk->name_owner }} </b>ซึ่งต่อไปในสัญญานี้จะเรียก&nbsp;<b
+                                    class="b">“ผู้ให้เช่า”</b>&nbsp;ฝ่ายหนึ่ง กับ
+                            </span>
+                            <table class="table table-sm table-borderless">
+                                <tbody>
+                                    <tr>
+                                        <th style="width: 25%">ชื่อ-นามสกุล</th>
+                                        <td>{{ $customer->name }} {{ $customer->lastname }} </td>
+                                        <th>โทรศัพท์</th>
+                                        <td>{{ $customer->phone }}</td>
+                                        <th>ห้อง</th>
+                                        <td>{{ $customer->room_number }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width: 25%">บัตรประจำตัวประชาชน</th>
+                                        <td>{{ $customer->personal_code }}</td>
+                                        <th>วันที่เช่าพัก</th>
+                                        <td colspan="3">{{ $customer->created_at->format('d/m/Y') }}</td>
+
+                                    </tr>
+                                    <tr>
+                                        <th>จำนวนเงินที่ชำระล่วงหน้า</th>
+                                        <td>{{ number_format($customer->payment) }} บาท</td>
+                                        <th>สถานะ</th>
+                                        <td class="text-danger" colspan="3">"ผู้เช่า"</td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width: 25%">ที่อยู่</th>
+                                        <td colspan="5">
+                                            บ้านเลขที่ {{ $customer->address1 }} หมู่ {{ $customer->address2 }}
+                                            ซอย {{ $customer->address3 }} ถนน {{ $customer->address4 }}
+                                            แขวง/ตำบล {{ $customer->address5 }} อำเภอ {{ $customer->address6 }}
+                                            จังหวัด {{ $customer->address7 }} {{ $customer->zipcode }}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        <b class="font-size-14">คู่สัญญาทั้งสองฝ่ายตกลงทำสัญญากันโดยมีเงื่อนไขและรายละเอียดดังต่อไปนี้</b>
+
+                        </div>
+                        <div class="mt-0" id="doc-image">
+                            @if ($info->isEmpty())
+                                <p>No active conditions found.</p>
+                            @else
+                                @foreach ($info as $condition)
+                                    <span class="text-dark font-size-14">
+                                        <b class="b">{{ $condition->point }}.
+                                        </b>&nbsp;{{ $condition->info }}
+                                    </span><br>
+                                @endforeach
+                            @endif
+                        </div>
+
+                        <div class="mt-2 mb-3 text-center">
+                            <img src="{{ asset($customer->img) }}" alt="รูปบัตรประชาชน" width="270px" height="150px">
+                        </div>
+
+
+                        <div class="container-md">
+                            <table class="table-sm table-borderless" style="width:100%">
+                                <tr>
+                                    <th style="text-align: center">
+                                        ลงชื่อ.........................................................................................ผู้เช่า<br>(&nbsp;&nbsp;{{ $customer->name }}&nbsp;{{ $customer->lastname }}&nbsp;&nbsp;)<br>โทร:{{ $customer->phone }}
+                                    </th>
+                                    <th></th>
+                                    <th style="text-align: center">
+                                        ลงชื่อ.........................................................................................พยาน<br>(&nbsp;&nbsp;&nbsp;{{ $customer->nickname2 }}&nbsp;&nbsp;&nbsp;)<br>โทร:{{ $customer->phone2 }}
+                                    </th>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="container-md mt-1">
+                            <table class="table-sm table-borderless" style="width:100%">
+                                <tr>
+                                    <th></th>
+                                    <th style="text-align: center">
+                                        ลงชื่อ.........................................................................................ผู้ให้เช่า<br>(&nbsp;&nbsp;{{ $wtk->name_owner }}&nbsp;&nbsp;)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>
