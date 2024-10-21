@@ -1,4 +1,4 @@
-@if ($customer->company_id)
+@if (isset($customer) && isset($company) && $customer->company_id)
     @include('admin-layouts.head-css')
     <title>สัญญาเช่าห้อง {{ $customer->room_number }} - {{ $company->name }}</title>
     <style>
@@ -71,6 +71,43 @@
                 zoom: .9;
             }
         }
+
+        .image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .watermarked-image {
+            width: 270px;
+            height: 150px;
+            /* object-fit: cover; */
+            /* ปรับให้รูปไม่ยืดเบี้ยว */
+        }
+
+        .watermark-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            /* จัดให้อยู่ตรงกลางและหมุน */
+            color: rgba(255, 255, 255, 1);
+            /* สีดำโปร่งใส */
+            font-size: 24px;
+            /* ขนาดตัวอักษร */
+            font-weight: 900;
+            /* น้ำหนักตัวอักษรหนามาก */
+            white-space: nowrap;
+            pointer-events: none;
+            /* ไม่ให้บังการคลิก */
+            /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); */
+            /* เพิ่มเงาให้ชัด */
+        }
     </style>
 
     <div class="row">
@@ -80,7 +117,7 @@
                     <div class="card-body">
                         <div class="text-center" style="display: flex; justify-content: space-between;">
                             <div style="margin: auto;">
-                                <p class="text-dark font-size-20 b"><b>สัญญาเช่า<br>{{ $company->name }}</b>
+                                <p class="text-dark font-size-24 b"><b>สัญญาเช่า<br>{{ $company->name }}</b>
                                 </p>
                             </div>
                         </div>
@@ -96,10 +133,11 @@
                                     class="b">{{ $company->name_owner }} </b>ซึ่งต่อไปในสัญญานี้จะเรียก&nbsp;<b
                                     class="b">“ผู้ให้เช่า”</b>&nbsp;ฝ่ายหนึ่ง กับ
                             </span>
-                            <table class="table table-sm table-borderless">
+                            {{-- table-borderless --}}
+                            <table class="table table-sm table-striped table-bordered">
                                 <tbody>
                                     <tr>
-                                        <th style="width: 25%">ชื่อ-นามสกุล</th>
+                                        <th style="width: 22%">ชื่อ-นามสกุล</th>
                                         <td>{{ $customer->name }} {{ $customer->lastname }} </td>
                                         <th>โทรศัพท์</th>
                                         <td>{{ $customer->phone }}</td>
@@ -107,33 +145,58 @@
                                         <td>{{ $customer->room_number }}</td>
                                     </tr>
                                     <tr>
-                                        <th style="width: 25%">บัตรประจำตัวประชาชน</th>
+                                        <th style="width: 22%">บัตรประจำตัวประชาชน</th>
                                         <td>{{ $customer->personal_code }}</td>
                                         <th>วันที่เช่าพัก</th>
-                                        <td colspan="3">{{ $customer->created_at->format('d/m/Y') }}</td>
-
+                                        <td>{{ $customer->created_at->format('d/m/Y') }}</td>
+                                        <th>ค่าห้อง</th>
+                                        <td colspan="2">{{ number_format($customer->payment) }} บาท</td>
                                     </tr>
                                     <tr>
+                                        
+                                        <th>ค่าประกันห้อง</th>
+                                        <td>{{ number_format($customer->payment2) }} บาท</td>
                                         <th>จำนวนเงินที่ชำระล่วงหน้า</th>
-                                        <td>{{ number_format($customer->payment) }} บาท</td>
+                                        <td>{{ number_format($customer->payment_total) }} บาท</td>
                                         <th>สถานะ</th>
-                                        <td class="text-danger" colspan="3">"ผู้เช่า"</td>
+                                        <td class="text-danger" colspan="2"><b>"ผู้เช่า"</b></td>
                                     </tr>
                                     <tr>
-                                        <th style="width: 25%">ที่อยู่</th>
+                                        <th style="width: 22%">ที่อยู่</th>
                                         <td colspan="5">
-                                            บ้านเลขที่ {{ $customer->address1 }} หมู่ {{ $customer->address2 }}
-                                            ซอย {{ $customer->address3 }} ถนน {{ $customer->address4 }}
-                                            แขวง/ตำบล {{ $customer->address5 }} อำเภอ {{ $customer->address6 }}
-                                            จังหวัด {{ $customer->address7 }} {{ $customer->zipcode }}
+                                            @if ($customer->address1)
+                                                {{ $customer->address1 }}
+                                            @endif
+                                            @if ($customer->address2)
+                                                หมู่ {{ $customer->address2 }}
+                                            @endif
+                                            @if ($customer->address3)
+                                                ซ. {{ $customer->address3 }}
+                                            @endif
+                                            @if ($customer->address4)
+                                                ถ. {{ $customer->address4 }}
+                                            @endif
+                                            @if ($customer->address5)
+                                                ต. {{ $customer->address5 }}
+                                            @endif
+                                            @if ($customer->address6)
+                                                อ. {{ $customer->address6 }}
+                                            @endif
+                                            @if ($customer->address7)
+                                                จ. {{ $customer->address7 }}
+                                            @endif
+                                            @if ($customer->zipcode)
+                                                {{ $customer->zipcode }}
+                                            @endif
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
-                        <b class="font-size-14">คู่สัญญาทั้งสองฝ่ายตกลงทำสัญญากันโดยมีเงื่อนไขและรายละเอียดดังต่อไปนี้</b>
+
 
                         </div>
                         <div class="mt-0" id="doc-image">
+                            <b class="font-size-14">คู่สัญญาทั้งสองฝ่ายตกลงทำสัญญากันโดยมีเงื่อนไขและรายละเอียดดังต่อไปนี้</b><br>
                             @if ($condition->isEmpty())
                                 <p>No active conditions found.</p>
                             @else
@@ -146,8 +209,11 @@
                             @endif
                         </div>
 
-                        <div class="mt-2 mb-3 text-center">
-                            <img src="{{ asset($customer->img) }}" alt="รูปบัตรประชาชน" width="270px" height="150px">
+                        <div class="mt-2 mb-3 text-center image-container">
+                            <div class="image-wrapper">
+                                <img src="{{ asset($customer->img) }}" alt="รูปบัตรประชาชน" class="watermarked-image">
+                                <div class="watermark-text">ใช้เพื่อทำสัญญาเช่า</div>
+                            </div>
                         </div>
 
 

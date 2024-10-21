@@ -59,19 +59,8 @@
             <div class="row mt-5">
                 <h1 class="text-center mb-5"><b>สัญญาเช่าหอพัก</b></h1>
                 <div class="d-grid gap-2">
-                    {{-- <form action="{{ route('condition-list', ['id' => 1]) }}" method="GET">
-                        <button class="btn btn-primary" type="submit">
-                            <b class="font-size-24">ฟาริดาร์ อพาร์ทเม้นท์</b>
-                        </button>
-                    </form>
-
-                    <form action="{{ route('condition-list', ['id' => 2]) }}" method="GET">
-                        <button class="btn btn-success mt-3" type="submit">
-                            <b class="font-size-24">หอพักวันเทาแก้ว</b>
-                        </button>
-                    </form> --}}
                     <button class="btn btn-primary" type="button" onclick="sendData(1)">
-                        <b class="font-size-24">ฟาริดาร์ อพาร์ทเม้นท์</b>
+                        <b class="font-size-24">ฟาริดา อพาร์ทเม้นท์</b>
                     </button>
 
                     <button class="btn btn-success mt-3" type="button" onclick="sendData(2)">
@@ -99,12 +88,17 @@
 @section('script')
     <script>
         function sendData(id) {
-            fetch(`/list-condition/${id}`, {
-                    method: 'GET',
+            fetch('/list-condition', {
+                    method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                            'content') // ส่ง CSRF Token
+                    },
+                    body: JSON.stringify({
+                        id: id
+                    })
                 })
                 .then(response => {
                     if (!response.ok) {
@@ -113,9 +107,8 @@
                     return response.text();
                 })
                 .then(data => {
-                    console.log(data); // ตรวจสอบข้อมูลที่ตอบกลับมา
-                    // เปลี่ยนเส้นทางไปยัง URL ใหม่
-                    window.location.href = `/list-condition/${id}`;
+                    console.log(data); // ทดสอบข้อมูลที่ได้กลับมา
+                    window.location.href = '/list-condition-page'; // รีไดเรกต์ไปยังหน้าที่ต้องการ
                 })
                 .catch(error => console.error('Error:', error));
         }

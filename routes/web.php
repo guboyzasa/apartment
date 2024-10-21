@@ -78,9 +78,12 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin', 'preventBac
 Route::get('/pages-maintenance', [App\Http\Controllers\Controller::class, 'pagesmaintenance'])->name('maintenance');
 Route::get('/404', [App\Http\Controllers\Controller::class, 'pageNotFond'])->name('404');
 
-Route::get('/list-condition', [App\Http\Controllers\User\RegisterCondition::class, 'index'])->name('condition');
-Route::get('/list-condition/{id}', [App\Http\Controllers\User\RegisterCondition::class, 'condition'])->name('condition-list');
-Route::get('/list-condition/view-doc-1/{id}', [App\Http\Controllers\User\RegisterCondition::class, 'viewListDoc'])->name('condition.view-doc-1');
+Route::get('/condition', [App\Http\Controllers\User\RegisterCondition::class, 'index'])->name('condition');
+Route::post('/list-condition', [App\Http\Controllers\User\RegisterCondition::class, 'condition'])->name('condition-list');
+Route::get('/list-condition-page', [App\Http\Controllers\User\RegisterCondition::class, 'showConditionPage'])->name('list-condition-page');
+
+Route::post('/set-saved-id', [App\Http\Controllers\User\RegisterCondition::class, 'setSavedId'])->name('set.saved.id');
+Route::get('/list-condition/view-doc', [App\Http\Controllers\User\RegisterCondition::class, 'viewListDoc'])->name('condition.view-doc');
 
 Route::post('/list-condition/store/add', [App\Http\Controllers\User\RegisterCondition::class, 'store'])->name('condition.store');
 Route::post('/list-condition/check-phone', [App\Http\Controllers\User\RegisterCondition::class, 'checkPhone'])->name('condition.check-phone');

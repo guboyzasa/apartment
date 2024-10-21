@@ -9,21 +9,8 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200&display=swap');
 
-        /* body {
-                                                                    background: white;
-                                                                } */
-
         .page {
-            /* background: rgb(255, 255, 255); */
-            /* width: 29.7cm; */
-            /* height: auto; */
-            /* display: block; */
-            /* margin: 0 auto; */
-            /* margin - bottom: 0.5cm; */
-            /* box - shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5); */
-            /* border: 0px solid black; */
             font-family: 'Kanit', sans-serif;
-
         }
 
         h1,
@@ -108,63 +95,69 @@
                             <form class="row g-3 mt-2">
                                 @csrf
                                 <input type="hidden" lass="form-control" id="CompanyID" value="{{ $company->id }}">
-                                <div class="col-md-4">
+
+                                <div class="col-md-3">
                                     <label for="inputRoomID" class="form-label">หมายเลขห้องเช่า <span
-                                            class="text-danger">*</span>
-                                    </label><br>
+                                            class="text-danger">*</span></label><br>
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <select class="selectpicker form-control" name="inputRoomID" id="inputRoomID"
                                                 required>
-                                                <option value="" disabled selected>กรุณาเลือกหมายเลขห้องเช่า
-                                                </option>
+                                                <option value="" disabled selected>กรุณาเลือกหมายเลขห้องเช่า</option>
 
                                                 <optgroup label="ชั้น 1">
-                                                    @forelse ($cusOne as $detail)
-                                                        <option value="{{ $detail->id }}">{{ $detail->name }}</option>
-                                                    @empty
-                                                        <option disabled>ไม่มีห้องในชั้นนี้</option>
-                                                    @endforelse
+                                                    @foreach ($cusOne as $detail)
+                                                        <option value="{{ $detail->id }}"
+                                                            @if (in_array($detail->id, $occupiedRooms)) disabled>{{ $detail->name }} (ห้องไม่ว่าง)</option>
+                                                        @else>{{ $detail->name }}</option> @endif
+                                                            @endforeach
                                                 </optgroup>
 
                                                 <optgroup label="ชั้น 2">
-                                                    @forelse ($cusTwo as $detail)
-                                                        <option value="{{ $detail->id }}">{{ $detail->name }}
-                                                        </option>
-                                                    @empty
-                                                        <option disabled>ไม่มีห้องในชั้นนี้</option>
-                                                    @endforelse
+                                                    @foreach ($cusTwo as $detail)
+                                                        <option value="{{ $detail->id }}"
+                                                            @if (in_array($detail->id, $occupiedRooms)) disabled>{{ $detail->name }} (ห้องไม่ว่าง)</option>
+                                                        @else>{{ $detail->name }}</option> @endif
+                                                            @endforeach
                                                 </optgroup>
 
                                                 <optgroup label="ชั้น 3">
-                                                    @forelse ($cusTree as $detail)
-                                                        <option value="{{ $detail->id }}">{{ $detail->name }}
-                                                        </option>
-                                                    @empty
-                                                        <option disabled>ไม่มีห้องในชั้นนี้</option>
-                                                    @endforelse
+                                                    @foreach ($cusThree as $detail)
+                                                        <option value="{{ $detail->id }}"
+                                                            @if (in_array($detail->id, $occupiedRooms)) disabled>{{ $detail->name }} (ห้องไม่ว่าง)</option>
+                                                        @else>{{ $detail->name }}</option> @endif
+                                                            @endforeach
                                                 </optgroup>
                                             </select>
-
                                         </div>
                                     </div>
-
                                 </div>
-                                <div class="col-md-4">
+
+                                <div class="col-md-3">
                                     <label for="inputNickName" class="form-label">ชื่อเล่นผู้เช่า <span
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="inputNickName" placeholder="ชื่อเล่น"
                                         required>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <label for="inputPayment" class="form-label">
-                                        ได้ชำระค่าเช่า/ค่าประกันล่วงหน้าเป็นจำนวนเงิน<span
-                                        class="text-danger">*</span>
+                                        ค่าห้อง<span class="text-danger">*</span>
                                     </label>
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" id="inputPayment"
-                                            placeholder="ได้ชำระค่าเช่า/ค่าประกันล่วงหน้าเป็นจำนวนเงิน"
-                                            aria-label="ได้ชำระค่าเช่า/ค่าประกันล่วงหน้าเป็นจำนวนเงิน"
+                                        <input type="text" class="form-control" id="inputPayment" placeholder="ค่าห้อง"
+                                            aria-label="ค่าห้อง"
+                                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                                            aria-describedby="basic-addon2" required>
+                                        <span class="input-group-text" id="basic-addon2">บาท</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="inputPayment2" class="form-label">
+                                        ค่าประกันห้อง<span class="text-danger">*</span>
+                                    </label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" id="inputPayment2"
+                                            placeholder="ค่าประกันห้อง" aria-label="ค่าประกันห้อง"
                                             oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                                             aria-describedby="basic-addon2" required>
                                         <span class="input-group-text" id="basic-addon2">บาท</span>
@@ -178,7 +171,8 @@
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="inputpersonal_code" value=""
                                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
-                                        name="inputpersonal_code" placeholder="เลขบัตรประชาชนผู้เช่า" maxlength="13" autofocus required>
+                                        name="inputpersonal_code" placeholder="เลขบัตรประชาชนผู้เช่า" maxlength="13"
+                                        autofocus required>
                                 </div>
                                 <div class="col-md-3">
                                     <label for="inputName" class="form-label">ชื่อ <span
@@ -194,27 +188,28 @@
                                 <div class="col-md-3">
                                     <label for="inputPhone" class="form-label">เบอร์โทรศัพท์ <span
                                             class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="inputPhone" placeholder="เบอร์โทรศัพท์"
-                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" maxlength="10"
-                                        required>
+                                    <input type="text" class="form-control" id="inputPhone"
+                                        placeholder="เบอร์โทรศัพท์"
+                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                                        maxlength="10" required>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     <label for="inputAddress1" class="form-label">ที่อยู่ <span
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="inputAddress1"
                                         oninput="this.value = this.value.replace(/[^0-9./]/g, '').replace(/(\..*?)\..*/g, '$1');"
                                         placeholder="บ้านเลขที่" required>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     <label for="inputAddress2" class="form-label">หมู่</label>
                                     <input type="text" class="form-control" id="inputAddress2" placeholder="หมู่ที่"
                                         oninput="this.value = this.value.replace(/[^0-9./]/g, '').replace(/(\..*?)\..*/g, '$1');">
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <label for="inputAddress3" class="form-label">ซอย</label>
                                     <input type="text" class="form-control" id="inputAddress3" placeholder="ซอย">
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <label for="inputAddress4" class="form-label">ถนน</label>
                                     <input type="text" class="form-control" id="inputAddress4" placeholder="ถนน">
                                 </div>
@@ -241,28 +236,46 @@
                                         รหัสไปรษณีย์ <span class="text-danger">*</span>
                                     </label>
                                     <input type="text" class="form-control" id="inputZip" placeholder="รหัสไปรษณีย์"
-                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" maxlength="5"
-                                        required>
+                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                                        maxlength="5" required>
                                 </div>
                                 <label class="form-label" for="info">
                                     <b class="text-danger">**ข้อมูลบุคคลที่2ที่สามารถติดต่อได้!</b>
                                 </label>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <label for="inputNickName2" class="form-label">ชื่อเล่นของบุคคลที่2 <span
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="inputNickName2"
                                         placeholder="ชื่อเล่นของบุคคลที่2" required>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <label for="inputPhone2" class="form-label">เบอร์โทรศัพท์บุคคลที่2 <span
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="inputPhone2"
-                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" maxlength="10"
-                                        placeholder="เบอร์โทรศัพท์บุคคลที่2" required>
+                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                                        maxlength="10" placeholder="เบอร์โทรศัพท์บุคคลที่2" required>
                                 </div>
-                                <div class="col-md-6 text-center">
-                                    <div id="showImage" class="text-center">
-                                        <img id="output" style="width:325px;hight:204px">
+                                <div class="col-md-4 text-center">
+                                    <div id="showImage" class="text-center"
+                                        style="position: relative; display: inline-block;">
+                                        <!-- รูปภาพ -->
+                                        <img id="output" style="width:270px; height:auto;">
+
+                                        <!-- ลายน้ำ -->
+                                        <div
+                                            style="
+                                            position: absolute;
+                                            top: 50%;
+                                            left: 50%;
+                                            transform: translate(-50%, -50%) rotate(-45deg);
+                                            color: rgba(255, 255, 255, 0.6);
+                                            font-size: 24px;
+                                            font-weight: bold;
+                                            pointer-events: none;
+                                            white-space: nowrap;
+                                        ">
+                                            ใช้เพื่อทำสัญญาเช่า
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -299,18 +312,16 @@
 
 @section('script')
     <script>
-        $(document).ready(function() {
-            var simple = '';
-        });
-
         //บันทึก
         $('#saveCusBtn').click(function(e) {
             e.preventDefault();
+
             // เก็บค่าจากฟอร์ม
             var CompanyID = $('#CompanyID').val();
             var inputRoomID = $('#inputRoomID').val();
             var inputNickName = $('#inputNickName').val();
             var inputPayment = $('#inputPayment').val();
+            var inputPayment2 = $('#inputPayment2').val();
             var inputpersonal_code = $('#inputpersonal_code').val();
             var inputName = $('#inputName').val();
             var inputLastName = $('#inputLastName').val();
@@ -328,51 +339,72 @@
             var inputOther = $('#inputOther').val();
             var imgbase64 = $('#imgbase64').val();
 
-            if (inputRoomID == '' || inputRoomID == null ||inputNickName == '' || inputNickName == null || inputPayment == '' || inputPayment == null ||
-            inputLastName == '' || inputLastName == null || inputpersonal_code == '' || inputpersonal_code == null ||
-                inputName == '' || inputName == null || inputPhone == '' || inputPhone == null || inputPhone2 == '' || inputPhone2 == null ||
-                inputAddress1 == '' || inputAddress1 == null || inputAddress5 == '' || inputAddress5 == null || inputAddress6 == '' || inputAddress6 == null ||
-                inputAddress7 == '' || inputAddress7 == null || inputZip == '' || inputZip == null || inputNickName2 == '' || inputNickName2 == null
-            ) {
-                toastr.warning('กรุณากรอกข้อมูลให้ครบถ้วน', 'แจ้งเดือน!', {
+            if (!inputRoomID || !inputNickName || !inputPayment || !inputPayment2 || !inputLastName ||
+                !inputpersonal_code || !inputName || !inputPhone || !inputPhone2 ||
+                !inputAddress1 || !inputAddress5 || !inputAddress6 || !inputAddress7 ||
+                !inputZip || !inputNickName2) {
+                toastr.warning('กรุณากรอกข้อมูลให้ครบถ้วน', 'แจ้งเตือน!', {
                     timeOut: 3000,
                     progressBar: true,
                     tapToDismiss: false
                 });
             } else {
-                $.post("{{ route('condition.store') }}", data = {
+                $.post("{{ route('condition.store') }}", {
                         _token: '{{ csrf_token() }}',
-                        CompanyID: CompanyID,
-                        inputRoomID: inputRoomID,
-                        inputNickName: inputNickName,
-                        inputPayment: inputPayment,
-                        inputpersonal_code: inputpersonal_code,
-                        inputName: inputName,
-                        inputLastName: inputLastName,
-                        inputPhone: inputPhone,
-                        inputAddress1: inputAddress1,
-                        inputAddress2: inputAddress2,
-                        inputAddress3: inputAddress3,
-                        inputAddress4: inputAddress4,
-                        inputAddress5: inputAddress5,
-                        inputAddress6: inputAddress6,
-                        inputAddress7: inputAddress7,
-                        inputZip: inputZip,
-                        inputNickName2: inputNickName2,
-                        inputPhone2: inputPhone2,
-                        inputOther: inputOther,
-                        imgbase64: imgbase64
-                    },
-                    function(res) {
-                        window.location.href = `/list-condition/view-doc-1/${res.id}`;
-                        closeLoading();
-                        toastr.success(res.msg, res.title, {
+                        CompanyID,
+                        inputRoomID,
+                        inputNickName,
+                        inputPayment,
+                        inputPayment2,
+                        inputpersonal_code,
+                        inputName,
+                        inputLastName,
+                        inputPhone,
+                        inputAddress1,
+                        inputAddress2,
+                        inputAddress3,
+                        inputAddress4,
+                        inputAddress5,
+                        inputAddress6,
+                        inputAddress7,
+                        inputZip,
+                        inputNickName2,
+                        inputPhone2,
+                        inputOther,
+                        imgbase64
+                    }).done(function(res) {
+                        if (res.status === 'success') {
+                            // console.log(res);
+                            // ถ้าบันทึกสำเร็จ
+                            sessionStorage.setItem('savedId', res.id);
+                            $.post('/set-saved-id', {
+                                _token: '{{ csrf_token() }}',
+                                savedId: res.id
+                            }).done(function() {
+                                window.location.href =
+                                    '/list-condition/view-doc'; // เปลี่ยนหน้าโดยไม่ต้องมี id บน URL
+                            });
+                            closeLoading();
+                            toastr.success(res.msg, res.title, {
+                                timeOut: 3000,
+                                progressBar: true,
+                                tapToDismiss: false,
+                            });
+                        } else {
+                            toastr.error(res.msg, res.title, {
+                                timeOut: 3000,
+                                progressBar: true,
+                                tapToDismiss: false,
+                            });
+                        }
+                    })
+                    .fail(function() {
+                        toastr.error('ไม่สามารถบันทึกข้อมูลได้', 'ข้อผิดพลาด', {
                             timeOut: 3000,
                             progressBar: true,
                             tapToDismiss: false,
                         });
-                    },
-                );
+                    });
             }
         });
 
@@ -388,6 +420,7 @@
                     function(res) {
                         console.log(res)
                         if (res.status == 'warning') {
+                            $("#inputPhone").val('');
                             Swal.fire(res.title, res.msg, res.status);
                         }
                     },
@@ -407,6 +440,7 @@
                     function(res) {
                         console.log(res)
                         if (res.status == 'warning') {
+                            $("#inputpersonal_code").val('');
                             Swal.fire(res.title, res.msg, res.status);
                         }
                     },
