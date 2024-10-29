@@ -43,6 +43,6 @@ class Handler extends ExceptionHandler
     {
         return $request->expectsJson()
             ? response()->json(['message' => $exception->getMessage()], 401)
-            : redirect()->guest(route('login'));
+            : redirect()->guest(route('condition'));
     }
 }

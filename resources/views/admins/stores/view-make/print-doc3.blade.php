@@ -98,7 +98,7 @@
 
                                 </div>
                                 <span class="text-dark font-size-24 b"><b>{{ $detail->company->name }}</b><span
-                                        class="text-dark font-size-18 float-end b"><b>{{ $detail->room->name }}</b></span></span><br>
+                                        class="text-dark font-size-18 float-end b"><b>{{ $detail->room->room_number }}</b></span></span><br>
                                 <span class="text-dark"><b class="b">ที่อยู่ :</b>
                                     {{ $detail->company->address }}<br>{{ $detail->company->address2 }}
                                 </span><br>

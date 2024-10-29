@@ -1,7 +1,7 @@
 @extends('admin-layouts.master')
 
 @section('title')
-    หมายเลขห้องพัก
+    หมายเลขชั้น
 @endsection
 
 @section('css')
@@ -16,7 +16,7 @@
             <a href="{{ route('admin.dashboard') }}">Dashboard</a>
         @endslot
         @slot('title')
-            หมายเลขห้องพัก
+            หมายเลขชั้น
         @endslot
     @endcomponent
 
@@ -24,18 +24,18 @@
         <div class="card" id="locationForm" style="display: none;">
             <div class="card-body">
                 <div class="col-12">
-                    <p class="font-size-16"><b>เพิ่มหมายเลขห้องพัก</b></p>
+                    {{-- <p class="font-size-16"><b>เพิ่มหมายเลขชั้น</b></p> --}}
                     <div class="row">
                         @csrf
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="room_number" class="form-label text-start">หมายเลขห้องพัก</label>
+                                <label for="floor_number" class="form-label text-start">ชื่อหมายเลขชั้น</label>
                                 <span class="text-danger">*</span>
-                                <input type="text" class="formInput form-control" id="room_number" name="room_number"
-                                    placeholder="หมายเลขห้องพัก" required>
+                                <input type="text" class="formInput form-control" id="floor_number" name="floor_number"
+                                    value="ชั้น " required>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="mt-0 mb-3">
                                 <label for="company_id" class="form-label">เลือกสถานที่</label>
                                 <span class="text-danger">*</span>
@@ -44,17 +44,6 @@
                                     @foreach ($company as $detail)
                                         <option value="{{ $detail->id }}">{{ $detail->name }}</option>
                                     @endforeach
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="mt-0 mb-3">
-                                <label for="floor_id" class="form-label">เลือกชั้น</label>
-                                <span class="text-danger">*</span>
-                                <select name="floor_id" id="floor_id" class="form-control" required>
-                                    <option disabled selected>เลือกชั้น</option>
-                                    <!-- ชั้นที่ดึงมาจะถูกเพิ่มที่นี่ -->
                                 </select>
                             </div>
                         </div>
@@ -76,12 +65,12 @@
         <div class="card">
             <div class="card-body">
                 <div class="text-end mb-3">
-                    <button type="button" class="btn btn-success" id="showFormBtn">เพิ่มห้องพัก</button>
+                    <button type="button" class="btn btn-success" id="showFormBtn">เพิ่มหมายเลขชั้น</button>
                 </div>
                 <div class="col-12">
                     <div class="row gy-3">
                         <!-- สถานที่ -->
-                        <div class="col-md-6">
+                        <div class="col-md-12 mb-3">
                             <div class="form-group">
                                 <label for="filter_company_id" class="form-label">
                                     สถานที่
@@ -94,32 +83,12 @@
                                 </select>
                             </div>
                         </div>
-
-                        <!-- ชั้น -->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="filter_floor_id" class="form-label">
-                                    ชั้น
-                                </label>
-                                <select name="filter_floor_id" id="filter_floor_id" class="form-control">
-                                    <option value="all" selected>ทั้งหมด</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- ปุ่มค้นหา -->
-                        <div class="col-12 text-center mb-3">
-                            <button type="button" class="btn btn-primary w-50" id="filterBtn" onclick="showTableF1()">
-                                ค้นหา
-                            </button>
-                        </div>
                     </div>
                     <div class="table-responsive">
-                        <table id="simple_table_f1" class="table table-bordered dt-responsive table-striped nowrap w-100">
+                        <table id="simple_table" class="table table-bordered dt-responsive table-striped nowrap w-100">
                             <thead>
                                 <tr class="text-center">
                                     <th>#</th>
-                                    <th>Room</th>
                                     <th>Floor</th>
                                     <th>Company</th>
                                     <th>Status</th>
@@ -147,17 +116,17 @@
                 </div>
                 <div class="modal-body">
                     @csrf
-                    <input type="hidden" class="formEdit form-control" name="id" id="room_id">
+                    <input type="hidden" class="formEdit form-control" name="id" id="floor_id">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="show_room_number" class="form-label">หมายเลขห้องพัก</label>
+                                <label for="show_floor_number" class="form-label">ชื่อหมายเลขชั้น</label>
                                 <span class="text-danger">*</span>
-                                <input type="text" class="formEdit form-control" id="show_room_number"
-                                    name="room_number" placeholder="หมายเลขห้องพัก" required>
+                                <input type="text" class="formEdit form-control" id="show_floor_number"
+                                    name="floor_number" placeholder="หมายเลขชั้น" required>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="mt-0 mb-3">
                                 <label for="show_company_id" class="form-label">เลือกสถานที่</label>
                                 <span class="text-danger">*</span>
@@ -165,15 +134,6 @@
                                     @foreach ($company as $detail)
                                         <option value="{{ $detail->id }}">{{ $detail->name }}</option>
                                     @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="mb-3">
-                                <label for="show_floor_id" class="form-label">ชั้น</label>
-                                <span class="text-danger">*</span><br>
-                                <select name="show_floor_id" id="show_floor_id" class="form-control">
-                                    <option disabled selected>เลือกชั้น</option>
                                 </select>
                             </div>
                         </div>
@@ -195,28 +155,25 @@
         $(document).ready(function() {
             var simpleF1 = '';
             showTableF1();
-
         });
 
-        @include('admins.room.showTable')
+        @include('admins.room-floor.showTable')
 
         //บันทึกการเพิ่มเมมเบอร์
         $('#saveCusBtn').click(function() {
-            var room_number = $('#room_number').val();
-            var floor_id = $('#floor_id').val();
+            var floor_number = $('#floor_number').val();
             var company_id = $('#company_id').val();
 
-            if (!room_number || !floor_id || !company_id) {
+            if (!floor_number || !company_id) {
                 toastr.warning('กรุณากรอกข้อมูลให้ครบถ้วน', 'แจ้งเดือน!', {
                     timeOut: 3000,
                     progressBar: true,
                     tapToDismiss: false
                 });
             } else {
-                $.post("{{ route('admin.room.add') }}", data = {
+                $.post("{{ route('admin.room-floor.add') }}", data = {
                         _token: '{{ csrf_token() }}',
-                        room_number: room_number,
-                        floor_id: floor_id,
+                        floor_number: floor_number,
                         company_id: company_id,
                     },
                     function(res) {
@@ -238,33 +195,30 @@
 
         //show ข้อมูลเมมเบอร์ modals
         function showInfo(obj) {
-            $('#modal_titles').text('แก้ไขหมายเลขห้องพัก');
-            $('#room_id').val(obj.id);
-            $('#show_room_number').val(obj.room_number).trigger('change');
-            $('#show_floor_id').val(obj.floor_id).trigger('change');
+            $('#modal_titles').text('แก้ไขหมายเลขชั้น');
+            $('#floor_id').val(obj.id);
+            $('#show_floor_number').val(obj.name).trigger('change');
             $('#show_company_id').val(obj.company_id).trigger('change');
             $('#simpleModals').modal("show");
         }
 
         //บันทึกการแก้ไขเมมเบอร์
         $('#editCusBtns').click(function() {
-            var id = $('#room_id').val();
-            var room_number = $('#show_room_number').val();
-            var floor_id = $('#show_floor_id').val();
+            var id = $('#floor_id').val();
+            var floor_number = $('#show_floor_number').val();
             var company_id = $('#show_company_id').val();
 
-            if (!room_number || !floor_id || !company_id) {
+            if (!floor_number || !company_id) {
                 toastr.warning('กรุณากรอกข้อมูลให้ครบถ้วน', 'แจ้งเดือน!', {
                     timeOut: 3000,
                     progressBar: true,
                     tapToDismiss: false
                 });
             } else {
-                $.post("{{ route('admin.room.update') }}", data = {
+                $.post("{{ route('admin.room-floor.update') }}", data = {
                         _token: '{{ csrf_token() }}',
                         id: id,
-                        room_number: room_number,
-                        floor_id: floor_id,
+                        floor_number: floor_number,
                         company_id: company_id,
                     },
                     function(res) {
@@ -290,7 +244,7 @@
             $.ajax({
                 type: "method",
                 method: "POST",
-                url: "{{ route('admin.room.set-active') }}",
+                url: "{{ route('admin.room-floor.set-active') }}",
                 data: {
                     "_token": "{{ csrf_token() }}",
                     "id": id,
@@ -323,7 +277,7 @@
 
             }).then((result) => {
                 if (result.isConfirmed) {
-                    $.post("{{ route('admin.room.destroy') }}", data = {
+                    $.post("{{ route('admin.room-floor.destroy') }}", data = {
                             _token: '{{ csrf_token() }}',
                             id: id,
                         },
@@ -354,105 +308,9 @@
             }
         });
 
-        $('#company_id').on('change', function() {
-            var companyId = $(this).val();
-            var floorSelect = $('#floor_id');
-
-            // ล้างตัวเลือกเก่า
-            floorSelect.empty();
-            // floorSelect.append('<option disabled selected>กำลังโหลด...</option>');
-
-            // เรียก AJAX เพื่อดึงข้อมูลชั้น
-            $.ajax({
-                type: 'POST',
-                url: '{{ route('admin.store.get-floors') }}',
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    company_id: companyId
-                },
-                success: function(floors) {
-                    floorSelect.empty(); // ล้างตัวเลือก
-                    if (floors.length > 0) {
-                        floorSelect.append('<option disabled selected>เลือกชั้น</option>');
-                        $.each(floors, function(index, floor) {
-                            floorSelect.append(
-                                `<option value="${floor.id}">${floor.name}</option>`
-                            );
-                        });
-                    } else {
-                        floorSelect.append('<option disabled>ไม่มีชั้นในบริษัทนี้</option>');
-                    }
-                },
-                error: function() {
-                    floorSelect.empty();
-                    floorSelect.append('<option disabled>เกิดข้อผิดพลาด</option>');
-                }
-            });
-        });
-
-        $('#show_company_id').on('change', function() {
-            var companyId = $(this).val(); // รับ company_id
-            var floorSelect = $('#show_floor_id');
-
-            // ล้างตัวเลือกเก่า
-            floorSelect.empty();
-            // floorSelect.append('<option disabled selected>กำลังโหลด...</option>');
-
-            // เรียก AJAX เพื่อดึงข้อมูลชั้น
-            $.ajax({
-                type: 'POST',
-                url: '{{ route('admin.store.get-floors') }}',
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    company_id: companyId
-                },
-                success: function(floors) {
-                    floorSelect.empty(); // ล้างตัวเลือก
-                    if (floors.length > 0) {
-                        floorSelect.append('<option disabled selected>เลือกชั้น</option>');
-                        $.each(floors, function(index, floor) {
-                            floorSelect.append(
-                                `<option value="${floor.id}">${floor.name}</option>`
-                            );
-                        });
-                    } else {
-                        floorSelect.append(
-                            '<option disabled>ไม่มีชั้นในบริษัทนี้</option>');
-                    }
-                },
-                error: function() {
-                    floorSelect.empty();
-                    floorSelect.append('<option disabled>เกิดข้อผิดพลาด</option>');
-                }
-            });
-        });
-
         $('#filter_company_id').on('change', function() {
-            const companyId = $(this).val();
-
-            // ล้างค่า floor และ room ก่อน เพื่อไม่ให้ค้างจากครั้งก่อน
-            $('#filter_floor_id').empty().append('<option value="all"selected>ทั้งหมด</option>');
-
-            if (companyId) {
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ route('admin.store.get-floors') }}", // Route สำหรับดึง floor
-                    data: {
-                        _token: '{{ csrf_token() }}',
-                        company_id: companyId
-                    },
-                    success: function(res) {
-                        res.forEach(function(floor) {
-                            $('#filter_floor_id').append(
-                                `<option value="${floor.id}">${floor.name}</option>`
-                            );
-                        });
-                    },
-                    error: function(xhr) {
-                        console.error('Error:', xhr);
-                    }
-                });
-            }
+            showTableF1(); // เรียกฟังก์ชันค้นหาทันทีที่เปลี่ยน company
         });
+
     </script>
 @endsection

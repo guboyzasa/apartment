@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Room;
-use App\Models\RoomCharge;
-use App\Models\Vendor;
 use App\Models\Company;
-use App\Models\Status;
+use App\Models\Customer;
+use App\Models\Floor;
+use App\Models\ListPayment;
+use App\Models\Room;
 use App\Models\StoreClear;
+use App\Models\StoreClearDetail;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -17,195 +18,290 @@ class StoreController extends Controller
 {
     public function index()
     {
-        $cusOne = Room::where('status_id', 1)->where('is_active', 1)->get();
-        $cusTwo = Room::where('status_id', 2)->where('is_active', 1)->get();
-        $cusTree = Room::where('status_id', 3)->where('is_active', 1)->get();
-
-        $status = Status::where('is_active', 1)->get();
         $company = Company::where('is_active', 1)->get();
-        $prices = RoomCharge::where('is_active', 1)->get();
+        // $room_rate = RoomRates::where('is_active', 1)->get();
 
-        return view('admins.stores.index', compact('cusOne', 'cusTwo', 'company', 'status', 'cusTree','prices'));
+        return view('admins.stores.index', compact('company'));
     }
 
-    public function listF1()
+    public function getFloors(Request $request)
     {
-        return datatables()->of(
-            StoreClear::query()->with('room:id,name,code', 'company:id,name')->where('status_id', 1)->OrderBy('is_active', 'desc')
-        )->toJson();
+        $floors = Floor::where('company_id', $request->company_id)->where('is_active', 1)->get(['id', 'name']);
+        return response()->json($floors);
     }
 
-    public function listF2()
+    public function getRooms(Request $req)
     {
-        return datatables()->of(
-            StoreClear::query()->with('room:id,name,code', 'company:id,name')->where('status_id', 2)->OrderBy('is_active', 'desc')
-        )->toJson();
+        $room_floor = Customer::where('company_id', $req->company_id)->where('floor_id', $req->floor_id)->where('is_active', 1)->get();
+        return response()->json($room_floor); // ส่งข้อมูลกลับเป็น JSON
     }
 
-    public function listF3()
+    public function getRoom(Request $req)
     {
-        return datatables()->of(
-            StoreClear::query()->with('room:id,name,code', 'company:id,name')->where('status_id', 3)->OrderBy('is_active', 'desc')
-        )->toJson();
+        $room_floor = Customer::where('company_id', $req->company_id)->where('floor_id', $req->floor_id)->get();
+        return response()->json($room_floor); // ส่งข้อมูลกลับเป็น JSON
+    }
+
+    public function getStore(Request $req)
+    {
+        $datas = [];
+        $store_clear_details = null;
+        $get_storeClear = StoreClear::where('room_id', $req->room_id)->where('company_id', $req->company_id)->orderBy('created_at', 'desc')->first();
+
+        // $company = Company::find($req->company_id);
+        $list_payments = ListPayment::with('listPaymentDetails', 'lastStoreClearDetail')
+            ->with(['lastStoreClearDetail.storeClear' => function ($q) use ($req) {
+                $q->where('room_id', $req->room_id)->where('company_id', $req->company_id)->orderBy('created_at', 'desc');
+            }])
+        // ->whereHas('lastStoreClearDetail.storeClear' , function ( $query)  use($req){
+        //     $query->where('room_id', $req->room_id)->where('company_id', $req->company_id)->orderBy('created_at', 'desc');
+        //     })
+            ->where('company_id', $req->company_id)->get();
+
+        if ($get_storeClear) {
+            $store_clear_details = StoreClearDetail::with('listPayment')->where('store_clear_id', $get_storeClear->id)->get();
+        }
+
+        $datas = [
+            'list_payments' => $list_payments,
+            'store_clear_details' => $store_clear_details,
+        ];
+        return $datas;
+    }
+
+    public function listF1(Request $req)
+    {
+        $fillter_company = StoreClear::with('room', 'company', 'customer');
+
+        if ($req->filter_company_id != 'all') {
+            $fillter_company->where('company_id', $req->filter_company_id);
+        }
+        if ($req->filter_floor_id != 'all') {
+            $fillter_company->where('floor_id', $req->filter_floor_id);
+        }
+        $fillter_company->get();
+
+        return datatables()->of($fillter_company->get())->toJson();
     }
 
     public function printDoc1()
     {
-        $listF1 = StoreClear::with('company:id,name,address,address2,phone')->where('is_active', 1)->where('status_id', 1)->get();
-        $listIdF1 = StoreClear::with('company:id,name,address,address2,phone')->where('is_active', 1)->where('status_id', 1)->get();
+        $listF1 = StoreClear::with('company')->where('is_active', 1)->where('floor_id', 1)->get();
+        $listIdF1 = StoreClear::with('company')->where('is_active', 1)->where('floor_id', 1)->get();
 
         return view('admins.stores.view-make.print-doc1', compact('listF1', 'listIdF1'));
     }
 
     public function printDoc2()
     {
-        $listF2 = StoreClear::where('is_active', 1)->where('status_id', 2)->get();
-        $listIdF2 = StoreClear::where('is_active', 1)->where('status_id', 2)->get();
+        $listF2 = StoreClear::where('is_active', 1)->where('floor_id', 2)->get();
+        $listIdF2 = StoreClear::where('is_active', 1)->where('floor_id', 2)->get();
 
         return view('admins.stores.view-make.print-doc2', compact('listF2', 'listIdF2'));
     }
 
     public function printDoc3()
     {
-        $listF3 = StoreClear::where('is_active', 1)->where('status_id', 3)->get();
-        $listIdF3 = StoreClear::where('is_active', 1)->where('status_id', 3)->get();
+        $listF3 = StoreClear::where('is_active', 1)->where('floor_id', 3)->get();
+        $listIdF3 = StoreClear::where('is_active', 1)->where('floor_id', 3)->get();
 
         return view('admins.stores.view-make.print-doc3', compact('listF3', 'listIdF3'));
     }
 
     public function print1()
     {
-        $listF1 = StoreClear::where('is_active', 1)->where('status_id', 1)->get();
-        $listIdF1 = StoreClear::where('is_active', 1)->where('status_id', 1)->get();
+        $listF1 = StoreClear::where('is_active', 1)->where('floor_id', 1)->get();
+        $listIdF1 = StoreClear::where('is_active', 1)->where('floor_id', 1)->get();
 
         return view('admins.stores.prints.doc1', compact('listF1', 'listIdF1'));
     }
 
     public function print2()
     {
-        $listF2 = StoreClear::where('is_active', 1)->where('status_id', 2)->get();
-        $listIdF2 = StoreClear::where('is_active', 1)->where('status_id', 2)->get();
+        $listF2 = StoreClear::where('is_active', 1)->where('floor_id', 2)->get();
+        $listIdF2 = StoreClear::where('is_active', 1)->where('floor_id', 2)->get();
 
         return view('admins.stores.prints.doc2', compact('listF2', 'listIdF2'));
     }
 
     public function print3()
     {
-        $listF3 = StoreClear::where('is_active', 1)->where('status_id', 3)->get();
-        $listIdF3 = StoreClear::where('is_active', 1)->where('status_id', 3)->get();
+        $listF3 = StoreClear::where('is_active', 1)->where('floor_id', 3)->get();
+        $listIdF3 = StoreClear::where('is_active', 1)->where('floor_id', 3)->get();
 
         return view('admins.stores.prints.doc3', compact('listF3', 'listIdF3'));
     }
 
     public function store(Request $req)
     {
-        try {
-            DB::beginTransaction();
-            $detail = new StoreClear;
-            $detail->room_id = $req->name_id;
-            $detail->company_id = $req->company_id;
-            $detail->status_id = $req->status_id;
-            //รายการ
-            $detail->list1 = $req->list1;
-            $detail->list2 = $req->list2;
-            $detail->list3 = $req->list3;
-            $detail->list6 = $req->list6;
-            $detail->list7 = $req->list7;
-            //ราคา/หน่วย
-            $detail->price_unit1 = $req->price_unit1;
-            $detail->price_unit2 = $req->price_unit2;
-            $detail->price_unit3 = $req->price_unit3;
-            $detail->price_unit6 = $req->price_unit6 ?? 0;
-            $detail->price_unit7 = $req->price_unit7;
-            $detail->price_unit8 = $req->price_unit8 ?? 0;
-            //ค่าไฟ
-            $detail->unit_befor2 = $req->unit_befor2 ?? 0;
-            $detail->unit_befor3 = $req->unit_befor3 ?? 0;
-            //ค่าน้ำ
-            $detail->unit_after2 = $req->unit_after2 ?? 0;
-            $detail->unit_after3 = $req->unit_after3 ?? 0;
-            //ค่าห้อง
-            $detail->amount1 = $req->price_unit1;
-            //ค่าไฟ
-            if (($req->price_unit2 * ($req->unit_after2 - $req->unit_befor2)) <= 120) {
-                $detail->amount2 = 120;
-                $sum1 = 120;
+
+        // return $req->all();
+        DB::beginTransaction();
+
+        $customers = Customer::where('room_id', $req->room_id_form)
+            ->where('is_active', 1)
+            ->first();
+
+        $storeClear = new StoreClear;
+        $storeClear->room_id = $customers->room_id;
+        $storeClear->company_id = $customers->company_id;
+        $storeClear->floor_id = $customers->floor_id;
+        $storeClear->customer_id = $customers->id;
+        $storeClear->billing_date = Carbon::now();
+        $storeClear->save();
+
+        foreach ($req->list_payment_id as $list_payment_id => $list_payments) {
+            // ดึงข้อมูล ListPayment พร้อมกับราคาขั้นต่ำจากฐานข้อมูล
+            $payment = ListPayment::find($list_payment_id);
+
+            $storeClearDetail = new StoreClearDetail;
+            $storeClearDetail->store_clear_id = $storeClear->id;
+            $storeClearDetail->list_payment_id = $list_payment_id;
+            $storeClearDetail->unit_before = @$req->unit_before[$list_payment_id];
+            $storeClearDetail->unit_after = @$req->unit_after[$list_payment_id];
+            $storeClearDetail->other_detail = @$req->other[$list_payment_id];
+
+            // ตรวจสอบว่าเป็นรายการที่มีหน่วย และคำนวณราคา
+            if ($payment->is_unit == 1 && @$req->unit_before[$list_payment_id] && @$req->unit_after[$list_payment_id]) {
+                $quantity = @$req->unit_after[$list_payment_id]-@$req->unit_before[$list_payment_id];
+                $price_per_unit = @$req->price_unit[$list_payment_id];
+                $total_price = $quantity * $price_per_unit;
+
+                // ใช้ราคาขั้นต่ำจากฐานข้อมูล (ถ้ามี)
+                $min_price = $payment->min_price ?? 0;
+
+                // ใช้ราคาขั้นต่ำถ้าราคาคำนวณได้น้อยกว่า
+                $storeClearDetail->total_price = max($total_price, $min_price);
+                $storeClearDetail->price_unit = $price_per_unit;
             } else {
-                $detail->amount2 = ($req->price_unit2 * ($req->unit_after2 - $req->unit_befor2));
-                $sum1 = ($req->price_unit2 * ($req->unit_after2 - $req->unit_befor2));
-            }
-            //ค่าน้ำ
-            if (($req->price_unit3 * ($req->unit_after3 - $req->unit_befor3)) <= 100) {
-                $detail->amount3 = 100;
-                $sum2 = 100;
-            } else {
-                $detail->amount3 = ($req->price_unit3 * ($req->unit_after3 - $req->unit_befor3));
-                $sum2 = ($req->price_unit3 * ($req->unit_after3 - $req->unit_befor3));
+                // กรณีไม่มีหน่วยหรือไม่ได้กรอกข้อมูล unit_before, unit_after
+                $storeClearDetail->total_price = @$req->price_unit[$list_payment_id];
             }
 
-            $detail->amount6 = $req->price_unit6 ?? 0;
-            $detail->amount8 = $req->price_unit8 ?? 0;
-
-            $detail->total_amount = $req->price_unit1 + $sum1 + $sum2 + $req->price_unit6 + $req->price_unit8;
-
-            $detail->is_active = 1;
-
-            $detail->save();
-
-            DB::commit();
-
-            //telegramNotify_อัพโหลดสลิป
-            $date = date("d-m-Y");
-            $rooms = Room::find($detail->room_id);
-            $company = Company::find($detail->company_id);
-
-            $sMessageGroup['text'] = "** " . $company->name . " **" .
-                "\nวันที่: " . $date .
-                "\n" . $rooms->name;
-            // เพิ่มข้อมูลเฉพาะเมื่อมีค่ามากกว่า 0
-            if ($detail->amount1 > 0) {
-                $sMessageGroup['text'] .= "\nค่าห้อง: " . number_format($detail->amount1);
-            }
-            if ($detail->amount2 > 0) {
-                $sMessageGroup['text'] .= "\nค่าไฟ: " . number_format($detail->amount2);
-            }
-            if ($detail->amount3 > 0) {
-                $sMessageGroup['text'] .= "\nค่าน้ำ: " . number_format($detail->amount3);
-            }
-            if ($detail->amount6 > 0) {
-                $sMessageGroup['text'] .= "\nค่าเน็ต: " . number_format($detail->amount6);
-            }
-            if ($detail->amount8 > 0) {
-                $sMessageGroup['text'] .= "\nค่าอื่นๆ: " . number_format($detail->amount8);
-            }
-            // เพิ่มยอดชำระและวันที่เสมอ
-            $sMessageGroup['text'] .= "\nยอดชำระ: " . number_format($detail->total_amount) . " บาท";
-
-            $this->telegramNotifyGroup($sMessageGroup);
-
-            $data = [
-                'title' => 'Success!',
-                'msg' => 'เพิ่มสำเร็จ',
-                'status' => 'success',
-            ];
-
-            return $data;
-        } catch (\Exception $e) {
-            $sMessageGroup['text'] = "** Error **" .
-                "\nError: " . $e->getMessage();
-
-            $this->telegramNotifyGroup($sMessageGroup);
+            $storeClearDetail->save(); // บันทึกข้อมูลลงฐานข้อมูล
         }
+
+        DB::commit();
+
+        $data = [
+            'title' => 'Success!',
+            'msg' => 'เพิ่มสำเร็จ',
+            'status' => 'success',
+        ];
+
+        return $data;
+
+        // try {
+        //     // $rooms = Customer::find($customers->room_id);
+        //     // $floors = Floor::find($req->floor_id);
+
+        //     DB::beginTransaction();
+        //     $storeClear = new StoreClear;
+        //     $storeClear->room_id = $req->room_id;
+        //     $storeClear->company_id = $customers->company_id;
+        //     $storeClear->floor_id = $customers->floor_id;
+        //     $storeClear->customer_id = $customers->id;
+        //     //รายการ
+        //     $storeClear->list1 = $req->list1;
+        //     $storeClear->list2 = $req->list2;
+        //     $storeClear->list3 = $req->list3;
+        //     $storeClear->list6 = $req->list6;
+        //     $storeClear->list7 = $req->list7;
+        //     //ราคา/หน่วย
+        //     $storeClear->price_unit1 = $req->price_unit1;
+        //     $storeClear->price_unit2 = $req->price_unit2;
+        //     $storeClear->price_unit3 = $req->price_unit3;
+        //     $storeClear->price_unit6 = $req->price_unit6 ?? 0;
+        //     $storeClear->price_unit7 = $req->price_unit7;
+        //     $storeClear->price_unit8 = $req->price_unit8 ?? 0;
+        //     //ค่าไฟ
+        //     $storeClear->unit_befor2 = $req->unit_befor2 ?? 0;
+        //     $storeClear->unit_befor3 = $req->unit_befor3 ?? 0;
+        //     //ค่าน้ำ
+        //     $storeClear->unit_after2 = $req->unit_after2 ?? 0;
+        //     $storeClear->unit_after3 = $req->unit_after3 ?? 0;
+        //     //ค่าห้อง
+        //     $storeClear->amount1 = $req->price_unit1;
+        //     //ค่าไฟ
+        //     if (($req->price_unit2 * ($req->unit_after2 - $req->unit_befor2)) <= 120) {
+        //         $storeClear->amount2 = 120;
+        //         $sum1 = 120;
+        //     } else {
+        //         $storeClear->amount2 = ($req->price_unit2 * ($req->unit_after2 - $req->unit_befor2));
+        //         $sum1 = ($req->price_unit2 * ($req->unit_after2 - $req->unit_befor2));
+        //     }
+        //     //ค่าน้ำ
+        //     if (($req->price_unit3 * ($req->unit_after3 - $req->unit_befor3)) <= 100) {
+        //         $storeClear->amount3 = 100;
+        //         $sum2 = 100;
+        //     } else {
+        //         $storeClear->amount3 = ($req->price_unit3 * ($req->unit_after3 - $req->unit_befor3));
+        //         $sum2 = ($req->price_unit3 * ($req->unit_after3 - $req->unit_befor3));
+        //     }
+
+        //     $storeClear->amount6 = $req->price_unit6 ?? 0;
+        //     $storeClear->amount8 = $req->price_unit8 ?? 0;
+
+        //     $storeClear->total_amount = $req->price_unit1 + $sum1 + $sum2 + $req->price_unit6 + $req->price_unit8;
+
+        //     $storeClear->is_active = 1;
+
+        //     $storeClear->save();
+
+        //     DB::commit();
+
+        //     //telegramNotify_อัพโหลดสลิป
+        //     $date = date("d-m-Y");
+        //     $rooms = Room::find($storeClear->room_id);
+        //     $company = Company::find($storeClear->company_id);
+
+        //     $sMessageGroup['text'] = "** " . $company->name . " **" .
+        //     "\nวันที่: " . $date .
+        //     "\n" . $rooms->room_number;
+        //     // เพิ่มข้อมูลเฉพาะเมื่อมีค่ามากกว่า 0
+        //     if ($storeClear->amount1 > 0) {
+        //         $sMessageGroup['text'] .= "\nค่าห้อง: " . number_format($storeClear->amount1);
+        //     }
+        //     if ($storeClear->amount2 > 0) {
+        //         $sMessageGroup['text'] .= "\nค่าไฟ: " . number_format($storeClear->amount2);
+        //     }
+        //     if ($storeClear->amount3 > 0) {
+        //         $sMessageGroup['text'] .= "\nค่าน้ำ: " . number_format($storeClear->amount3);
+        //     }
+        //     if ($storeClear->amount6 > 0) {
+        //         $sMessageGroup['text'] .= "\nค่าเน็ต: " . number_format($storeClear->amount6);
+        //     }
+        //     if ($storeClear->amount8 > 0) {
+        //         $sMessageGroup['text'] .= "\nค่าอื่นๆ: " . number_format($storeClear->amount8);
+        //     }
+        //     // เพิ่มยอดชำระและวันที่เสมอ
+        //     $sMessageGroup['text'] .= "\nยอดชำระ: " . number_format($storeClear->total_amount) . " บาท";
+
+        //     // $this->telegramNotifyGroup($sMessageGroup);
+
+        //     $data = [
+        //         'title' => 'Success!',
+        //         'msg' => 'เพิ่มสำเร็จ',
+        //         'status' => 'success',
+        //     ];
+
+        //     return $data;
+        // } catch (\Exception $e) {
+        //     $sMessageGroup['text'] = "** Error **" .
+        //     "\nError: " . $e->getMessage();
+
+        //     $this->telegramNotifyGroup($sMessageGroup);
+        // }
     }
 
     public function update(Request $req)
     {
         try {
             DB::beginTransaction();
-            $detail = StoreClear::find($req->id);
-            $detail->room_id = $req->name_id;
-            $detail->company_id = $req->company_id;
-            $detail->status_id = $req->status_id;
+            $storeClear = StoreClear::find($req->id);
+            $storeClear->room_id = $req->room_id;
+            $storeClear->company_id = $req->company_id;
+            $storeClear->floor_id = $req->floor_id;
 
             // $detail->list1 = $req->list1;
             // $detail->list2 = $req->list2;
@@ -213,70 +309,70 @@ class StoreController extends Controller
             // $detail->list6 = $req->list6;
             // $detail->list7 = $req->list7;
 
-            $detail->price_unit1 = $req->price_unit1;
-            $detail->price_unit2 = $req->price_unit2;
-            $detail->price_unit3 = $req->price_unit3;
-            $detail->price_unit6 = $req->price_unit6;
-            $detail->price_unit7 = $req->price_unit7;
-            $detail->price_unit8 = $req->price_unit8;
+            $storeClear->price_unit1 = $req->price_unit1;
+            $storeClear->price_unit2 = $req->price_unit2;
+            $storeClear->price_unit3 = $req->price_unit3;
+            $storeClear->price_unit6 = $req->price_unit6;
+            $storeClear->price_unit7 = $req->price_unit7;
+            $storeClear->price_unit8 = $req->price_unit8;
 
-            $detail->unit_befor2 = $req->unit_befor2;
-            $detail->unit_befor3 = $req->unit_befor3;
+            $storeClear->unit_befor2 = $req->unit_befor2;
+            $storeClear->unit_befor3 = $req->unit_befor3;
 
-            $detail->unit_after2 = $req->unit_after2;
-            $detail->unit_after3 = $req->unit_after3;
+            $storeClear->unit_after2 = $req->unit_after2;
+            $storeClear->unit_after3 = $req->unit_after3;
 
-            $detail->amount1 = $req->price_unit1;
+            $storeClear->amount1 = $req->price_unit1;
 
             if (($req->price_unit2 * ($req->unit_after2 - $req->unit_befor2)) <= 120) {
-                $detail->amount2 = 120;
+                $storeClear->amount2 = 120;
                 $sum1 = 120;
             } else {
-                $detail->amount2 = ($req->price_unit2 * ($req->unit_after2 - $req->unit_befor2));
+                $storeClear->amount2 = ($req->price_unit2 * ($req->unit_after2 - $req->unit_befor2));
                 $sum1 = ($req->price_unit2 * ($req->unit_after2 - $req->unit_befor2));
             }
 
             if (($req->price_unit3 * ($req->unit_after3 - $req->unit_befor3)) <= 100) {
-                $detail->amount3 = 100;
+                $storeClear->amount3 = 100;
                 $sum2 = 100;
             } else {
-                $detail->amount3 = ($req->price_unit3 * ($req->unit_after3 - $req->unit_befor3));
+                $storeClear->amount3 = ($req->price_unit3 * ($req->unit_after3 - $req->unit_befor3));
                 $sum2 = ($req->price_unit3 * ($req->unit_after3 - $req->unit_befor3));
             }
-            $detail->amount6 = $req->price_unit6;
-            $detail->amount8 = $req->price_unit8;
-            $detail->total_amount = $req->price_unit1 + $sum1 + $sum2 + $req->price_unit6 + $req->price_unit8;
-            $detail->is_active = 1;
-            $detail->save();
+            $storeClear->amount6 = $req->price_unit6;
+            $storeClear->amount8 = $req->price_unit8;
+            $storeClear->total_amount = $req->price_unit1 + $sum1 + $sum2 + $req->price_unit6 + $req->price_unit8;
+            $storeClear->is_active = 1;
+            $storeClear->save();
 
             DB::commit();
 
             //telegramNotify_อัพโหลดสลิป
             $date = date("d-m-Y");
-            $rooms = Room::find($detail->room_id);
-            $company = Company::find($detail->company_id);
+            $rooms = Room::find($storeClear->room_id);
+            $company = Company::find($storeClear->company_id);
 
             $sMessageGroup['text'] = "** " . $company->name . " **" .
-                "\nวันที่: " . $date .
-                "\n" . $rooms->name;
+            "\nวันที่: " . $date .
+            "\n" . $rooms->room_number;
             // เพิ่มข้อมูลเฉพาะเมื่อมีค่ามากกว่า 0
-            if ($detail->amount1 > 0) {
-                $sMessageGroup['text'] .= "\nค่าห้อง: " . number_format($detail->amount1);
+            if ($storeClear->amount1 > 0) {
+                $sMessageGroup['text'] .= "\nค่าห้อง: " . number_format($storeClear->amount1);
             }
-            if ($detail->amount2 > 0) {
-                $sMessageGroup['text'] .= "\nค่าไฟ: " . number_format($detail->amount2);
+            if ($storeClear->amount2 > 0) {
+                $sMessageGroup['text'] .= "\nค่าไฟ: " . number_format($storeClear->amount2);
             }
-            if ($detail->amount3 > 0) {
-                $sMessageGroup['text'] .= "\nค่าน้ำ: " . number_format($detail->amount3);
+            if ($storeClear->amount3 > 0) {
+                $sMessageGroup['text'] .= "\nค่าน้ำ: " . number_format($storeClear->amount3);
             }
-            if ($detail->amount6 > 0) {
-                $sMessageGroup['text'] .= "\nค่าเน็ต: " . number_format($detail->amount6);
+            if ($storeClear->amount6 > 0) {
+                $sMessageGroup['text'] .= "\nค่าเน็ต: " . number_format($storeClear->amount6);
             }
-            if ($detail->amount8 > 0) {
-                $sMessageGroup['text'] .= "\nค่าอื่นๆ: " . number_format($detail->amount8);
+            if ($storeClear->amount8 > 0) {
+                $sMessageGroup['text'] .= "\nค่าอื่นๆ: " . number_format($storeClear->amount8);
             }
             // เพิ่มยอดชำระและวันที่เสมอ
-            $sMessageGroup['text'] .= "\nยอดชำระ: " . number_format($detail->total_amount) . " บาท";
+            $sMessageGroup['text'] .= "\nยอดชำระ: " . number_format($storeClear->total_amount) . " บาท";
 
             $this->telegramNotifyGroup($sMessageGroup);
 
@@ -289,7 +385,7 @@ class StoreController extends Controller
             return $data;
         } catch (\Exception $e) {
             $sMessageGroup['text'] = "** Error **" .
-                "\nError: " . $e->getMessage();
+            "\nError: " . $e->getMessage();
 
             $this->telegramNotifyGroup($sMessageGroup);
         }
@@ -299,11 +395,11 @@ class StoreController extends Controller
     {
         try {
             DB::beginTransaction();
-            $detail = StoreClear::where('id', $req->id)->first();
-            $detail->is_active = 0;
-            $detail->save();
+            $storeClear = StoreClear::where('id', $req->id)->first();
+            $storeClear->is_active = 0;
+            $storeClear->save();
 
-            $detail->delete();
+            $storeClear->delete();
 
             DB::commit();
 
@@ -316,7 +412,7 @@ class StoreController extends Controller
             return $data;
         } catch (\Exception $e) {
             $sMessageGroup['text'] = "** Error **" .
-                "\nError: " . $e->getMessage();
+            "\nError: " . $e->getMessage();
 
             $this->telegramNotifyGroup($sMessageGroup);
         }
@@ -327,17 +423,17 @@ class StoreController extends Controller
         try {
             DB::beginTransaction();
             $status = 0;
-            $userS = StoreClear::find($req->id);
+            $storeClear = StoreClear::find($req->id);
 
-            $oldStatus = $userS->is_active;
+            $oldStatus = $storeClear->is_active;
 
             if ($oldStatus == 1) {
                 $status = 0;
             } else {
                 $status = 1;
             }
-            $userS->is_active = $status;
-            $userS->save();
+            $storeClear->is_active = $status;
+            $storeClear->save();
 
             DB::commit();
 
@@ -350,7 +446,7 @@ class StoreController extends Controller
             return $data;
         } catch (\Exception $e) {
             $sMessageGroup['text'] = "** Error **" .
-                "\nError: " . $e->getMessage();
+            "\nError: " . $e->getMessage();
 
             $this->telegramNotifyGroup($sMessageGroup);
         }

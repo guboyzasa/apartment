@@ -5,61 +5,43 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Company;
 use App\Models\Floor;
-use App\Models\Room;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class AddRoomController extends Controller
+class LocationController extends Controller
 {
     public function index()
     {
         $floor = Floor::where('is_active', 1)->get();
-        $company = Company::where('is_active', 1)->get();
 
-        return view('admins.room.index', compact('floor', 'company'));
+        return view('admins.location.index', compact('floor'));
     }
-    public function listF1(Request $req)
+
+    public function list()
     {
-        $fillter_company = Room::with('floor', 'company');
-
-        if ($req->filter_company_id != 'all') {
-            $fillter_company->where('company_id', $req->filter_company_id);
-        }
-        if ($req->filter_floor_id != 'all') {
-            $fillter_company->where('floor_id', $req->filter_floor_id);
-        }
-        $fillter_company->get();
-
-        return datatables()->of($fillter_company->get())->toJson();
-        // return datatables()->of(
-        //     Room::query()->with('floor', 'company'))->toJson();
+        return datatables()->of(
+            Company::withCount(['floors' => fn($query) => $query->where('is_active', 1)])
+        )->toJson();
     }
-
-    public function getFloorsByCompany(Request $request)
-    {
-        $companyId = $request->input('company_id');
-        $floors = Floor::where('company_id', $companyId)
-            ->where('is_active', 1)
-            ->get();
-
-        return response()->json($floors);
-    }
-
     public function store(Request $req)
     {
         try {
             DB::beginTransaction();
-            $rooms = new Room;
-            $rooms->room_number = $req->room_number;
-            $rooms->floor_id = $req->floor_id;
-            $rooms->company_id = $req->company_id;
-            $rooms->save();
+            $company = new Company;
+            $company->name = $req->name;
+            $company->name_owner = $req->owner;
+            $company->address = $req->address;
+            $company->address2 = $req->address2;
+            $company->phone = $req->phone;
+            // $company->floor_number = $req->floor_number;
+
+            $company->save();
 
             DB::commit();
 
             $data = [
                 'title' => 'Success!',
-                'msg' => 'เพิ่มห้องสำเร็จ',
+                'msg' => 'เพิ่มสถานที่ตั้งสำเร็จ',
                 'status' => 'success',
             ];
 
@@ -75,19 +57,22 @@ class AddRoomController extends Controller
     public function update(Request $req)
     {
         try {
-
             DB::beginTransaction();
-            $rooms = Room::find($req->id);
-            $rooms->room_number = $req->room_number;
-            $rooms->floor_id = $req->floor_id;
-            $rooms->company_id = $req->company_id;
-            $rooms->save();
+            $company = Company::find($req->id);
+            $company->name = $req->name;
+            $company->name_owner = $req->owner;
+            $company->address = $req->address;
+            $company->address2 = $req->address2;
+            $company->phone = $req->phone;
+            // $company->floor_number = $req->floor_number;
+
+            $company->save();
 
             DB::commit();
 
             $data = [
                 'title' => 'แก้ไขสำเร็จ!',
-                'msg' => 'แก้ไขห้องสำเร็จ',
+                'msg' => 'แก้ไขสถานที่ตั้งสำเร็จ',
                 'status' => 'success',
             ];
             return $data;
@@ -105,17 +90,17 @@ class AddRoomController extends Controller
             DB::beginTransaction();
 
             $status = 0;
-            $rooms = Room::find($req->id);
+            $company = Company::find($req->id);
 
-            $oldStatus = $rooms->is_active;
+            $oldStatus = $company->is_active;
 
             if ($oldStatus == 1) {
                 $status = 0;
             } else {
                 $status = 1;
             }
-            $rooms->is_active = $status;
-            $rooms->save();
+            $company->is_active = $status;
+            $company->save();
 
             DB::commit();
 
@@ -138,27 +123,27 @@ class AddRoomController extends Controller
     {
         try {
             DB::beginTransaction();
-            $rooms = Room::where('id', $req->id)->first();
+            $company = Company::where('id', $req->id)->first();
 
-            if (!$rooms) {
+            if (!$company) {
                 $data = [
                     'title' => 'ไม่สำเร็จ!',
-                    'msg' => 'ไม่พบห้อง',
+                    'msg' => 'ไม่พบค่าห้อง',
                     'status' => 'success',
                 ];
 
                 return $data;
             }
-            $rooms->is_active = 0;
-            $rooms->save();
+            $company->is_active = 0;
+            $company->save();
 
-            $rooms->delete();
+            $company->delete();
 
             DB::commit();
 
             $data = [
                 'title' => 'สำเร็จ!',
-                'msg' => 'ลบห้องสำเร็จ',
+                'msg' => 'ลบค่าห้องสำเร็จ',
                 'status' => 'success',
             ];
 

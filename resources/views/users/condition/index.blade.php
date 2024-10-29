@@ -73,7 +73,7 @@
                                         {{ $company->phone }}
                                 </div>
                             </div>
-                            <div class="">
+                            <div class="col-md-12">
                                 <h4 class="float-end font-size-16 b"><b>วันที่ :</b> <?php echo date('d/m/Y h:i:s'); ?> น.</h4>
                             </div>
 
@@ -92,47 +92,37 @@
                                 @endif
                             </div>
 
-                            <form class="row g-3 mt-2">
+                            <form class="row g-3 mt-2" id="customerForm">
                                 @csrf
                                 <input type="hidden" lass="form-control" id="CompanyID" value="{{ $company->id }}">
-
                                 <div class="col-md-3">
-                                    <label for="inputRoomID" class="form-label">หมายเลขห้องเช่า <span
-                                            class="text-danger">*</span></label><br>
+                                    <label for="inputRoomID" class="form-label">หมายเลขห้องเช่า <span class="text-danger">*</span></label><br>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <select class="selectpicker form-control" name="inputRoomID" id="inputRoomID"
-                                                required>
+                                            <select class="selectpicker form-control" name="inputRoomID" id="inputRoomID" required>
                                                 <option value="" disabled selected>กรุณาเลือกหมายเลขห้องเช่า</option>
-
-                                                <optgroup label="ชั้น 1">
-                                                    @foreach ($cusOne as $detail)
-                                                        <option value="{{ $detail->id }}"
-                                                            @if (in_array($detail->id, $occupiedRooms)) disabled>{{ $detail->name }} (ห้องไม่ว่าง)</option>
-                                                        @else>{{ $detail->name }}</option> @endif
+                                
+                                                @foreach ($floors as $floor)
+                                                    <optgroup label="{{ $floor->name }}">
+                                                        @if (isset($rooms[$floor->id]))
+                                                            @foreach ($rooms[$floor->id] as $detail)
+                                                                <option value="{{ $detail->id }}"
+                                                                    @if (in_array($detail->id, $occupiedRooms)) disabled>
+                                                                    {{ $detail->room_number }} (ห้องไม่ว่าง)
+                                                                    @else>
+                                                                    {{ $detail->room_number }}
+                                                                    @endif
+                                                                </option>
                                                             @endforeach
-                                                </optgroup>
-
-                                                <optgroup label="ชั้น 2">
-                                                    @foreach ($cusTwo as $detail)
-                                                        <option value="{{ $detail->id }}"
-                                                            @if (in_array($detail->id, $occupiedRooms)) disabled>{{ $detail->name }} (ห้องไม่ว่าง)</option>
-                                                        @else>{{ $detail->name }}</option> @endif
-                                                            @endforeach
-                                                </optgroup>
-
-                                                <optgroup label="ชั้น 3">
-                                                    @foreach ($cusThree as $detail)
-                                                        <option value="{{ $detail->id }}"
-                                                            @if (in_array($detail->id, $occupiedRooms)) disabled>{{ $detail->name }} (ห้องไม่ว่าง)</option>
-                                                        @else>{{ $detail->name }}</option> @endif
-                                                            @endforeach
-                                                </optgroup>
+                                                        @else
+                                                            <option disabled>ไม่มีห้องในชั้นนี้</option>
+                                                        @endif
+                                                    </optgroup>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="col-md-3">
                                     <label for="inputNickName" class="form-label">ชื่อเล่นผู้เช่า <span
                                             class="text-danger">*</span></label>
@@ -163,9 +153,12 @@
                                         <span class="input-group-text" id="basic-addon2">บาท</span>
                                     </div>
                                 </div>
-                                <label class="form-label" for="info">
-                                    <b class="text-danger">**กรอกข้อมูลให้ตรงกับบัตรประชาชนหรือที่อยู่ที่สามารถติดต่อ!!</b>
-                                </label>
+                                <div class="col-md-12">
+                                    <label class="form-label" for="info">
+                                        <b
+                                            class="text-danger">**กรอกข้อมูลให้ตรงกับบัตรประชาชนหรือที่อยู่ที่สามารถติดต่อได้!!</b>
+                                    </label>
+                                </div>
                                 <div class="col-md-3">
                                     <label for="inputpersonal_code" class="form-label">เลขบัตรประชาชนผู้เช่า <span
                                             class="text-danger">*</span></label>
@@ -239,9 +232,11 @@
                                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                                         maxlength="5" required>
                                 </div>
-                                <label class="form-label" for="info">
-                                    <b class="text-danger">**ข้อมูลบุคคลที่2ที่สามารถติดต่อได้!</b>
-                                </label>
+                                <div class="col-md-12">
+                                    <label class="form-label" for="info">
+                                        <b class="text-danger">**ข้อมูลบุคคลที่2ที่สามารถติดต่อได้!</b>
+                                    </label>
+                                </div>
                                 <div class="col-md-4">
                                     <label for="inputNickName2" class="form-label">ชื่อเล่นของบุคคลที่2 <span
                                             class="text-danger">*</span></label>
@@ -290,11 +285,30 @@
                                     <label for="inputOther" class="form-label">หมายเหตุอื่นๆ</label>
                                     <textarea class="form-control" id="inputOther" rows="3" placeholder="หมายเหตุอื่นๆ"></textarea>
                                 </div>
-                                <label class="form-label" for="info">
-                                    <b class="text-danger">**กรุณาตรวจสอบข้อมูลให้ถูกต้อง!! ก่อนกดบันทึกข้อมูล</b>
-                                </label>
                                 <div class="col-md-12">
-                                    <button type="button" class="btn btn-primary" id="saveCusBtn">บันทึกข้อมูล</button>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="confirm_data"
+                                            value="1" id="confirmDataCheckbox">
+                                        <label class="form-check-label" for="confirmDataCheckbox">
+                                            ข้าพเจ้าขอยืนยันว่าข้อมูลข้างต้นเป็นความจริง
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="accept_contract"
+                                            value="1" id="acceptContractCheckbox">
+                                        <label class="form-check-label" for="acceptContractCheckbox">
+                                            ข้าพเจ้ายินยอมและยอมรับในเงื่อนไขสัญญาเช่า <b>{{ $company->name }}</b>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="form-label" for="info">
+                                        <b class="text-danger">**กรุณาตรวจสอบข้อมูลให้ถูกต้อง!! ก่อนกดบันทึกข้อมูล</b>
+                                    </label>
+                                </div>
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-primary" id="saveCusBtn"
+                                        disabled>บันทึกข้อมูล</button>
                                 </div>
                             </form>
                         </div>
@@ -315,7 +329,7 @@
         //บันทึก
         $('#saveCusBtn').click(function(e) {
             e.preventDefault();
-
+            $(this).attr('disabled',true);
             // เก็บค่าจากฟอร์ม
             var CompanyID = $('#CompanyID').val();
             var inputRoomID = $('#inputRoomID').val();
@@ -337,17 +351,21 @@
             var inputNickName2 = $('#inputNickName2').val();
             var inputPhone2 = $('#inputPhone2').val();
             var inputOther = $('#inputOther').val();
+            var confirmDataCheckbox = $('#confirmDataCheckbox').val();
+            var acceptContractCheckbox = $('#acceptContractCheckbox').val();
             var imgbase64 = $('#imgbase64').val();
 
             if (!inputRoomID || !inputNickName || !inputPayment || !inputPayment2 || !inputLastName ||
                 !inputpersonal_code || !inputName || !inputPhone || !inputPhone2 ||
-                !inputAddress1 || !inputAddress5 || !inputAddress6 || !inputAddress7 ||
+                !inputAddress1 || !inputAddress5 || !inputAddress6 || !inputAddress7 || !confirmDataCheckbox || !
+                acceptContractCheckbox ||
                 !inputZip || !inputNickName2) {
                 toastr.warning('กรุณากรอกข้อมูลให้ครบถ้วน', 'แจ้งเตือน!', {
                     timeOut: 3000,
                     progressBar: true,
                     tapToDismiss: false
                 });
+                $(this).attr('disabled',false);
             } else {
                 $.post("{{ route('condition.store') }}", {
                         _token: '{{ csrf_token() }}',
@@ -371,11 +389,14 @@
                         inputNickName2,
                         inputPhone2,
                         inputOther,
+                        confirmDataCheckbox,
+                        acceptContractCheckbox,
                         imgbase64
                     }).done(function(res) {
                         if (res.status === 'success') {
                             // console.log(res);
                             // ถ้าบันทึกสำเร็จ
+                            $('#saveCusBtn').attr('disabled',false);
                             sessionStorage.setItem('savedId', res.id);
                             $.post('/set-saved-id', {
                                 _token: '{{ csrf_token() }}',
@@ -485,5 +506,28 @@
             var imgfile = canvas.toDataURL('image/png', 0);
             return imgfile;
         }
+
+        // ฟังก์ชันตรวจสอบการติ๊ก checkbox เพื่อเปิดใช้งานปุ่ม
+        function checkCheckboxes() {
+            const confirmData = document.getElementById('confirmDataCheckbox').checked;
+            const acceptContract = document.getElementById('acceptContractCheckbox').checked;
+            const saveButton = document.getElementById('saveCusBtn');
+
+            saveButton.disabled = !(confirmData && acceptContract);
+        }
+
+        // ผูก event change กับ checkbox
+        document.getElementById('confirmDataCheckbox').addEventListener('change', checkCheckboxes);
+        document.getElementById('acceptContractCheckbox').addEventListener('change', checkCheckboxes);
+
+        // จัดการการส่งฟอร์มด้วยการหน่วงเวลาและรีโหลด
+        document.getElementById('customerForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // หยุดการส่งฟอร์มชั่วคราว
+
+            // แสดงการรีโหลด (หรือหน่วงเวลา 1 วินาที)
+            setTimeout(() => {
+                this.submit(); // ส่งฟอร์มหลังจากหน่วงเวลา
+            }, 1000); // หน่วงเวลา 1 วินาที (1000 มิลลิวินาที)
+        });
     </script>
 @endsection

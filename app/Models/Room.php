@@ -16,14 +16,24 @@ class Room extends Model
     //     return $this->belongsTo(Vendor::class, 'vendor_id', 'id')->withTrashed();
     // }
 
-    public function statusList()
+    public function floorList()
     {
-        return $this->belongsTo(Status::class, 'status_id','id')->withTrashed();
+        return $this->belongsTo(Floor::class)->withTrashed();
     }
 
-    // public function room()
-    // {
-    //     return $this->belongsTo(Room::class, 'room','id');
-    // }
+    public function floor()
+{
+    return $this->belongsTo(Floor::class, 'floor_id');
+}
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class, 'company_id');
+    }
+
+    public function customer()
+    {
+        return $this->hasOne(Customer::class, 'room_id', 'id');
+    }
 
 }

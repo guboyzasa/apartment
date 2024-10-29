@@ -1,5 +1,7 @@
     //F1
     showTableF1 = () => {
+        var filter_company_id = $('#filter_company_id').val();
+        var filter_floor_id = $('#filter_floor_id').val();
         simpleF1 = $('#simple_table_f1').DataTable({
             "processing": false,
             "serverSide": false,
@@ -9,50 +11,50 @@
             "bFilter": false,
             "destroy": true,
             "order": [
-                [1, "asc"]
+                [0, "asc"]
             ],
             "ajax": {
                 "url": "{{ route('admin.room.listf1') }}",
                 "method": "GET",
                 "data": {
                     "_token": "{{ csrf_token() }}",
+                    filter_company_id : filter_company_id,
+                    filter_floor_id : filter_floor_id,
                 },
             },
             'columnDefs': [{
-                "targets": [0, 1, 2, 3, 4],
+                "targets": [0, 1, 2, 3, 4, 5],
                 "className": "text-center",
             }, ],
             "columns": [
 
                 {
-                    "data": "created_at",
+                    "data": "id",
+                },
+
+                {
+                    "data": "room_number",
+                },
+
+                {
+                    "data": "floor_id",
                     "render": function(data, type, full) {
-                        return moment(data).format('DD-MM-YYYY HH:mm')
+                        if (full.floor && full.floor.name) {
+                            return `${full.floor.name}`;  // แสดงหมายเลขชั้น
+                        } else {
+                            return '-';  // กรณีไม่มีข้อมูลชั้น
+                        }
                     }
                 },
 
                 {
-                    "data": "name",
-                },
-
-                {
-                    "data": "status_id",
+                    "data": "company_id",
                     "render": function(data, type, full) {
-                        var text = ``;
-                        if (full.status_id == 1) {
-                            text =
-                                `
-                                <span class="badge bg-success text-white text-center font-size-13">ชั้น 1</span>`
-                        } else if (full.status_id == 2) {
-                            text = `
-                                <span class="badge bg-warning text-white text-center font-size-13">ชั้น 2</span>
-                                `
-                        }else if (full.status_id == 3) {
-                            text = `
-                                <span class="badge bg-danger text-white text-center font-size-13">ชั้น 3</span>
-                                `
+                        if (full.company && full.company.name) {
+                            return full.company.name;  // แสดงชื่อหอพัก
+                        } else {
+                            return '-';  // กรณีไม่มีข้อมูลหอพัก
                         }
-                        return text;
                     }
                 },
 
@@ -84,7 +86,7 @@
                         var button = `
 
                             <button type="button" class="btn btn-sm btn-info" onclick='showInfo(${obj})'><i class="bx bx-search"></i> </button>
-                            <button type="button" class="btn btn-sm btn-danger" onclick='destroy(${data})'><i class="bx bx-trash"></i>  </button>
+                            {{-- <button type="button" class="btn btn-sm btn-danger" onclick='destroy(${data})'><i class="bx bx-trash"></i>  </button> --}}
                             
                             `;
                         return button;
@@ -107,7 +109,7 @@
             "bFilter": false,
             "destroy": true,
             "order": [
-                [2, "desc"]
+                [0, "desc"]
             ],
             "ajax": {
                 "url": "{{ route('admin.room.listf2') }}",
@@ -122,35 +124,23 @@
             }, ],
             "columns": [
 
-                {
+                {{-- {
                     "data": "created_at",
                     "render": function(data, type, full) {
                         return moment(data).format('DD-MM-YYYY HH:mm')
                     }
+                }, --}}
+
+                {
+                    "data": "room_number",
                 },
 
                 {
-                    "data": "name",
+                    "data": "floor_id",
                 },
 
                 {
-                    "data": "status_id",
-                    "render": function(data, type, full) {
-                        if (full.status_id == 1) {
-                            text =
-                                `
-                                <span class="badge bg-success text-white text-center font-size-13">ชั้น 1</span>`
-                        } else if (full.status_id == 2) {
-                            text = `
-                                <span class="badge bg-warning text-white text-center font-size-13">ชั้น 2</span>
-                                `
-                        }else if (full.status_id == 3) {
-                            text = `
-                                <span class="badge bg-danger text-white text-center font-size-13">ชั้น 3</span>
-                                `
-                        }
-                        return text;
-                    }
+                    "data": "company_id",
                 },
 
                 {
@@ -181,7 +171,7 @@
                         var button = `
 
                             <button type="button" class="btn btn-sm btn-info" onclick='showInfo(${obj})'><i class="bx bx-search"></i> </button>
-                            <button type="button" class="btn btn-sm btn-danger" onclick='destroy(${data})'><i class="bx bx-trash"></i>  </button>
+                            {{-- <button type="button" class="btn btn-sm btn-danger" onclick='destroy(${data})'><i class="bx bx-trash"></i>  </button> --}}
                             
                             `;
                         return button;
@@ -204,7 +194,7 @@
             "bFilter": false,
             "destroy": true,
             "order": [
-                [3, "desc"]
+                [0, "desc"]
             ],
             "ajax": {
                 "url": "{{ route('admin.room.listf3') }}",
@@ -219,36 +209,23 @@
             }, ],
             "columns": [
 
-                {
+                {{-- {
                     "data": "created_at",
                     "render": function(data, type, full) {
                         return moment(data).format('DD-MM-YYYY HH:mm')
                     }
+                }, --}}
+
+                {
+                    "data": "room_number",
                 },
 
                 {
-                    "data": "name",
+                    "data": "floor_id",
                 },
 
                 {
-                    "data": "status_id",
-                    "render": function(data, type, full) {
-                        var text = ``;
-                        if (full.status_id == 1) {
-                            text =
-                                `
-                                <span class="badge bg-success text-white text-center font-size-13">ชั้น 1</span>`
-                        } else if (full.status_id == 2) {
-                            text = `
-                                <span class="badge bg-warning text-white text-center font-size-13">ชั้น 2</span>
-                                `
-                        }else if (full.status_id == 3) {
-                            text = `
-                                <span class="badge bg-danger text-white text-center font-size-13">ชั้น 3</span>
-                                `
-                        }
-                        return text;
-                    }
+                    "data": "company_id",
                 },
 
                 {
@@ -279,7 +256,7 @@
                         var button = `
 
                             <button type="button" class="btn btn-sm btn-info" onclick='showInfo(${obj})'><i class="bx bx-search"></i> </button>
-                            <button type="button" class="btn btn-sm btn-danger" onclick='destroy(${data})'><i class="bx bx-trash"></i>  </button>
+                            {{-- <button type="button" class="btn btn-sm btn-danger" onclick='destroy(${data})'><i class="bx bx-trash"></i>  </button> --}}
                             
                             `;
                         return button;

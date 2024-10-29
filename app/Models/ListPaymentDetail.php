@@ -6,14 +6,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Company extends Model
+class ListPaymentDetail extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
-    public function floors()
+    public function company()
     {
-        return $this->hasMany(Floor::class, 'company_id', 'id');
+        return $this->belongsTo(Company::class, 'company_id');
     }
 
+    public function listPayment()
+    {
+        return $this->belongsTo(ListPayment::class);
+    }
 }

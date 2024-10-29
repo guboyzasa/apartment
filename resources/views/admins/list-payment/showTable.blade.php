@@ -1,6 +1,7 @@
-    //Room-charge
-    showTable = () => {
-        simple = $('#simple_table').DataTable({
+    //F1
+    showTableF1 = () => {
+        var filter_company_id = $('#filter_company_id').val();
+        simpleF1 = $('#simple_table').DataTable({
             "processing": false,
             "serverSide": false,
             "info": false,
@@ -9,52 +10,39 @@
             "bFilter": false,
             "destroy": true,
             "order": [
-                [1, "asc"]
+                [0, "asc"]
             ],
             "ajax": {
-                "url": "{{ route('admin.room-charge.list') }}",
+                "url": "{{ route('admin.list-payment.list') }}",
                 "method": "GET",
                 "data": {
                     "_token": "{{ csrf_token() }}",
+                    filter_company_id : filter_company_id,
                 },
             },
             'columnDefs': [{
-                "targets": [0, 1, 2, 3],
+                "targets": [0, 1, 2, 3, 4],
                 "className": "text-center",
             }, ],
             "columns": [
-
                 {
-                    "data": "created_at",
-                    "render": function(data, type, full) {
-                        return moment(data).format('DD-MM-YYYY HH:mm')
-                    }
+                    "data": "id",
                 },
 
                 {
                     "data": "name",
                 },
 
-                {{-- {
-                    "data": "status_id",
+                {
+                    "data": "company_id",
                     "render": function(data, type, full) {
-                        var text = ``;
-                        if (full.status_id == 1) {
-                            text =
-                                `
-                                <span class="badge bg-success text-white text-center font-size-13">ชั้น 1</span>`
-                        } else if (full.status_id == 2) {
-                            text = `
-                                <span class="badge bg-warning text-white text-center font-size-13">ชั้น 2</span>
-                                `
-                        }else if (full.status_id == 3) {
-                            text = `
-                                <span class="badge bg-danger text-white text-center font-size-13">ชั้น 3</span>
-                                `
+                        if (full.company && full.company.name) {
+                            return full.company.name;  // แสดงชื่อหอพัก
+                        } else {
+                            return '-';  // กรณีไม่มีข้อมูลหอพัก
                         }
-                        return text;
                     }
-                }, --}}
+                },
 
                 {
                     "data": "is_active",
@@ -84,7 +72,7 @@
                         var button = `
 
                             <button type="button" class="btn btn-sm btn-info" onclick='showInfo(${obj})'><i class="bx bx-search"></i> </button>
-                            <button type="button" class="btn btn-sm btn-danger" onclick='destroy(${data})'><i class="bx bx-trash"></i>  </button>
+                            {{-- <button type="button" class="btn btn-sm btn-danger" onclick='destroy(${data})'><i class="bx bx-trash"></i>  </button> --}}
                             
                             `;
                         return button;

@@ -13,7 +13,7 @@ class StoreClear extends Model
     
     public function room()
     {
-        return $this->belongsTo(Room::class, 'room_id', 'id')->withTrashed();
+        return $this->belongsTo(Room::class)->withTrashed();
     }
 
     // public function company()
@@ -26,10 +26,10 @@ class StoreClear extends Model
         return $this->belongsTo(Company::class);
     }
 
-    // public function vendor()
-    // {
-    //     return $this->belongsTo(Vendor::class, 'vendor_id', 'id')->withTrashed();
-    // }
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class,'room_id','room_id')->withTrashed();
+    }
 
     // public function youtube()
     // {

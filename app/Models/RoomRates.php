@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class RoomCharge extends Model
+class RoomRates extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -16,9 +16,9 @@ class RoomCharge extends Model
     //     return $this->belongsTo(Vendor::class, 'vendor_id', 'id')->withTrashed();
     // }
 
-    public function statusList()
+    public function floorList()
     {
-        return $this->belongsTo(Status::class, 'status_id','id')->withTrashed();
+        return $this->belongsTo(Floor::class)->withTrashed();
     }
 
     // public function room()

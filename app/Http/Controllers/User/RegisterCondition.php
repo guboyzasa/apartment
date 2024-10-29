@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Company;
 use App\Models\Condition;
 use App\Models\Customer;
+use App\Models\Floor;
 use App\Models\Room;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -32,20 +33,34 @@ class RegisterCondition extends Controller
 
     public function showConditionPage()
     {
-        // ดึงข้อมูลจาก session หรือจัดการตามที่ต้องการ
+        // ดึงข้อมูลจาก session
         $company = session('company');
         $condition = session('condition');
 
-        $cusOne = Room::where('status_id', 1)->where('is_active', 1)->get();
-        $cusTwo = Room::where('status_id', 2)->where('is_active', 1)->get();
-        $cusThree = Room::where('status_id', 3)->where('is_active', 1)->get();
+        // ตรวจสอบว่ามีข้อมูล company หรือไม่
+        if (!$company) {
+            return redirect()->back()->withErrors('Company not found.');
+        }
 
-        // ตรวจสอบสถานะห้อง
-        $occupiedRooms = Customer::where('company_id', $company->id)->where('is_active', 1)
+        // ดึงชั้นทั้งหมดที่เป็นของบริษัทนั้น
+        $floors = Floor::where('company_id', $company->id)->where('is_active', 1)->get();
+        // return $floors;
+        // ดึงเฉพาะห้องที่เป็นของบริษัทและชั้นที่มีอยู่ในตาราง floors
+        $rooms = Room::where('company_id', $company->id)
+            ->whereIn('floor_id', $floors->pluck('id')->toArray()) // กรองเฉพาะห้องที่มี floor_id ในบริษัทนั้น
+            ->where('is_active', 1)
+            ->with('floor') // โหลดข้อมูลชั้น
+            ->get()
+            ->groupBy('floor_id'); // จัดกลุ่มตาม floor_id
+
+        // ดึงห้องที่ถูกใช้งาน (occupied rooms)
+        $occupiedRooms = Customer::where('company_id', $company->id)
+            ->where('is_active', 1)
             ->pluck('room_id')
             ->toArray();
 
-        return view('users.condition.index', compact('company', 'condition', 'cusOne', 'cusTwo', 'cusThree', 'occupiedRooms'));
+        // ส่งข้อมูลไปยัง View
+        return view('users.condition.index', compact('company', 'condition', 'floors', 'rooms', 'occupiedRooms'));
     }
 
     public function setSavedId(Request $req)
@@ -71,11 +86,11 @@ class RegisterCondition extends Controller
         }
 
         $condition = Condition::where('is_active', 1)->get();
-        $cusOne = Room::where('status_id', 1)->where('is_active', 1)->get();
-        $cusTwo = Room::where('status_id', 2)->where('is_active', 1)->get();
-        $cusTree = Room::where('status_id', 3)->where('is_active', 1)->get();
+        $room_floor_1 = Room::where('floor_id', 1)->where('is_active', 1)->get();
+        $room_floor_2 = Room::where('floor_id', 2)->where('is_active', 1)->get();
+        $room_floor_3 = Room::where('floor_id', 3)->where('is_active', 1)->get();
 
-        return view('users.condition.view-doc-1', compact('company', 'condition', 'cusOne', 'cusTwo', 'cusTree', 'customer'));
+        return view('users.condition.view-doc-1', compact('company', 'condition', 'customer', 'room_floor_1', 'room_floor_2', 'room_floor_3'));
     }
 
     public function store(Request $req)
@@ -96,7 +111,7 @@ class RegisterCondition extends Controller
             DB::beginTransaction();
             $customer = new Customer;
 
-            $customer->room_number = $room->name;
+            $customer->room_number = $room->room_number;
             $customer->nickname = $req->inputNickName;
             $customer->personal_code = $req->inputpersonal_code;
             $customer->name = $req->inputName;
@@ -115,12 +130,15 @@ class RegisterCondition extends Controller
             $customer->zipcode = $req->inputZip;
             $customer->nickname2 = $req->inputNickName2;
             $customer->phone2 = $req->inputPhone2;
+            $customer->is_confirm = $req->confirmDataCheckbox;
+            $customer->is_accept = $req->acceptContractCheckbox;
             $customer->other = $req->inputOther;
 
             $customer->company_id = $req->CompanyID;
             $customer->room_id = $req->inputRoomID;
+            $customer->floor_id = $room->floor_id;
 
-            $path = 'images/personals-img/' . $room->name;
+            $path = 'images/personals-img/' . $room->name . '/' . $customer->personal_code;
             $fullPath = $this->uploadBase64($imgbase64, $path);
             $customer->img = $fullPath;
 
@@ -129,21 +147,21 @@ class RegisterCondition extends Controller
             DB::commit();
 
             //telegramNotify_อัพโหลด
-            $detail = Customer::find($customer->id);
+            $customer = Customer::find($customer->id);
             $company = Company::find($customer->company_id);
 
-            $sMessageGroup['text'] = "** "."สัญญาเช่า " . $company->name . " **" .
-            "\nวันที่ทำสัญญา: " . $detail->created_at->format('d/m/Y') .
-            "\nห้อง: " . $detail->room_number .
-            "\nชื่อเล่น: " . $detail->nickname ." - ". $detail->phone .
-            "\nค่าห้อง: " . number_format($detail->payment) . " บาท" .
-            "\nค่าประกันห้อง: " . number_format($detail->payment2) . " บาท" ;
+            $sMessageGroup['text'] = "** " . "สัญญาเช่า " . $company->name . " **" .
+            "\nวันที่ทำสัญญา: " . $customer->created_at->format('d/m/Y') .
+            "\nห้อง: " . $customer->room_number .
+            "\nชื่อเล่น: " . $customer->nickname . " - " . $customer->phone .
+            "\nค่าห้อง: " . number_format($customer->payment) . " บาท" .
+            "\nค่าประกันห้อง: " . number_format($customer->payment2) . " บาท";
             // เพิ่มยอดชำระและวันที่เสมอ
-            $sMessageGroup['text'] .= "\nจำนวนเงินที่ชำระล่วงหน้า: " . number_format($detail->payment_total) . " บาท".
-            "\nหมายเหตุ/อื่นๆ: " . $detail->other ;
+            $sMessageGroup['text'] .= "\nจำนวนเงินที่ชำระล่วงหน้า: " . number_format($customer->payment_total) . " บาท" .
+            "\nหมายเหตุ/อื่นๆ: " . $customer->other;
 
-            $this->telegramNotifyGroup($sMessageGroup);
-            $this->telegramNotiflyWithImage($fullPath);
+            // $this->telegramNotifyGroup($sMessageGroup);
+            // $this->telegramNotiflyWithImage($fullPath);
 
             $data = [
                 'title' => 'สำเร็จ',
@@ -151,7 +169,6 @@ class RegisterCondition extends Controller
                 'status' => 'success',
                 'id' => $customer->id,
             ];
-            // dd($data);
 
             return $data;
         } catch (\Exception $e) {
@@ -168,34 +185,34 @@ class RegisterCondition extends Controller
         }
     }
 
-    public function checkPhone(Request $req)
-    {
+    // public function checkPhone(Request $req)
+    // {
 
-        $cus = Customer::where('phone', $req->text)->first();
-        if ($cus != null) {
-            $data = [
-                'title' => 'แจ้งเตือน!',
-                'msg' => 'เบอร์โทรนี้ถูกใช้แล้ว',
-                'status' => 'warning',
-            ];
+    //     $checkPhone = Customer::where('phone', $req->text)->where('is_active', 1)->first();
+    //     if ($checkPhone != null) {
+    //         $data = [
+    //             'title' => 'แจ้งเตือน!',
+    //             'msg' => 'เบอร์โทรนี้ถูกใช้แล้ว',
+    //             'status' => 'warning',
+    //         ];
 
-            return $data;
-        }
-    }
+    //         return $data;
+    //     }
+    // }
 
-    public function checkPersonal(Request $req)
-    {
+    // public function checkPersonal(Request $req)
+    // {
 
-        $cus = Customer::where('personal_code', $req->text)->first();
-        if ($cus != null) {
-            $data = [
-                'title' => 'แจ้งเตือน!',
-                'msg' => 'เลขบัตรประชาชนนี้ถูกใช้แล้ว',
-                'status' => 'warning',
-            ];
+    //     $checkPersonal = Customer::where('personal_code', $req->text)->where('is_active', 1)->first();
+    //     if ($checkPersonal != null) {
+    //         $data = [
+    //             'title' => 'แจ้งเตือน!',
+    //             'msg' => 'เลขบัตรประชาชนนี้ถูกใช้แล้ว',
+    //             'status' => 'warning',
+    //         ];
 
-            return $data;
-        }
-    }
+    //         return $data;
+    //     }
+    // }
 
 }

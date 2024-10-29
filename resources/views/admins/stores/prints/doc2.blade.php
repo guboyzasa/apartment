@@ -1,4 +1,4 @@
-@extends('layouts.master-without-nav')
+@extends('admin-layouts.master-layouts2')
 
 @section('title')
     Floor 2

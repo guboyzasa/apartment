@@ -3,50 +3,52 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Room;
-use App\Models\RoomCharge;
-use App\Models\User;
-use App\Models\Status;
+use App\Models\Company;
+use App\Models\ListPayment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class AddRoomChargeController extends Controller
+class ListPaymentController extends Controller
 {
     public function index()
     {
-        $status = Status::where('is_active', 1)->get();
+        $company = Company::where('is_active', 1)->get();
 
-        return view('admins.room-charge.index', compact('status'));
+        return view('admins.list-payment.index', compact('company'));
     }
-
-    public function list()
+    public function list(Request $req)
     {
-        return datatables()->of(
-            RoomCharge::query()->with('statusList:id,name'))->toJson();
+        $fillter_company = ListPayment::with('company');
+
+        if ($req->filter_company_id != 'all') {
+            $fillter_company->where('company_id', $req->filter_company_id);
+        }
+        $fillter_company->get();
+
+        return datatables()->of($fillter_company->get())->toJson();
     }
 
     public function store(Request $req)
     {
         try {
             DB::beginTransaction();
-            $detail = new RoomCharge;
-            $detail->name = $req->name;
-            // $detail->status_id = $req->status_id;
-            // $detail->code = $req->code;
-            $detail->save();
+            $list_pay = new ListPayment;
+            $list_pay->name = $req->name;
+            $list_pay->company_id = $req->company_id;
+            $list_pay->save();
 
             DB::commit();
 
             $data = [
                 'title' => 'Success!',
-                'msg' => 'เพิ่มค่าห้องสำเร็จ',
+                'msg' => 'เพิ่มสำเร็จ',
                 'status' => 'success',
             ];
 
             return $data;
         } catch (\Exception $e) {
             $sMessageGroup['text'] = "** Error **" .
-                "\nError: " . $e->getMessage();
+            "\nError: " . $e->getMessage();
 
             $this->telegramNotifyGroup($sMessageGroup);
         }
@@ -57,23 +59,22 @@ class AddRoomChargeController extends Controller
         try {
 
             DB::beginTransaction();
-            $detail = RoomCharge::find($req->id);
-            $detail->name = $req->name;
-            // $detail->status_id = $req->status_id;
-            // $detail->code = $req->code;
-            $detail->save();
+            $list_pay = ListPayment::find($req->id);
+            $list_pay->name = $req->name;
+            $list_pay->company_id = $req->company_id;
+            $list_pay->save();
 
             DB::commit();
 
             $data = [
-                'title' => 'แก้ไขสำเร็จ!',
-                'msg' => 'แก้ไขค่าห้องสำเร็จ',
+                'title' => 'สำเร็จ!',
+                'msg' => 'แก้ไขสำเร็จ',
                 'status' => 'success',
             ];
             return $data;
         } catch (\Exception $e) {
             $sMessageGroup['text'] = "** Error **" .
-                "\nError: " . $e->getMessage();
+            "\nError: " . $e->getMessage();
 
             $this->telegramNotifyGroup($sMessageGroup);
         }
@@ -85,17 +86,17 @@ class AddRoomChargeController extends Controller
             DB::beginTransaction();
 
             $status = 0;
-            $userS = RoomCharge::find($req->id);
+            $list_pay = ListPayment::find($req->id);
 
-            $oldStatus = $userS->is_active;
+            $oldStatus = $list_pay->is_active;
 
             if ($oldStatus == 1) {
                 $status = 0;
             } else {
                 $status = 1;
             }
-            $userS->is_active = $status;
-            $userS->save();
+            $list_pay->is_active = $status;
+            $list_pay->save();
 
             DB::commit();
 
@@ -108,7 +109,7 @@ class AddRoomChargeController extends Controller
             return $data;
         } catch (\Exception $e) {
             $sMessageGroup['text'] = "** Error **" .
-                "\nError: " . $e->getMessage();
+            "\nError: " . $e->getMessage();
 
             $this->telegramNotifyGroup($sMessageGroup);
         }
@@ -118,34 +119,34 @@ class AddRoomChargeController extends Controller
     {
         try {
             DB::beginTransaction();
-            $cus = RoomCharge::where('id', $req->id)->first();
+            $list_pay = ListPayment::where('id', $req->id)->first();
 
-            if (!$cus) {
+            if (!$list_pay) {
                 $data = [
                     'title' => 'ไม่สำเร็จ!',
-                    'msg' => 'ไม่พบค่าห้อง',
+                    'msg' => 'ไม่พบข้อมูล',
                     'status' => 'success',
                 ];
 
                 return $data;
             }
-            $cus->is_active = 0;
-            $cus->save();
+            $list_pay->is_active = 0;
+            $list_pay->save();
 
-            $cus->delete();
+            $list_pay->delete();
 
             DB::commit();
 
             $data = [
                 'title' => 'สำเร็จ!',
-                'msg' => 'ลบค่าห้องสำเร็จ',
+                'msg' => 'ลบสำเร็จ',
                 'status' => 'success',
             ];
 
             return $data;
         } catch (\Exception $e) {
             $sMessageGroup['text'] = "** Error **" .
-                "\nError: " . $e->getMessage();
+            "\nError: " . $e->getMessage();
 
             $this->telegramNotifyGroup($sMessageGroup);
         }
