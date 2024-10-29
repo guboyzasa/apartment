@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Room;
 use App\Models\RoomRates;
 use App\Models\ListPaymentDetail;
+use App\Models\ListPayment;
 use App\Models\Company;
 use App\Models\Floor;
 use Illuminate\Http\Request;
@@ -22,7 +23,7 @@ class AddRoomRatesController extends Controller
 
     public function list(Request $req)
     {
-        $fillter_company = ListPayment::with('company');
+        $fillter_company = ListPayment::with('company','listPaymentDetails');
 
         if ($req->filter_company_id != 'all') {
             $fillter_company->where('company_id', $req->filter_company_id);

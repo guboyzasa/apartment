@@ -37,9 +37,9 @@
                 },
 
                 {
-                    "data": "id", // ใช้ null เพราะดึงข้อมูลหลายฟิลด์
-                    {{-- "render": function(data, type, full) {
-                        let listPaymentName = full.list_payment ? full.list_payment.name : 'ไม่มีชื่อรายการ';
+                    "data": "name", // ใช้ null เพราะดึงข้อมูลหลายฟิลด์
+                    "render": function(data, type, full) {
+                        let listPaymentName = data != null ? data : 'ไม่มีชื่อรายการ';
                         let companyName = full.company ? full.company.name : 'ไม่มีชื่อบริษัท';
                         
                         // รวมชื่อรายการและบริษัทในรูปแบบ HTML
@@ -49,18 +49,27 @@
                                 <span class="font-size-4">${companyName}</span>
                             </div>
                         `;
-                    } --}}
+                    }
                 },
 
                 {
                     "data": "id",
+                    "render": function(data, type, full) {
+                        let price_unit = '';
+                        if(full.list_payment_details){
+                            for(let i = 0;i<(full.list_payment_details).length;i++){
+                                price_unit+='<p>'+full.list_payment_details[i].price_unit+'</p>';
+                            }
+                        }
+                        return price_unit;
+                    }
                 },
 
                 {
-                    "data": "id",
-                    {{-- "render": function(data, type, full) {
+                    "data": "min_price",
+                    "render": function(data, type, full) {
                         return data !== null ? data : '-'; // ถ้าเป็น null ให้แสดงเป็น '-'
-                    } --}}
+                    }
                 },
 
                 {

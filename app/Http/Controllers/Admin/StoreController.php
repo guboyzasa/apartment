@@ -47,20 +47,18 @@ class StoreController extends Controller
         $datas = [];
         $store_clear_details = null;
         $get_storeClear = StoreClear::where('room_id', $req->room_id)->where('company_id', $req->company_id)->orderBy('created_at', 'desc')->first();
-
-        // $company = Company::find($req->company_id);
-        $list_payments = ListPayment::with('listPaymentDetails', 'lastStoreClearDetail')
-            ->with(['lastStoreClearDetail.storeClear' => function ($q) use ($req) {
-                $q->where('room_id', $req->room_id)->where('company_id', $req->company_id)->orderBy('created_at', 'desc');
+        
+        $list_payments = ListPayment::with('listPaymentDetails','lastStoreClearDetail.storeClear')
+            ->with(['lastStoreClearDetail' => function ($q) use ($get_storeClear) {
+                $q->where('store_clear_id', $get_storeClear->id);
             }])
-        // ->whereHas('lastStoreClearDetail.storeClear' , function ( $query)  use($req){
-        //     $query->where('room_id', $req->room_id)->where('company_id', $req->company_id)->orderBy('created_at', 'desc');
-        //     })
             ->where('company_id', $req->company_id)->get();
 
         if ($get_storeClear) {
             $store_clear_details = StoreClearDetail::with('listPayment')->where('store_clear_id', $get_storeClear->id)->get();
         }
+
+        
 
         $datas = [
             'list_payments' => $list_payments,
