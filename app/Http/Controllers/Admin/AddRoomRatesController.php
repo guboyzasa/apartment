@@ -16,14 +16,13 @@ class AddRoomRatesController extends Controller
     public function index()
     {
         $company = Company::where('is_active', 1)->get();
-        // $floor = Floor::where('is_active', 1)->get();
 
         return view('admins.room-rates.index', compact('company'));
     }
 
     public function list(Request $req)
     {
-        $fillter_company = ListPaymentDetail::with('company','listPayment');
+        $fillter_company = ListPayment::with('company');
 
         if ($req->filter_company_id != 'all') {
             $fillter_company->where('company_id', $req->filter_company_id);

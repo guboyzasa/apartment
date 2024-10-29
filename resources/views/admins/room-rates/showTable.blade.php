@@ -21,7 +21,7 @@
                 },
             },
             'columnDefs': [{
-                "targets": [0, 1, 2, 3, 4, 5],
+                "targets": [0, 1, 2, 3, 4, 5, 6, 7, 8],
                 "className": "text-center",
             }, ],
             "columns": [
@@ -37,21 +37,38 @@
                 },
 
                 {
-                    "data": "list_payment_id",
-                    "render": function(data, type, full) {
-                        return full.list_payment ? full.list_payment.name : 'ไม่มีชื่อ';
-                    }
+                    "data": "id", // ใช้ null เพราะดึงข้อมูลหลายฟิลด์
+                    {{-- "render": function(data, type, full) {
+                        let listPaymentName = full.list_payment ? full.list_payment.name : 'ไม่มีชื่อรายการ';
+                        let companyName = full.company ? full.company.name : 'ไม่มีชื่อบริษัท';
+                        
+                        // รวมชื่อรายการและบริษัทในรูปแบบ HTML
+                        return `
+                            <div>
+                                <strong>${listPaymentName}</strong><br>
+                                <span class="font-size-4">${companyName}</span>
+                            </div>
+                        `;
+                    } --}}
                 },
 
                 {
-                    "data": "price_unit",
+                    "data": "id",
                 },
 
                 {
-                    "data": "company_id",
-                    "render": function(data, type, full) {
-                        return full.company ? full.company.name : 'ไม่มีชื่อ';
-                    }
+                    "data": "id",
+                    {{-- "render": function(data, type, full) {
+                        return data !== null ? data : '-'; // ถ้าเป็น null ให้แสดงเป็น '-'
+                    } --}}
+                },
+
+                {
+                    "data": "is_unit",
+                },
+
+                {
+                    "data": "is_other",
                 },
 
                 {

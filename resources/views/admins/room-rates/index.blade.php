@@ -79,7 +79,9 @@
                                         <th>วันที่สร้าง</th>
                                         <th>รายการ</th>
                                         <th>ราคา/หน่วย</th>
-                                        <th>Com</th>
+                                        <th>Min_Price</th>
+                                        <th>Is_Unit</th>
+                                        <th>Is_Other</th>
                                         <th>สถานะ</th>
                                         <th></th>
                                     </tr>
